@@ -399,8 +399,9 @@ public class DataTable : Dictionary<string, SingleData>
         }
 
         //value
-        foreach (string k in data.TableIDs)
+        for (int index = 0; index < data.TableIDs.Count; index++)
         {
+            string k = data.TableIDs[index];
             SingleData dataTmp = data[k];
             for (int i = 0; i < data.TableKeys.Count; i++)
             {
@@ -409,7 +410,10 @@ public class DataTable : Dictionary<string, SingleData>
                 string defaultV = "";
                 if (data.m_defaultValue.ContainsKey(field))
                     defaultV = data.m_defaultValue[field];
-                if (dataTmp.ContainsKey(field) && dataTmp[field] != defaultV)
+
+                //这里对默认值进行了一次排重
+                //先取消掉，保证序列化出来的结果一致
+                //if (dataTmp.ContainsKey(field) && dataTmp[field] != defaultV)
                 {
                     valueTmp = dataTmp[field];
                 }
@@ -421,7 +425,10 @@ public class DataTable : Dictionary<string, SingleData>
                 }
                 else
                 {
-                    build.Append(c_newline);
+                    if(index != data.TableIDs.Count - 1)
+                    {
+                        build.Append(c_newline);
+                    }
                 }
             }
         }

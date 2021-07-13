@@ -10,7 +10,6 @@ public class DataTool
 {
     public static void Excel2Data(Worksheet excel, DataConfig dataConfig)
     {
-
         DataTable data = new DataTable();
 
         Worksheet _wsh = excel;
@@ -94,7 +93,6 @@ public class DataTool
 
         //如果全覆盖公式则整个删除
         ExcelTool.ClearSheet(_wsh,dataConfig.m_coverFormula);
-
 
         try
         {
