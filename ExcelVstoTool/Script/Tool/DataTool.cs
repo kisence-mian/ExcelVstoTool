@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 public class DataTool
 {
-    public static void Excel2Data(Worksheet excel, string dataPath)
+    public static void Excel2Data(Worksheet excel, DataConfig dataConfig)
     {
 
         DataTable data = new DataTable();
 
-        _Worksheet _wsh = excel;
+        Worksheet _wsh = excel;
 
         try
         {
@@ -78,20 +78,23 @@ public class DataTool
                 data.AddData(dataTmp);
             }
 
-            FileTool.WriteStringByFile(dataPath, DataTable.Serialize(data));
+            FileTool.WriteStringByFile(dataConfig.m_txtPath, DataTable.Serialize(data));
         }
         catch (Exception e)
         {
-            Console.WriteLine(dataPath + "->" + e.ToString());
+            Console.WriteLine(dataConfig.m_txtPath + "->" + e.ToString());
         }
-
     }
 
-    public static void Data2Excel(string dataPath, Worksheet excel)
+    public static void Data2Excel(DataConfig dataConfig, Worksheet excel)
     {
-        DataTable data = DataTable.Analysis(FileTool.ReadStringByFile(dataPath));
+        DataTable data = DataTable.Analysis(FileTool.ReadStringByFile(dataConfig.m_txtPath));
 
-        _Worksheet _wsh = excel;
+        Worksheet _wsh = excel;
+
+        //如果全覆盖公式则整个删除
+        ExcelTool.ClearSheet(_wsh,dataConfig.m_coverFormula);
+
 
         try
         {
@@ -131,7 +134,6 @@ public class DataTool
                 index++;
             }
 
-
             //默认值
             index = 1;
             _wsh.Cells[4, 1] = DataTable.c_defaultValueTableTitle;
@@ -151,7 +153,22 @@ public class DataTool
                 {
                     if (dataTmp.ContainsKey(key))
                     {
-                        _wsh.Cells[row, index] = dataTmp[key].ToString();
+                        //读取是否覆盖公式的设置
+                        if(_wsh.Cells[row, index].HasFormula)
+                        {
+                            if(dataConfig.m_coverFormula)
+                            {
+                                _wsh.Cells[row, index] = dataTmp[key].ToString();
+                            }
+                            else
+                            {
+                                //跳过公式覆盖
+                            }
+                        }
+                        else
+                        {
+                            _wsh.Cells[row, index] = dataTmp[key].ToString();
+                        }
                     }
                     index++;
                 }
@@ -162,9 +179,8 @@ public class DataTool
         }
         catch (Exception e)
         {
-            Console.WriteLine(dataPath + "->" + e.ToString());
+            Console.WriteLine(dataConfig.m_txtPath + "->" + e.ToString());
         }
     }
-
 }
 

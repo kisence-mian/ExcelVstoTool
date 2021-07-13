@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 public class ExcelTool
 {
     public static bool ExistSheetName(Application application , string sheetName)
@@ -46,7 +45,37 @@ public class ExcelTool
                 System.Windows.Forms.MessageBox.Show("找不到 " + sheetName);
                 return null;
             }
+        }
+    }
 
+    public static void ClearSheet(Worksheet sheet,bool includeFormula)
+    {
+        try
+        {
+            int rowUsed = sheet.UsedRange.Rows.Count;
+            int columnUsed = sheet.UsedRange.Columns.Count;
+            if (includeFormula)
+            {
+                sheet.Range[sheet.Cells[1, 1], sheet.Cells[rowUsed, columnUsed]].Delete(XlDeleteShiftDirection.xlShiftUp);//这是删除
+            }
+            else
+            {
+                for (int i = 1; i <= rowUsed; i++)
+                {
+                    for (int j = 1; j <= columnUsed; j++)
+                    {
+                        //只删除不含公式的部分
+                        if (!sheet.Cells[i, j].HasFormula)
+                        {
+                            sheet.Cells[i, j].Value = null;
+                        }
+                    }
+                }
+            }
+        }
+        catch(Exception e)
+        {
+            System.Windows.Forms.MessageBox.Show("ClearSheet Exception " + e.ToString());
         }
     }
 }

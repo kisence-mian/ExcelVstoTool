@@ -348,8 +348,18 @@ public static class ParseTool
         return float.Parse(content);
     }
 
+    public static bool GetBool(bool value)
+    {
+        return value;
+    }
+
     public static bool GetBool(string content)
     {
+        if(string.IsNullOrEmpty(content))
+        {
+            return false;
+        }
+
         return bool.Parse(content);
     }
     public static string GetString(string content)

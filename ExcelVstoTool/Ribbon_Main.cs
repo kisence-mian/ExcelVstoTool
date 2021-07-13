@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -10,13 +11,6 @@ namespace ExcelVstoTool
 {
     public partial class Ribbon_Main
     {
-        #region 常量
-
-        public string c_ConfigSheetName = "Config";
-
-        #endregion
-
-        string m_dataPath = "";
 
         private void Ribbon_Main_Load(object sender, RibbonUIEventArgs e)
         {
@@ -28,23 +22,23 @@ namespace ExcelVstoTool
             //判断 config 页是否存在
             Worksheet config; 
 
-            if (!ExcelTool.ExistSheetName(Globals.ThisAddIn.Application, c_ConfigSheetName))
+            if (!ExcelTool.ExistSheetName(Globals.ThisAddIn.Application, DataConfig.c_ConfigSheetName))
             {
                 //创建一个Config 页面
-                config = ExcelTool.CreateSheet(Globals.ThisAddIn.Application, c_ConfigSheetName);
-                config.Range["A1"].Value = "页面名称";
-                config.Range["B1"].Value = "导出表名";
+                config = ExcelTool.CreateSheet(Globals.ThisAddIn.Application, DataConfig.c_ConfigSheetName);
+
+                DataConfig.ConfigInit(config);
             }
             else
             {
-                config = Globals.ThisAddIn.Application.Worksheets[c_ConfigSheetName];
-                MessageBox.Show(c_ConfigSheetName + "页面已经存在");
+                config = Globals.ThisAddIn.Application.Worksheets[DataConfig.c_ConfigSheetName];
+                MessageBox.Show(DataConfig.c_ConfigSheetName + "页面已经存在");
             }
         }
 
         private void button_toTxt_Click(object sender, RibbonControlEventArgs e)
         {
-            Worksheet config = ExcelTool.GetSheet(Globals.ThisAddIn.Application, c_ConfigSheetName);
+            Worksheet config = ExcelTool.GetSheet(Globals.ThisAddIn.Application, DataConfig.c_ConfigSheetName);
 
             //没有初始化直接返回
             if (config == null)
@@ -57,17 +51,13 @@ namespace ExcelVstoTool
             //进行转换
             for (int i = 2; i < config.UsedRange.Rows.Count + 1; i++)
             {
-                string key = "A" + i;
-                string value = "B" + i;
+                DataConfig dataConfig = new DataConfig(config, i);
 
-                string sheetName = config.Range[key].Value;
-                string txtPath = config.Range[value].Value;
-
-                if (!string.IsNullOrEmpty(sheetName) && !string.IsNullOrEmpty(txtPath))
+                if (!string.IsNullOrEmpty(dataConfig.m_sheetName) && !string.IsNullOrEmpty(dataConfig.m_txtPath))
                 {
-                    Worksheet wst = ExcelTool.GetSheet(Globals.ThisAddIn.Application, sheetName, true);
+                    Worksheet wst = ExcelTool.GetSheet(Globals.ThisAddIn.Application, dataConfig.m_sheetName, true);
 
-                    DataTool.Excel2Data(wst, txtPath);
+                    DataTool.Excel2Data(wst, dataConfig);
                 }
             }
 
@@ -76,7 +66,10 @@ namespace ExcelVstoTool
 
         private void button_ToExcel_Click(object sender, RibbonControlEventArgs e)
         {
-            Worksheet config = ExcelTool.GetSheet(Globals.ThisAddIn.Application, c_ConfigSheetName);
+            string info = "导入完毕";
+            List<string> nofindPath = new List<string>();
+
+            Worksheet config = ExcelTool.GetSheet(Globals.ThisAddIn.Application, DataConfig.c_ConfigSheetName);
 
             //没有初始化直接返回
             if(config == null)
@@ -89,21 +82,36 @@ namespace ExcelVstoTool
             //进行转换
             for (int i = 2; i < config.UsedRange.Rows.Count + 1; i++)
             {
-                string key = "A" + i;
-                string value = "B" + i;
+                DataConfig dataConfig = new DataConfig(config, i);
 
-                string sheetName = config.Range[key].Value;
-                string txtPath = config.Range[value].Value;
-
-                if (!string.IsNullOrEmpty(sheetName) && !string.IsNullOrEmpty(txtPath))
+                if (!string.IsNullOrEmpty(dataConfig.m_sheetName) && !string.IsNullOrEmpty(dataConfig.m_txtPath))
                 {
-                    Worksheet wst = ExcelTool.GetSheet(Globals.ThisAddIn.Application, sheetName,true);
-
-                    DataTool.Data2Excel(txtPath, wst);
+                    if(File.Exists(dataConfig.m_txtPath))
+                    {
+                        Worksheet wst = ExcelTool.GetSheet(Globals.ThisAddIn.Application, dataConfig.m_sheetName, true);
+                        DataTool.Data2Excel(dataConfig, wst);
+                    }
+                    else
+                    {
+                        nofindPath.Add(dataConfig.m_txtPath);
+                    }
                 }
             }
 
-            MessageBox.Show("导入完毕");
+            //构造输出信息
+            //错误的路径配置
+            if(nofindPath.Count > 0)
+            {
+                info += "\n找不到的文本";
+                for (int i = 0; i < nofindPath.Count; i++)
+                {
+                    info += "\n  " + nofindPath[i];
+                }
+            }
+
+            MessageBox.Show(info);
         }
+
+       
     }
 }
