@@ -111,13 +111,37 @@ public class DataTool
             index = 1;
             foreach (var key in data.TableKeys)
             {
-                if (data.ContainsKey(key))
+                string typeString = "";
+                if (data.m_tableTypes.ContainsKey(key))
                 {
-                    _wsh.Cells[2, index] = data.GetFieldType(key) + "|" + data.m_fieldAssetTypes[key];
+                    typeString = data.m_tableTypes[key].ToString();
+
+                    if (data.m_ArraySplitFormat.ContainsKey(key))
+                    {
+                        typeString += "[";
+                        foreach (var item in data.m_ArraySplitFormat[key])
+                        {
+                            typeString += item;
+                        }
+                        typeString += "]";
+                    }
+
+                    if (data.m_tableEnumTypes.ContainsKey(key))
+                    {
+                        typeString += "|" + data.m_tableEnumTypes[key];
+                    }
+
+                    if (data.m_fieldAssetTypes.ContainsKey(key))
+                    {
+                        if (data.m_fieldAssetTypes[key] != DataFieldAssetType.Data)
+                            typeString += "&" + data.m_fieldAssetTypes[key];
+                    }
+
+                    _wsh.Cells[2, index] = typeString;
                 }
                 else
                 {
-                    _wsh.Cells[2, index] = data.GetFieldType(key).ToString();
+                    _wsh.Cells[2, index] = FieldType.String.ToString();
                 }
 
                 index++;

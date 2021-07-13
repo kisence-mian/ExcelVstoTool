@@ -3,7 +3,6 @@ E:\Project\Tool\ExcelVstoTool\ExcelVstoTool\bin\Debug\ExcelVstoTool.pdb
 E:\Project\Tool\ExcelVstoTool\ExcelVstoTool\bin\Debug\ExcelVstoTool.dll.manifest
 E:\Project\Tool\ExcelVstoTool\ExcelVstoTool\bin\Debug\ExcelVstoTool.vsto
 E:\Project\Tool\ExcelVstoTool\ExcelVstoTool\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
-E:\Project\Tool\ExcelVstoTool\ExcelVstoTool\obj\Debug\ExcelVstoTool.csprojResolveAssemblyReference.cache
 E:\Project\Tool\ExcelVstoTool\ExcelVstoTool\obj\Debug\ExcelVstoTool.Properties.Resources.resources
 E:\Project\Tool\ExcelVstoTool\ExcelVstoTool\obj\Debug\ExcelVstoTool.Ribbon_Main.resources
 E:\Project\Tool\ExcelVstoTool\ExcelVstoTool\obj\Debug\ExcelVstoTool.csproj.GenerateResource.cache
