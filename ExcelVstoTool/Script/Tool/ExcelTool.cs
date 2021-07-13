@@ -56,7 +56,7 @@ public class ExcelTool
             int columnUsed = sheet.UsedRange.Columns.Count;
             if (includeFormula)
             {
-                System.Windows.Forms.MessageBox.Show("includeFormula " + includeFormula);
+                //System.Windows.Forms.MessageBox.Show("includeFormula " + includeFormula);
                 sheet.Range[sheet.Cells[1, 1], sheet.Cells[rowUsed, columnUsed]].Delete(XlDeleteShiftDirection.xlShiftUp);//这是删除
             }
             else

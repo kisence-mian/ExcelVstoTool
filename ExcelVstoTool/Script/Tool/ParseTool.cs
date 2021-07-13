@@ -355,12 +355,19 @@ public static class ParseTool
 
     public static bool GetBool(string content)
     {
-        if(string.IsNullOrEmpty(content))
+        try
+        {
+            if (string.IsNullOrEmpty(content))
+            {
+                return false;
+            }
+
+            return bool.Parse(content);
+        }
+        catch(Exception e)
         {
             return false;
         }
-
-        return bool.Parse(content);
     }
     public static string GetString(string content)
     {

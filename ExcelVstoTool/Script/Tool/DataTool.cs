@@ -151,7 +151,10 @@ public class DataTool
             _wsh.Cells[3, 1] = DataTable.c_noteTableTitle;
             foreach (var key in data.TableKeys)
             {
-                _wsh.Cells[3, index] = data.m_noteValue[key];
+                if(data.m_noteValue.ContainsKey(key))
+                {
+                    _wsh.Cells[3, index] = data.m_noteValue[key];
+                }
 
                 index++;
             }
