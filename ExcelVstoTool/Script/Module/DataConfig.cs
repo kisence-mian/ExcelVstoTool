@@ -10,13 +10,6 @@ using System.Windows.Forms;
 
 public class DataConfig
 {
-    #region 常量
-
-    public const string c_ConfigSheetName = "Config";
-    public const string c_AssetsDireName = "Assets";
-
-    #endregion
-
     public string m_sheetName;
     public string m_txtPath;
 
@@ -57,10 +50,10 @@ public class DataConfig
             //找到后再查找对应Data目录
 
             string filePath = Globals.ThisAddIn.Application.ActiveWorkbook.FullName;
-            string assetsPath = filePath.Substring(0, filePath.IndexOf(c_AssetsDireName) + c_AssetsDireName.Length);
+            string assetsPath = filePath.Substring(0, filePath.IndexOf(Const.c_DireName_Assets) + Const.c_DireName_Assets.Length);
             string dataPath = assetsPath + @"\Resources\Data";
 
-            List<string> files = FileTool.GetAllFileNamesByPath(dataPath, new string[] { "txt" });
+            List<string> files = FileTool.GetAllFileNamesByPath(PathDefine.GetDataPath(), new string[] { "txt" });
 
             for (int i = 0; i < files.Count; i++)
             {

@@ -364,7 +364,7 @@ public static class ParseTool
 
             return bool.Parse(content);
         }
-        catch(Exception e)
+        catch(Exception)
         {
             return false;
         }

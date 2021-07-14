@@ -1,4 +1,5 @@
-﻿using Microsoft.Office.Interop.Excel;
+﻿using ExcelVstoTool;
+using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,10 +18,13 @@ public class CheckTool
             //表头校验
             result &= CheckTitle(workSheet, config);
 
-            //格式校验
+            //类型校验
             DataTable data = DataTool.Excel2Table(workSheet, config);
 
+            //格式校验
+
             //外部校验
+            result &= CheckResource(workSheet, data, config);
 
         }
         catch (Exception e)
@@ -58,13 +62,142 @@ public class CheckTool
         return result;
     }
 
-    static bool CheckColumn(Worksheet workSheet,int col, DataConfig config)
+    //校验外部资源
+    static bool CheckResource(Worksheet workSheet, DataTable data, DataConfig config)
     {
         bool result = true;
 
         //读取类型
+        foreach(string key in data.TableKeys)
+        {
+            if(data.m_fieldAssetTypes.ContainsKey(key))
+            {
+                DataFieldAssetType assetType = data.m_fieldAssetTypes[key];
 
+                switch(assetType)
+                {
+                    case DataFieldAssetType.Prefab:
+                        result &= CheckPerfab(workSheet,data,config,key);
+                        break;
+                    case DataFieldAssetType.Texture:
+                        result &= CheckTexture(workSheet, data, config, key);
+                        break;
+                    case DataFieldAssetType.LocalizedLanguage:
+                        result &= CheckLanguage(workSheet, data, config, key);
+                        break;
+                    case DataFieldAssetType.TableKey:
+
+                    default:break;
+                }
+            }
+        }
 
         return result;
     }
+
+    static bool CheckPerfab(Worksheet workSheet, DataTable data, DataConfig config,string key)
+    {
+        bool result = true;
+
+        //构造预设清单
+        List<string> list = FileTool.GetAllFileNamesByPath(PathDefine.GetResourcesPath(), new string[] { "prefab" });
+        Dictionary<string, string> dict = GenerateNameDict(list);
+
+        //逐项检查表格中的数据是否存在
+
+        for (int i = 0; i < data.TableIDs.Count; i++)
+        {
+            SingleData sData = data[data.TableIDs[i]];
+            if (!dict.ContainsKey(sData.GetString(key)))
+            {
+                throw new Exception("找不到 预设资源 -> " + sData.GetString(key) + "<- 行 " + (i + 5) + CheckSpace(sData.GetString(key))); 
+            }
+        }
+
+        return result;
+    }
+
+    static bool CheckTexture(Worksheet workSheet, DataTable data, DataConfig config, string key)
+    {
+        bool result = true;
+
+        //构造图片清单
+        List<string> list = FileTool.GetAllFileNamesByPath(PathDefine.GetResourcesPath(), new string[] { "png","jpg","jpeg" });
+        Dictionary<string, string> dict = GenerateNameDict(list);
+
+        //逐项检查表格中的数据是否存在
+
+        for (int i = 0; i < data.TableIDs.Count; i++)
+        {
+            SingleData sData = data[data.TableIDs[i]];
+
+            if (!dict.ContainsKey(sData.GetString(key)))
+            {
+                throw new Exception("找不到 图片资源 -> " + sData.GetString(key)  +"<- 行 " + (i + 5) + CheckSpace(sData.GetString(key)));
+            }
+        }
+        return result;
+    }
+
+    static bool CheckLanguage(Worksheet workSheet, DataTable data, DataConfig config, string key)
+    {
+        bool result = true;
+
+        for (int i = 0; i < data.TableIDs.Count; i++)
+        {
+            SingleData sData = data[data.TableIDs[i]];
+            string value = sData.GetString(key);
+
+            string fileName = LanguageManager.GetFileName(value);
+            string languageKey = LanguageManager.GetLanguageKey(value);
+
+            for (int j = 0; j < LanguageManager.allLanuage.Count; j++)
+            {
+                SystemLanguage language = LanguageManager.allLanuage[j];
+
+                if(!LanguageManager.CheckLanguageFileNameExist(language, fileName))
+                {
+                    throw new Exception("多语言Key错误 ->" + value + "<- 行 " + (i + 5) 
+                        + "\n找不到 多语言文件 "+ fileName
+                        + CheckSpace(value));
+                }
+
+                if (!LanguageManager.CheckLanguageExist(language, fileName, languageKey))
+                {
+                    throw new Exception("多语言Key错误 ->" + value + "<- 行 " + (i + 5)
+                       + "\n找不到 多语言Key " + languageKey
+                       + CheckSpace(value));
+                }
+            }
+        }
+
+        return result;
+    }
+
+    static string CheckSpace(string content)
+    {
+        if(content.Contains(" "))
+        {
+            return "\n注意文本里有空格";
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+    static Dictionary<string,string> GenerateNameDict(List<string> list)
+    {
+        Dictionary<string, string> dict = new Dictionary<string, string>();
+
+        for (int i = 0; i < list.Count; i++)
+        {
+            string fileName = FileTool.RemoveExpandName( FileTool.GetFileNameByPath(list[i]));
+
+            dict.Add(fileName, list[i]);
+        }
+        return dict;
+    }
+
+
 }
