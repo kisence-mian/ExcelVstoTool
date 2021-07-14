@@ -214,6 +214,7 @@
       <DependentUpon>Ribbon_Main.cs</DependentUpon>
     </Compile>
     <Compile Include="Script\Enum\SystemLanguage.cs" />
+    <Compile Include="Script\Manager\DataManager.cs" />
     <Compile Include="Script\Manager\LanguageManagercs.cs" />
     <Compile Include="Script\Module\Const.cs" />
     <Compile Include="Script\Module\DataConfig.cs" />

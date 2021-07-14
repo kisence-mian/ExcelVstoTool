@@ -87,6 +87,18 @@ public class CheckTool
                         break;
                     case DataFieldAssetType.TableKey:
 
+                        if(data.m_tableSecTypes.ContainsKey(key))
+                        {
+                            string tableKey = data.m_tableSecTypes[key];
+                            result &= CheckTableKey(workSheet, data, config, key, tableKey);
+                        }
+                        else
+                        {
+                            throw new Exception("字段" + key + " 没有指定配置表名称 ");
+                        }
+
+                        break;
+
                     default:break;
                 }
             }
@@ -107,10 +119,12 @@ public class CheckTool
 
         for (int i = 0; i < data.TableIDs.Count; i++)
         {
-            SingleData sData = data[data.TableIDs[i]];
+            string id = data.TableIDs[i];
+            SingleData sData = data[id];
             if (!dict.ContainsKey(sData.GetString(key)))
             {
-                throw new Exception("找不到 预设资源 -> " + sData.GetString(key) + "<- 行 " + (i + 5) + CheckSpace(sData.GetString(key))); 
+                throw new Exception("找不到 预设资源 -> " + sData.GetString(key) + "<- 行 " + (i + 5) + " ID = " + id
+                    + CheckSpace(sData.GetString(key))); 
             }
         }
 
@@ -129,11 +143,13 @@ public class CheckTool
 
         for (int i = 0; i < data.TableIDs.Count; i++)
         {
-            SingleData sData = data[data.TableIDs[i]];
+            string id = data.TableIDs[i];
+            SingleData sData = data[id];
 
             if (!dict.ContainsKey(sData.GetString(key)))
             {
-                throw new Exception("找不到 图片资源 -> " + sData.GetString(key)  +"<- 行 " + (i + 5) + CheckSpace(sData.GetString(key)));
+                throw new Exception("找不到 图片资源 -> " + sData.GetString(key)  + "<- 行 " + (i + 5) + " ID = " + id 
+                    + CheckSpace(sData.GetString(key)));
             }
         }
         return result;
@@ -145,6 +161,7 @@ public class CheckTool
 
         for (int i = 0; i < data.TableIDs.Count; i++)
         {
+            string id = data.TableIDs[i];
             SingleData sData = data[data.TableIDs[i]];
             string value = sData.GetString(key);
 
@@ -157,17 +174,45 @@ public class CheckTool
 
                 if(!LanguageManager.CheckLanguageFileNameExist(language, fileName))
                 {
-                    throw new Exception("多语言Key错误 ->" + value + "<- 行 " + (i + 5) 
+                    throw new Exception("多语言Key错误 ->" + value + "<- 行 " + (i + 5) + " ID = " + id
                         + "\n找不到 多语言文件 "+ fileName
                         + CheckSpace(value));
                 }
 
                 if (!LanguageManager.CheckLanguageExist(language, fileName, languageKey))
                 {
-                    throw new Exception("多语言Key错误 ->" + value + "<- 行 " + (i + 5)
+                    throw new Exception("多语言Key错误 ->" + value + "<- 行 " +(i + 5) + " ID = " + id
                        + "\n找不到 多语言Key " + languageKey
                        + CheckSpace(value));
                 }
+            }
+        }
+
+        return result;
+    }
+
+    static bool CheckTableKey(Worksheet workSheet, DataTable data, DataConfig config, string key,string tableKey)
+    {
+        bool result = true;
+
+        for (int i = 0; i < data.TableIDs.Count; i++)
+        {
+            string id = data.TableIDs[i];
+            SingleData sData = data[data.TableIDs[i]];
+            string value = sData.GetString(key);
+
+            if (!DataManager.CheckDataFileNameExist(tableKey))
+            {
+                throw new Exception("配置表Key错误 ->" + tableKey + "<- 行 2 ID=" + id
+                    + "\n找不到 配置表文件 " + tableKey
+                    + CheckSpace(tableKey));
+            }
+
+            if (!DataManager.CheckDataExist(tableKey, value))
+            {
+                throw new Exception("配置表Key错误 ->" + value + "<- 行 " + (i + 5) + " ID = " + id
+                   + "\n找不到 配置表Key " + value
+                   + CheckSpace(value));
             }
         }
 

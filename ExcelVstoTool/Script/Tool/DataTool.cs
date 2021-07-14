@@ -142,9 +142,9 @@ public class DataTool
                         typeString += "]";
                     }
 
-                    if (data.m_tableEnumTypes.ContainsKey(key))
+                    if (data.m_tableSecTypes.ContainsKey(key))
                     {
-                        typeString += "|" + data.m_tableEnumTypes[key];
+                        typeString += "|" + data.m_tableSecTypes[key];
                     }
 
                     if (data.m_fieldAssetTypes.ContainsKey(key))

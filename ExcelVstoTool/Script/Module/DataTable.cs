@@ -37,9 +37,9 @@ using System.Text;
         /// </summary>
         public Dictionary<string, char[]> m_ArraySplitFormat = new Dictionary<string, char[]>();
         /// <summary>
-        /// 如果是枚举类型，这里储存二级类型
+        /// 储存二级类型，包括枚举或者其他表的key
         /// </summary>
-        public Dictionary<string, string> m_tableEnumTypes = new Dictionary<string, string>();
+        public Dictionary<string, string> m_tableSecTypes = new Dictionary<string, string>();
 
         /// <summary>
         /// 单条记录所拥有的字段名
@@ -164,30 +164,30 @@ using System.Text;
         /// <summary>
         /// 解析注释
         /// </summary>
-        /// <param name="l_data"></param>
-        /// <param name="l_lineData"></param>
-        public static void AnalysisNoteValue(DataTable l_data, string[] l_lineData)
+        /// <param name="data"></param>
+        /// <param name="lineData"></param>
+        public static void AnalysisNoteValue(DataTable data, string[] lineData)
         {
-            l_data.m_noteValue = new Dictionary<string, string>();
+            data.m_noteValue = new Dictionary<string, string>();
 
-            for (int i = 0; i < l_lineData.Length && i < l_data.TableKeys.Count; i++)
+            for (int i = 0; i < lineData.Length && i < data.TableKeys.Count; i++)
             {
-                if (!l_lineData[i].Equals(""))
+                if (!lineData[i].Equals(""))
                 {
-                    l_data.m_noteValue.Add(l_data.TableKeys[i], l_lineData[i]);
+                    data.m_noteValue.Add(data.TableKeys[i], lineData[i]);
                 }
             }
         }
 
-        public static void AnalysisDefaultValue(DataTable l_data, string[] l_lineData)
+        public static void AnalysisDefaultValue(DataTable data, string[] lineData)
         {
-            l_data.m_defaultValue = new Dictionary<string, string>();
+            data.m_defaultValue = new Dictionary<string, string>();
 
-            for (int i = 0; i < l_lineData.Length && i < l_data.TableKeys.Count; i++)
+            for (int i = 0; i < lineData.Length && i < data.TableKeys.Count; i++)
             {
-                if (!l_lineData[i].Equals(""))
+                if (!lineData[i].Equals(""))
                 {
-                    l_data.m_defaultValue.Add(l_data.TableKeys[i], l_lineData[i]);
+                    data.m_defaultValue.Add(data.TableKeys[i], lineData[i]);
                 }
             }
         }
@@ -221,7 +221,7 @@ using System.Text;
 
                         if (content.Length > 1)
                         {
-                            data.m_tableEnumTypes.Add(field, content[1]);
+                            data.m_tableSecTypes.Add(field, content[1]);
                         }
                     }
                     catch (Exception e)
@@ -286,9 +286,9 @@ using System.Text;
                             typeString += "]";
                         }
 
-                        if (data.m_tableEnumTypes.ContainsKey(key))
+                        if (data.m_tableSecTypes.ContainsKey(key))
                         {
-                            typeString += c_EnumSplit + data.m_tableEnumTypes[key];
+                            typeString += c_EnumSplit + data.m_tableSecTypes[key];
                         }
                     }
                     //默认字符类型
@@ -497,7 +497,7 @@ using System.Text;
             return new char[0];
         }
 
-        public void SetFieldType(string key, FieldType type, string enumType)
+        public void SetFieldType(string key, FieldType type, string secType)
         {
             //主键只能是String类型
             if (key == TableKeys[0])
@@ -515,15 +515,15 @@ using System.Text;
             }
 
             //存储二级类型
-            if (enumType != null)
+            if (secType != null)
             {
-                if (m_tableEnumTypes.ContainsKey(key))
+                if (m_tableSecTypes.ContainsKey(key))
                 {
-                    m_tableEnumTypes[key] = enumType;
+                    m_tableSecTypes[key] = secType;
                 }
                 else
                 {
-                    m_tableEnumTypes.Add(key, enumType);
+                    m_tableSecTypes.Add(key, secType);
                 }
             }
         }
@@ -558,11 +558,11 @@ using System.Text;
             return _value;
         }
 
-        public string GetEnumType(string key)
+        public string GetSecType(string key)
         {
-            if (m_tableEnumTypes.ContainsKey(key))
+            if (m_tableSecTypes.ContainsKey(key))
             {
-                return m_tableEnumTypes[key];
+                return m_tableSecTypes[key];
             }
             else
             {
@@ -826,21 +826,15 @@ public class SingleData : Dictionary<string, string>
         {
             if (this.ContainsKey(key))
             {
-                //String 读取null 的改进，兼容旧代码
-#if Compatibility
-                return this[key];
-#else
-                return ParseTool.GetString(this[key]);
-#endif
+                if(!string.IsNullOrEmpty(ParseTool.GetString(this[key])))
+                {
+                    return ParseTool.GetString(this[key]);
+                }
             }
 
             if (data.m_defaultValue.ContainsKey(key))
             {
-#if Compatibility
-                return data.m_defaultValue[key];
-#else
                 return ParseTool.GetString(data.m_defaultValue[key]);
-#endif
             }
         }
         catch (Exception e)

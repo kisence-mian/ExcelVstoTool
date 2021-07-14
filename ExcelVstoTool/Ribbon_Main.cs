@@ -196,8 +196,9 @@ namespace ExcelVstoTool
 
         #region 多语言
 
-        private void button_languageInit_Click(object sender, RibbonControlEventArgs e)
+        private void button_dataInit_Click(object sender, RibbonControlEventArgs e)
         {
+            DataManager.Init();
             LanguageInit();
         }
 
@@ -209,7 +210,7 @@ namespace ExcelVstoTool
             //gallery_language.Enabled = LanguageManager.IsEnable;
             button_changeLanguageColumn.Enabled = LanguageManager.IsEnable;
 
-            button_languageInit.Visible = !LanguageManager.IsEnable;
+            button_dataInit.Visible = !LanguageManager.IsEnable;
 
             if(LanguageManager.IsEnable)
             {

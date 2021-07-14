@@ -48,7 +48,7 @@
             this.button_check = this.Factory.CreateRibbonButton();
             this.button_changeLanguageColumn = this.Factory.CreateRibbonButton();
             this.button_LanguageInfo = this.Factory.CreateRibbonButton();
-            this.button_languageInit = this.Factory.CreateRibbonButton();
+            this.button_dataInit = this.Factory.CreateRibbonButton();
             this.tab_main.SuspendLayout();
             this.group_main.SuspendLayout();
             this.group_InOut.SuspendLayout();
@@ -95,13 +95,13 @@
             // 
             // group_Data
             // 
+            this.group_Data.Items.Add(this.button_dataInit);
             this.group_Data.Items.Add(this.button_check);
             this.group_Data.Label = "数据";
             this.group_Data.Name = "group_Data";
             // 
             // group_language
             // 
-            this.group_language.Items.Add(this.button_languageInit);
             this.group_language.Items.Add(this.comboBox_currentLanguage);
             this.group_language.Items.Add(this.button_changeLanguageColumn);
             this.group_language.Items.Add(this.button_LanguageInfo);
@@ -158,7 +158,7 @@
             this.button_changeLanguageColumn.Enabled = false;
             this.button_changeLanguageColumn.Label = "转化为多语言列";
             this.button_changeLanguageColumn.Name = "button_changeLanguageColumn";
-            this.button_changeLanguageColumn.OfficeImageId = "CacheListData";
+            this.button_changeLanguageColumn.OfficeImageId = "SetLanguage";
             this.button_changeLanguageColumn.ShowImage = true;
             this.button_changeLanguageColumn.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_changeLanguageColumn_Click);
             // 
@@ -171,14 +171,14 @@
             this.button_LanguageInfo.ShowLabel = false;
             this.button_LanguageInfo.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_LanguageInfo_Click);
             // 
-            // button_languageInit
+            // button_dataInit
             // 
-            this.button_languageInit.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button_languageInit.Label = "多语言初始化";
-            this.button_languageInit.Name = "button_languageInit";
-            this.button_languageInit.OfficeImageId = "SetLanguage";
-            this.button_languageInit.ShowImage = true;
-            this.button_languageInit.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_languageInit_Click);
+            this.button_dataInit.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.button_dataInit.Label = "外部数据初始化";
+            this.button_dataInit.Name = "button_dataInit";
+            this.button_dataInit.OfficeImageId = "SetLanguage";
+            this.button_dataInit.ShowImage = true;
+            this.button_dataInit.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_dataInit_Click);
             // 
             // Ribbon_Main
             // 
@@ -216,7 +216,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_changeLanguageColumn;
         internal Microsoft.Office.Tools.Ribbon.RibbonComboBox comboBox_currentLanguage;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_LanguageInfo;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton button_languageInit;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button_dataInit;
     }
 
     partial class ThisRibbonCollection
