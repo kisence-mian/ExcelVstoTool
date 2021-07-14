@@ -22,6 +22,7 @@ public class CheckTool
             DataTable data = DataTool.Excel2Table(workSheet, config);
 
             //格式校验
+            result &= CheckFormat(workSheet, data, config);
 
             //外部校验
             result &= CheckResource(workSheet, data, config);
@@ -29,7 +30,7 @@ public class CheckTool
         }
         catch (Exception e)
         {
-            System.Windows.Forms.MessageBox.Show("校验出错 ->" + config.m_sheetName + " \n" + e.Message);
+            System.Windows.Forms.MessageBox.Show("校验出错 ->" + config.m_sheetName + " \n" + e.ToString());
             return false;
         }
         return result;
@@ -59,6 +60,70 @@ public class CheckTool
             throw new Exception("没有找到 默认值 声明行 " + DataTable.c_defaultValueTableTitle);
         }
 
+        return result;
+    }
+
+    static bool CheckFormat(Worksheet workSheet, DataTable data, DataConfig config)
+    {
+        bool result = true;
+
+        //读取类型
+        foreach (string key in data.TableKeys)
+        {
+            //跳过主键的类型
+            if(key == data.TableKeys[0])
+            {
+                continue;
+            }
+
+            for (int i = 0; i < data.TableIDs.Count; i++)
+            {
+                string id = data.TableIDs[i];
+                SingleData sData = data[id];
+
+                if(data.m_tableTypes.ContainsKey(key))
+                {
+                    FieldType assetType = data.m_tableTypes[key];
+                    string value = sData.GetString(key);
+
+                    try
+                    {
+                        switch (assetType)
+                        {
+                            case FieldType.Bool: sData.GetBool(key); break;
+                            case FieldType.BoolArray: sData.GetBoolArray(key); break;
+
+                            case FieldType.Int: sData.GetInt(key); break;
+                            case FieldType.IntArray: sData.GetIntArray(key); break;
+
+                            case FieldType.Float: sData.GetFloat(key); break;
+                            case FieldType.FloatArray: sData.GetFloatArray(key); break;
+
+                            case FieldType.Vector2: sData.GetVector2(key); break;
+                            case FieldType.Vector2Array: sData.GetVector2Array(key); break;
+
+                            case FieldType.Vector3: sData.GetVector3(key); break;
+                            case FieldType.Vector3Array: sData.GetVector3Array(key); break;
+
+                            case FieldType.Color: sData.GetColor(key); break;
+
+                            default: break;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        throw new Exception("格式不匹配 ID = " + id +" 第 " + (i + 5) + "行"
+                            + "\n 类型是" + assetType + " --->" + value + "<-"
+                            + CheckSpace(sData.GetString(key)));
+                    }
+                }
+                else
+                {
+                    throw new Exception("找不到  ->" + key + "<- 的类型 行 2");
+                }
+            }
+
+        }
         return result;
     }
 

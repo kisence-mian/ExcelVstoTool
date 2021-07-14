@@ -88,7 +88,10 @@ public class DataTool
                 dataTmp.data = data;
                 for (col = 1; col <= totalCol; col++)
                 {
-                    dataTmp.Add(data.TableKeys[col - 1], _wsh.Cells[row, col].Text.ToString());
+                    if(!string.IsNullOrEmpty(_wsh.Cells[row, col].Text.ToString()))
+                    {
+                        dataTmp.Add(data.TableKeys[col - 1], _wsh.Cells[row, col].Text.ToString());
+                    }
                 }
                 row++;
 
