@@ -192,6 +192,11 @@ namespace ExcelVstoTool
             return result;
         }
 
+        private void button_dataInfo_Click(object sender, RibbonControlEventArgs e)
+        {
+            MessageBox.Show("初始化后可以使用对外部表格和多语言Key的校验");
+        }
+
         #endregion
 
         #region 多语言
@@ -210,7 +215,7 @@ namespace ExcelVstoTool
             //gallery_language.Enabled = LanguageManager.IsEnable;
             button_changeLanguageColumn.Enabled = LanguageManager.IsEnable;
 
-            button_dataInit.Visible = !LanguageManager.IsEnable;
+            box_dataInit.Visible = !LanguageManager.IsEnable;
 
             if(LanguageManager.IsEnable)
             {
@@ -251,6 +256,7 @@ namespace ExcelVstoTool
                 Globals.ThisAddIn.Application.ScreenUpdating = !enable;
             }
         }
+
 
 
         #endregion

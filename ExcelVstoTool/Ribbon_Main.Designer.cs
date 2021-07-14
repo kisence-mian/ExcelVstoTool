@@ -49,11 +49,14 @@
             this.button_check = this.Factory.CreateRibbonButton();
             this.button_changeLanguageColumn = this.Factory.CreateRibbonButton();
             this.button_LanguageInfo = this.Factory.CreateRibbonButton();
+            this.button_dataInfo = this.Factory.CreateRibbonButton();
+            this.box_dataInit = this.Factory.CreateRibbonBox();
             this.tab_main.SuspendLayout();
             this.group_main.SuspendLayout();
             this.group_InOut.SuspendLayout();
             this.group_Data.SuspendLayout();
             this.group_language.SuspendLayout();
+            this.box_dataInit.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab_main
@@ -95,7 +98,7 @@
             // 
             // group_Data
             // 
-            this.group_Data.Items.Add(this.button_dataInit);
+            this.group_Data.Items.Add(this.box_dataInit);
             this.group_Data.Items.Add(this.button_check);
             this.group_Data.Label = "数据";
             this.group_Data.Name = "group_Data";
@@ -180,6 +183,21 @@
             this.button_LanguageInfo.ShowLabel = false;
             this.button_LanguageInfo.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_LanguageInfo_Click);
             // 
+            // button_dataInfo
+            // 
+            this.button_dataInfo.Label = "帮助";
+            this.button_dataInfo.Name = "button_dataInfo";
+            this.button_dataInfo.OfficeImageId = "Help";
+            this.button_dataInfo.ShowImage = true;
+            this.button_dataInfo.ShowLabel = false;
+            this.button_dataInfo.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_dataInfo_Click);
+            // 
+            // box_dataInit
+            // 
+            this.box_dataInit.Items.Add(this.button_dataInit);
+            this.box_dataInit.Items.Add(this.button_dataInfo);
+            this.box_dataInit.Name = "box_dataInit";
+            // 
             // Ribbon_Main
             // 
             this.Name = "Ribbon_Main";
@@ -196,6 +214,8 @@
             this.group_Data.PerformLayout();
             this.group_language.ResumeLayout(false);
             this.group_language.PerformLayout();
+            this.box_dataInit.ResumeLayout(false);
+            this.box_dataInit.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -217,6 +237,8 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonComboBox comboBox_currentLanguage;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_LanguageInfo;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_dataInit;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button_dataInfo;
+        internal Microsoft.Office.Tools.Ribbon.RibbonBox box_dataInit;
     }
 
     partial class ThisRibbonCollection
