@@ -36,19 +36,29 @@
         {
             this.tab_main = this.Factory.CreateRibbonTab();
             this.group_main = this.Factory.CreateRibbonGroup();
-            this.group1 = this.Factory.CreateRibbonGroup();
             this.button_initData = this.Factory.CreateRibbonButton();
+            this.checkBox_CloseView = this.Factory.CreateRibbonCheckBox();
+            this.checkBox_exportCheck = this.Factory.CreateRibbonCheckBox();
+            this.group1 = this.Factory.CreateRibbonGroup();
             this.button_ToExcel = this.Factory.CreateRibbonButton();
             this.button_toTxt = this.Factory.CreateRibbonButton();
+            this.group_check = this.Factory.CreateRibbonGroup();
+            this.button_check = this.Factory.CreateRibbonButton();
+            this.group_language = this.Factory.CreateRibbonGroup();
+            this.button_changeLanguageColumn = this.Factory.CreateRibbonButton();
             this.tab_main.SuspendLayout();
             this.group_main.SuspendLayout();
             this.group1.SuspendLayout();
+            this.group_check.SuspendLayout();
+            this.group_language.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab_main
             // 
             this.tab_main.Groups.Add(this.group_main);
             this.tab_main.Groups.Add(this.group1);
+            this.tab_main.Groups.Add(this.group_check);
+            this.tab_main.Groups.Add(this.group_language);
             this.tab_main.Label = "拓展工具";
             this.tab_main.Name = "tab_main";
             this.tab_main.Position = this.Factory.RibbonPosition.AfterOfficeId("TabHome");
@@ -56,15 +66,10 @@
             // group_main
             // 
             this.group_main.Items.Add(this.button_initData);
+            this.group_main.Items.Add(this.checkBox_CloseView);
+            this.group_main.Items.Add(this.checkBox_exportCheck);
             this.group_main.Label = "设置";
             this.group_main.Name = "group_main";
-            // 
-            // group1
-            // 
-            this.group1.Items.Add(this.button_ToExcel);
-            this.group1.Items.Add(this.button_toTxt);
-            this.group1.Label = "操作";
-            this.group1.Name = "group1";
             // 
             // button_initData
             // 
@@ -74,6 +79,25 @@
             this.button_initData.OfficeImageId = "AdpDiagramNewTable";
             this.button_initData.ShowImage = true;
             this.button_initData.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_initData_Click);
+            // 
+            // checkBox_CloseView
+            // 
+            this.checkBox_CloseView.Checked = true;
+            this.checkBox_CloseView.Label = "关闭窗口以提高执行效率";
+            this.checkBox_CloseView.Name = "checkBox_CloseView";
+            // 
+            // checkBox_exportCheck
+            // 
+            this.checkBox_exportCheck.Checked = true;
+            this.checkBox_exportCheck.Label = "导出时检验数据有效性";
+            this.checkBox_exportCheck.Name = "checkBox_exportCheck";
+            // 
+            // group1
+            // 
+            this.group1.Items.Add(this.button_ToExcel);
+            this.group1.Items.Add(this.button_toTxt);
+            this.group1.Label = "导入导出";
+            this.group1.Name = "group1";
             // 
             // button_ToExcel
             // 
@@ -93,6 +117,36 @@
             this.button_toTxt.ShowImage = true;
             this.button_toTxt.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_toTxt_Click);
             // 
+            // group_check
+            // 
+            this.group_check.Items.Add(this.button_check);
+            this.group_check.Label = "数据";
+            this.group_check.Name = "group_check";
+            // 
+            // button_check
+            // 
+            this.button_check.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.button_check.Label = "数据校验";
+            this.button_check.Name = "button_check";
+            this.button_check.OfficeImageId = "AcceptInvitation";
+            this.button_check.ShowImage = true;
+            this.button_check.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_check_Click);
+            // 
+            // group_language
+            // 
+            this.group_language.Items.Add(this.button_changeLanguageColumn);
+            this.group_language.Label = "多语言";
+            this.group_language.Name = "group_language";
+            // 
+            // button_changeLanguageColumn
+            // 
+            this.button_changeLanguageColumn.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.button_changeLanguageColumn.Label = "转化为多语言列";
+            this.button_changeLanguageColumn.Name = "button_changeLanguageColumn";
+            this.button_changeLanguageColumn.OfficeImageId = "SetLanguage";
+            this.button_changeLanguageColumn.ShowImage = true;
+            this.button_changeLanguageColumn.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_changeLanguageColumn_Click);
+            // 
             // Ribbon_Main
             // 
             this.Name = "Ribbon_Main";
@@ -105,6 +159,10 @@
             this.group_main.PerformLayout();
             this.group1.ResumeLayout(false);
             this.group1.PerformLayout();
+            this.group_check.ResumeLayout(false);
+            this.group_check.PerformLayout();
+            this.group_language.ResumeLayout(false);
+            this.group_language.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -117,6 +175,12 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_toTxt;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_ToExcel;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_initData;
+        internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox checkBox_CloseView;
+        internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox checkBox_exportCheck;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup group_check;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button_check;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup group_language;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button_changeLanguageColumn;
     }
 
     partial class ThisRibbonCollection

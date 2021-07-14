@@ -16,73 +16,91 @@ public class DataTool
 
         try
         {
-            //解析key
-            int totalRow = 0;
-            int row = 1;
-            int col = 1;
+            data = Excel2Table(excel, dataConfig);
+            FileTool.WriteStringByFile(dataConfig.m_txtPath, DataTable.Serialize(data));
+        }
+        catch (Exception e)
+        {
+            System.Windows.Forms.MessageBox.Show(dataConfig.m_txtPath + "->" + e.ToString());
+        }
+    }
 
-            while (!string.IsNullOrEmpty(_wsh.Cells[col, row].Text.ToString()))
+    public static DataTable Excel2Table(Worksheet excel, DataConfig dataConfig)
+    {
+        DataTable data = new DataTable();
+        Worksheet _wsh = excel;
+
+        //解析key
+        int col = 1;
+        int row = 1;
+
+        try
+        {
+            int totalCol = 0;
+
+
+            while (!string.IsNullOrEmpty(_wsh.Cells[row, col].Text.ToString()))
             {
-                data.TableKeys.Add(_wsh.Cells[col, row].Text.ToString());
-                row++;
+                data.TableKeys.Add(_wsh.Cells[row, col].Text.ToString());
+                col++;
             }
 
-            totalRow = row - 1;
+            totalCol = col - 1;
 
             //解析类型
-            col = 2;
-            string[] lineData = new string[totalRow];
-            for (row = 1; row <= totalRow; row++)
+            row = 2;
+            string[] lineData = new string[totalCol];
+            for (col = 1; col <= totalCol; col++)
             {
-                lineData[row - 1] = _wsh.Cells[col, row].Text.ToString();
+                lineData[col - 1] = _wsh.Cells[row, col].Text.ToString();
             }
 
             DataTable.AnalysisFieldType(data, lineData);
 
             //解析注释
-            col = 3;
-            lineData = new string[totalRow];
-            for (row = 1; row <= totalRow; row++)
+            row = 3;
+            lineData = new string[totalCol];
+            for (col = 1; col <= totalCol; col++)
             {
-                lineData[row - 1] = _wsh.Cells[col, row].Text.ToString();
+                lineData[col - 1] = _wsh.Cells[row, col].Text.ToString();
             }
 
             DataTable.AnalysisNoteValue(data, lineData);
 
             //解析默认值
-            col = 4;
-            lineData = new string[totalRow];
-            for (row = 1; row <= totalRow; row++)
+            row = 4;
+            lineData = new string[totalCol];
+            for (col = 1; col <= totalCol; col++)
             {
-                lineData[row - 1] = _wsh.Cells[col, row].Text.ToString();
+                lineData[col - 1] = _wsh.Cells[row, col].Text.ToString();
             }
 
             DataTable.AnalysisDefaultValue(data, lineData);
 
             //解析值
-            col = 5;
-            row = 1;
-            while (!string.IsNullOrEmpty(_wsh.Cells[col, 1].Text.ToString()))
+            row = 5;
+            col = 1;
+            while (!string.IsNullOrEmpty(_wsh.Cells[row, 1].Text.ToString()))
             {
                 //Console.WriteLine("wsh.Cells["+col+", " + row + "] = " + _wsh.Cells[col, 1].Text.ToString());
 
                 SingleData dataTmp = new SingleData();
                 dataTmp.data = data;
-                for (row = 1; row <= totalRow; row++)
+                for (col = 1; col <= totalCol; col++)
                 {
-                    dataTmp.Add(data.TableKeys[row - 1], _wsh.Cells[col, row].Text.ToString());
+                    dataTmp.Add(data.TableKeys[col - 1], _wsh.Cells[row, col].Text.ToString());
                 }
-                col++;
+                row++;
 
                 data.AddData(dataTmp);
             }
-
-            FileTool.WriteStringByFile(dataConfig.m_txtPath, DataTable.Serialize(data));
         }
         catch (Exception e)
         {
-            Console.WriteLine(dataConfig.m_txtPath + "->" + e.ToString());
+            throw new Exception("解析->" + dataConfig.m_sheetName +" 错误! 行 " + row + "\n错误内容 " + e.Message);
         }
+
+        return data;
     }
 
     public static void Data2Excel(DataConfig dataConfig, Worksheet excel)

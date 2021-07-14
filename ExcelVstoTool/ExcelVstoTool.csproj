@@ -211,6 +211,7 @@
     </Compile>
     <Compile Include="Script\Module\DataConfig.cs" />
     <Compile Include="Script\Module\DataTable.cs" />
+    <Compile Include="Script\Tool\CheckTool.cs" />
     <Compile Include="Script\Tool\DataTool.cs" />
     <Compile Include="Script\Tool\ExcelTool.cs" />
     <Compile Include="Script\Tool\FileTool.cs" />

@@ -36,6 +36,8 @@ namespace ExcelVstoTool
             }
         }
 
+        #region 导入导出
+
         private void button_toTxt_Click(object sender, RibbonControlEventArgs e)
         {
             Worksheet config = ExcelTool.GetSheet(Globals.ThisAddIn.Application, DataConfig.c_ConfigSheetName);
@@ -47,6 +49,15 @@ namespace ExcelVstoTool
             }
 
             //获取真实路径
+
+            if(checkBox_exportCheck.Checked)
+            {
+                if(!CheckAll())
+                {
+                    MessageBox.Show("导出失败： 校验未通过");
+                    return;
+                }
+            }
 
             //进行转换
             for (int i = 2; i < config.UsedRange.Rows.Count + 1; i++)
@@ -77,7 +88,9 @@ namespace ExcelVstoTool
                 return;
             }
 
-            //获取真实路径
+            DateTime now = System.DateTime.Now;
+
+            PerformanceSwitch(true);
 
             //进行转换
             for (int i = 2; i < config.UsedRange.Rows.Count + 1; i++)
@@ -98,9 +111,13 @@ namespace ExcelVstoTool
                 }
             }
 
+            PerformanceSwitch(false);
+
             //构造输出信息
+            info += "\n用时：" + (DateTime.Now - now).TotalSeconds + "s";
+
             //错误的路径配置
-            if(nofindPath.Count > 0)
+            if (nofindPath.Count > 0)
             {
                 info += "\n找不到的文本";
                 for (int i = 0; i < nofindPath.Count; i++)
@@ -109,9 +126,91 @@ namespace ExcelVstoTool
                 }
             }
 
+
+
             MessageBox.Show(info);
         }
 
-       
+        #endregion
+
+        #region 数据
+
+        private void button_check_Click(object sender, RibbonControlEventArgs e)
+        {
+            string info = "校验完毕";
+
+            Worksheet config = ExcelTool.GetSheet(Globals.ThisAddIn.Application, DataConfig.c_ConfigSheetName);
+
+            //没有初始化直接返回
+            if (config == null)
+            {
+                return;
+            }
+
+            DateTime now = System.DateTime.Now;
+
+            //进行校验
+            for (int i = 2; i < config.UsedRange.Rows.Count + 1; i++)
+            {
+                DataConfig dataConfig = new DataConfig(config, i);
+
+                if (!string.IsNullOrEmpty(dataConfig.m_sheetName) && !string.IsNullOrEmpty(dataConfig.m_txtPath))
+                {
+                    Worksheet wst = ExcelTool.GetSheet(Globals.ThisAddIn.Application, dataConfig.m_sheetName, true);
+                    if(!CheckTool.CheckSheet(wst, dataConfig))
+                    {
+                        info += "\n->" + dataConfig.m_sheetName + " 校验未能通过";
+                    }
+                }
+            }
+
+            //构造输出信息
+            info += "\n用时：" + (DateTime.Now - now).TotalSeconds + "s";
+
+            MessageBox.Show(info);
+        }
+
+        bool CheckAll()
+        {
+            bool result = true;
+            Worksheet config = ExcelTool.GetSheet(Globals.ThisAddIn.Application, DataConfig.c_ConfigSheetName);
+            //进行校验
+            for (int i = 2; i < config.UsedRange.Rows.Count + 1; i++)
+            {
+                DataConfig dataConfig = new DataConfig(config, i);
+
+                if (!string.IsNullOrEmpty(dataConfig.m_sheetName) && !string.IsNullOrEmpty(dataConfig.m_txtPath))
+                {
+                    Worksheet wst = ExcelTool.GetSheet(Globals.ThisAddIn.Application, dataConfig.m_sheetName, true);
+                    result &= CheckTool.CheckSheet(wst, dataConfig);
+                }
+            }
+            return result;
+        }
+
+        #endregion
+
+        #region 多语言
+
+        private void button_changeLanguageColumn_Click(object sender, RibbonControlEventArgs e)
+        {
+            MessageBox.Show("功能暂未实现");
+        }
+
+        #endregion
+
+        #region 工具方法
+
+        //性能开关
+        void PerformanceSwitch(bool enable)
+        {
+            if (checkBox_CloseView.Checked)
+            {
+                Globals.ThisAddIn.Application.Visible = !enable;
+                Globals.ThisAddIn.Application.ScreenUpdating = !enable;
+            }
+        }
+
+        #endregion
     }
 }

@@ -39,7 +39,7 @@ public class DataConfig
     {
         configSheet.Range["A1"].Value = "页签名称";
         configSheet.Range["B1"].Value = "文件名";
-        configSheet.Range["C1"].Value = "导入时是否覆盖原有公式";
+        configSheet.Range["C1"].Value = "覆盖公式";
     }
 
 
