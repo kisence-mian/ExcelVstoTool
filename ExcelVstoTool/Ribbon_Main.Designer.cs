@@ -45,10 +45,10 @@
             this.button_initData = this.Factory.CreateRibbonButton();
             this.button_ToExcel = this.Factory.CreateRibbonButton();
             this.button_toTxt = this.Factory.CreateRibbonButton();
+            this.button_dataInit = this.Factory.CreateRibbonButton();
             this.button_check = this.Factory.CreateRibbonButton();
             this.button_changeLanguageColumn = this.Factory.CreateRibbonButton();
             this.button_LanguageInfo = this.Factory.CreateRibbonButton();
-            this.button_dataInit = this.Factory.CreateRibbonButton();
             this.tab_main.SuspendLayout();
             this.group_main.SuspendLayout();
             this.group_InOut.SuspendLayout();
@@ -143,6 +143,15 @@
             this.button_toTxt.ShowImage = true;
             this.button_toTxt.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_toTxt_Click);
             // 
+            // button_dataInit
+            // 
+            this.button_dataInit.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.button_dataInit.Label = "外部数据初始化";
+            this.button_dataInit.Name = "button_dataInit";
+            this.button_dataInit.OfficeImageId = "FileCompactAndRepairDatabase";
+            this.button_dataInit.ShowImage = true;
+            this.button_dataInit.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_dataInit_Click);
+            // 
             // button_check
             // 
             this.button_check.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -170,15 +179,6 @@
             this.button_LanguageInfo.ShowImage = true;
             this.button_LanguageInfo.ShowLabel = false;
             this.button_LanguageInfo.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_LanguageInfo_Click);
-            // 
-            // button_dataInit
-            // 
-            this.button_dataInit.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button_dataInit.Label = "外部数据初始化";
-            this.button_dataInit.Name = "button_dataInit";
-            this.button_dataInit.OfficeImageId = "SetLanguage";
-            this.button_dataInit.ShowImage = true;
-            this.button_dataInit.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_dataInit_Click);
             // 
             // Ribbon_Main
             // 

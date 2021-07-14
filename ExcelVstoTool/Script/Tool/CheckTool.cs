@@ -159,6 +159,11 @@ public class CheckTool
     {
         bool result = true;
 
+        if(!LanguageManager.IsEnable)
+        {
+            return true;
+        }
+
         for (int i = 0; i < data.TableIDs.Count; i++)
         {
             string id = data.TableIDs[i];
@@ -194,6 +199,11 @@ public class CheckTool
     static bool CheckTableKey(Worksheet workSheet, DataTable data, DataConfig config, string key,string tableKey)
     {
         bool result = true;
+
+        if (!DataManager.IsEnable)
+        {
+            return true;
+        }
 
         for (int i = 0; i < data.TableIDs.Count; i++)
         {
