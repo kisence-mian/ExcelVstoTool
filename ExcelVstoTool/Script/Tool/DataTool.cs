@@ -228,5 +228,259 @@ public class DataTool
             Console.WriteLine(dataConfig.GetTextPath() + "->" + e.ToString());
         }
     }
+    #region 自动生成代码
+
+    /// <summary>
+    /// 创建数据表对应的具体数据类
+    /// </summary>
+    /// <param name="dataName"></param>
+    /// <param name="data"></param>
+    public static string CreateDataCSharpFile(string dataName, DataTable data)
+    {
+        if (dataName.Contains("/"))
+        {
+            string[] tmp = dataName.Split('/');
+            dataName = tmp[tmp.Length - 1];
+        }
+
+        string className = dataName + "Generate";
+        string content = "";
+
+        content += "using System;\n";
+        content += "using UnityEngine;\n\n";
+
+        content += @"//" + className + "类\n";
+        content += @"//该类自动生成请勿修改，以避免不必要的损失";
+        content += "\n";
+
+        content += "public class " + className + " : DataGenerateBase \n";
+        content += "{\n";
+
+        content += "\tpublic string m_key;\n";
+
+        //type
+        List<string> type = new List<string>(data.m_tableTypes.Keys);
+
+        //Debug.Log("type count: " + type.Count);
+
+        if (type.Count > 0)
+        {
+            for (int i = 1; i < data.TableKeys.Count; i++)
+            {
+                string key = data.TableKeys[i];
+                string enumType = null;
+
+                if (data.m_tableSecTypes.ContainsKey(key))
+                {
+                    enumType = data.m_tableSecTypes[key];
+                }
+                char[] m_ArraySplitFormat = new char[0];
+                if (data.m_ArraySplitFormat.ContainsKey(key))
+                {
+                    m_ArraySplitFormat = data.m_ArraySplitFormat[key];
+                }
+                string note = ";";
+
+                if (data.m_noteValue.ContainsKey(key))
+                {
+                    note = @"; //" + data.m_noteValue[key];
+                }
+
+                content += "\t";
+
+                if (data.m_tableTypes.ContainsKey(key))
+                {
+                    //访问类型 + 字段类型  + 字段名
+                    content += "public " + OutPutFieldName(data.m_tableTypes[key], enumType, m_ArraySplitFormat) + " m_" + key + note;
+                }
+                //默认字符类型
+                else
+                {
+                    //访问类型 + 字符串类型 + 字段名 
+                    content += "public " + "string" + " m_" + key + note;
+                }
+
+                content += "\n";
+            }
+        }
+
+        content += "\n";
+
+        content += "\tpublic override void LoadData(string key) \n";
+        content += "\t{\n";
+        content += "\t\tDataTable table =  DataManager.GetData(\"" + dataName + "\");\n\n";
+        content += "\t\tif (!table.ContainsKey(key))\n";
+        content += "\t\t{\n";
+        content += "\t\t\tthrow new Exception(\"" + className + " LoadData Exception Not Fond key ->\" + key + \"<-\");\n";
+        content += "\t\t}\n";
+        content += "\n";
+        content += "\t\tSingleData data = table[key];\n\n";
+
+        content += "\t\tm_key = key;\n";
+
+        if (type.Count > 0)
+        {
+            for (int i = 1; i < data.TableKeys.Count; i++)
+            {
+                string key = data.TableKeys[i];
+
+                content += "\t\t";
+
+
+                string enumType = null;
+
+                if (data.m_tableSecTypes.ContainsKey(key))
+                {
+                    enumType = data.m_tableSecTypes[key];
+                }
+                char[] m_ArraySplitFormat = new char[0];
+                if (data.m_ArraySplitFormat.ContainsKey(key))
+                {
+                    m_ArraySplitFormat = data.m_ArraySplitFormat[key];
+                }
+
+                if (data.m_tableTypes.ContainsKey(key))
+                {
+                    content += "m_" + key + " = data." + OutPutFieldFunction(data.m_tableTypes[key], enumType, m_ArraySplitFormat) + "(\"" + key + "\")";
+                }
+                //默认字符类型
+                else
+                {
+                    content += "m_" + key + " = data." + OutPutFieldFunction(FieldType.String, enumType, m_ArraySplitFormat) + "(\"" + key + "\")";
+                    //Debug.LogWarning("字段 " + key + "没有配置类型！");
+                }
+
+                content += ";\n";
+            }
+        }
+
+        content += "\t}\n";
+        content += "\t public override void LoadData(DataTable table,string key) \n";
+        content += "\t{\n";
+
+        content += "\t\tSingleData data = table[key];\n\n";
+
+        content += "\t\tm_key = key;\n";
+
+        if (type.Count > 0)
+        {
+            for (int i = 1; i < data.TableKeys.Count; i++)
+            {
+                string key = data.TableKeys[i];
+
+                content += "\t\t";
+
+                string enumType = null;
+
+                if (data.m_tableSecTypes.ContainsKey(key))
+                {
+                    enumType = data.m_tableSecTypes[key];
+                }
+                char[] m_ArraySplitFormat = new char[0];
+                if (data.m_ArraySplitFormat.ContainsKey(key))
+                {
+                    m_ArraySplitFormat = data.m_ArraySplitFormat[key];
+                }
+                if (data.m_tableTypes.ContainsKey(key))
+                {
+                    content += "m_" + key + " = data." + OutPutFieldFunction(data.m_tableTypes[key], enumType, m_ArraySplitFormat) + "(\"" + key + "\")";
+                }
+                //默认字符类型
+                else
+                {
+                    content += "m_" + key + " = data." + OutPutFieldFunction(FieldType.String, enumType, m_ArraySplitFormat) + "(\"" + key + "\")";
+                    //Debug.LogWarning("字段 " + key + "没有配置类型！");
+                }
+
+                content += ";\n";
+            }
+        }
+
+        content += "\t}\n";
+
+        content += "}\n";
+
+        return content;
+
+        //string SavePath = Application.dataPath + "/Script/DataClassGenerate/" + className + ".cs";
+
+        //EditorUtil.WriteStringByFile(SavePath, content.ToString());
+    }
+
+
+
+    static string OutPutFieldFunction(FieldType fileType, string enumType, char[] m_ArraySplitFormat)
+    {
+        string arrayFun = "";
+        for (int i = 0; i < m_ArraySplitFormat.Length; i++)
+        {
+            arrayFun += "[]";
+        }
+
+
+        switch (fileType)
+        {
+            case FieldType.Bool: return "GetBool";
+            case FieldType.Color: return "GetColor";
+            case FieldType.Float: return "GetFloat";
+            case FieldType.Int: return "GetInt";
+            case FieldType.String: return "GetString";
+            case FieldType.Vector2: return "GetVector2";
+            case FieldType.Vector3: return "GetVector3";
+            case FieldType.Enum: return "GetEnum<" + enumType + ">";
+
+            case FieldType.StringArray:
+                arrayFun = "string" + arrayFun;
+                break;
+            case FieldType.IntArray:
+                arrayFun = "int" + arrayFun;
+                break;
+            case FieldType.FloatArray:
+                arrayFun = "float" + arrayFun;
+                break;
+            case FieldType.BoolArray:
+                arrayFun = "bool" + arrayFun;
+                break;
+            case FieldType.Vector2Array:
+                arrayFun = "Vector2" + arrayFun;
+                break;
+            case FieldType.Vector3Array:
+                arrayFun = "Vector3" + arrayFun;
+                break;
+
+        }
+        arrayFun = "GetArray<" + arrayFun + ">";
+        return arrayFun;
+    }
+
+    static string OutPutFieldName(FieldType fileType, string enumType, char[] m_ArraySplitFormat)
+    {
+        string arrayFun = "";
+        for (int i = 0; i < m_ArraySplitFormat.Length; i++)
+        {
+            arrayFun += "[]";
+        }
+        switch (fileType)
+        {
+            case FieldType.Bool: return "bool";
+            case FieldType.Color: return "Color";
+            case FieldType.Float: return "float";
+            case FieldType.Int: return "int";
+            case FieldType.String: return "string";
+            case FieldType.Vector2: return "Vector2";
+            case FieldType.Vector3: return "Vector3";
+            case FieldType.Enum: return enumType;
+
+            case FieldType.StringArray: return "string[]" + arrayFun;
+            case FieldType.IntArray: return "int[]" + arrayFun;
+            case FieldType.FloatArray: return "float[]" + arrayFun;
+            case FieldType.BoolArray: return "bool[]" + arrayFun;
+            case FieldType.Vector2Array: return "Vector2[]" + arrayFun;
+            case FieldType.Vector3Array: return "Vector3[]" + arrayFun;
+            default: return "";
+        }
+    }
+
+    #endregion
 }
 

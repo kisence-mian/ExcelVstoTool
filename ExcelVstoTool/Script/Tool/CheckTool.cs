@@ -9,31 +9,32 @@ using System.Threading.Tasks;
 
 public class CheckTool
 {
-    public static bool CheckSheet(Worksheet workSheet,DataConfig config)
+    public static DataTable CheckSheet(Worksheet workSheet,DataConfig config)
     {
-        bool result = true;
+        DataTable data = null;
 
         try
         {
             //表头校验
-            result &= CheckTitle(workSheet, config);
+            CheckTitle(workSheet, config);
 
             //类型校验
-            DataTable data = DataTool.Excel2Table(workSheet, config);
+            data = DataTool.Excel2Table(workSheet, config);
+            CheckType(workSheet, data, config);
 
             //格式校验
-            result &= CheckFormat(workSheet, data, config);
+            CheckFormat(workSheet, data, config);
 
             //外部校验
-            result &= CheckResource(workSheet, data, config);
+            CheckResource(workSheet, data, config);
 
         }
         catch (Exception e)
         {
             System.Windows.Forms.MessageBox.Show("校验出错 ->" + config.m_sheetName + " \n" + e.ToString());
-            return false;
+            return null;
         }
-        return result;
+        return data;
     }
 
     static bool CheckTitle(Worksheet workSheet, DataConfig config)
@@ -63,6 +64,36 @@ public class CheckTool
         return result;
     }
 
+    static bool CheckType(Worksheet workSheet, DataTable data, DataConfig config)
+    {
+        bool result = true;
+
+        //读取类型
+        foreach (string key in data.TableKeys)
+        {
+            //跳过主键的类型
+            if (key == data.TableKeys[0])
+            {
+                continue;
+            }
+
+            if (data.m_tableTypes.ContainsKey(key))
+            {
+                FieldType type = data.m_tableTypes[key];
+
+                switch (type)
+                {
+                    case FieldType.Enum:
+                        string enumType = data.m_tableSecTypes[key];
+                        result &= CheckEnum(workSheet, data, config, key, enumType);
+                        break;
+                }
+            }
+
+        }
+        return result;
+    }
+
     static bool CheckFormat(Worksheet workSheet, DataTable data, DataConfig config)
     {
         bool result = true;
@@ -71,7 +102,7 @@ public class CheckTool
         foreach (string key in data.TableKeys)
         {
             //跳过主键的类型
-            if(key == data.TableKeys[0])
+            if (key == data.TableKeys[0])
             {
                 continue;
             }
@@ -81,7 +112,7 @@ public class CheckTool
                 string id = data.TableIDs[i];
                 SingleData sData = data[id];
 
-                if(data.m_tableTypes.ContainsKey(key))
+                if (data.m_tableTypes.ContainsKey(key))
                 {
                     FieldType assetType = data.m_tableTypes[key];
                     string value = sData.GetString(key);
@@ -112,7 +143,7 @@ public class CheckTool
                     }
                     catch (Exception)
                     {
-                        throw new Exception("格式不匹配 ID = " + id +" 第 " + (i + 5) + "行"
+                        throw new Exception("格式不匹配 ID = " + id + " 第 " + (i + 5) + "行"
                             + "\n 类型是" + assetType + " --->" + value + "<-"
                             + CheckSpace(sData.GetString(key)));
                     }
@@ -150,6 +181,8 @@ public class CheckTool
                     case DataFieldAssetType.LocalizedLanguage:
                         result &= CheckLanguage(workSheet, data, config, key);
                         break;
+                    case DataFieldAssetType.TableName:
+                        result &= CheckTableName(workSheet, data, config, key); break;
                     case DataFieldAssetType.TableKey:
 
                         if(data.m_tableSecTypes.ContainsKey(key))
@@ -163,6 +196,7 @@ public class CheckTool
                         }
 
                         break;
+
 
                     default:break;
                 }
@@ -321,9 +355,73 @@ public class CheckTool
         return result;
     }
 
+    static bool CheckTableName(Worksheet workSheet, DataTable data, DataConfig config, string key)
+    {
+        bool result = true;
+
+        if (!DataManager.IsEnable)
+        {
+            return true;
+        }
+
+        for (int i = 0; i < data.TableIDs.Count; i++)
+        {
+            string id = data.TableIDs[i];
+            SingleData sData = data[data.TableIDs[i]];
+            string value = sData.GetString(key);
+
+            //跳过空数据
+            if (string.IsNullOrEmpty(value))
+            {
+                continue;
+            }
+
+            if (!DataManager.CheckDataFileNameExist(value))
+            {
+                throw new Exception("配置表Key错误 ->" + value + "<- 行 "+ ( i + 5 ) + " ID=" + id
+                    + "\n找不到 配置表文件 " + value
+                    + CheckSpace(value));
+            }
+        }
+
+        return result;
+    }
+
+    static bool CheckEnum(Worksheet workSheet, DataTable data, DataConfig config, string key, string enumName)
+    {
+        bool result = true;
+
+        if (!DataManager.IsEnable)
+        {
+            return true;
+        }
+
+        for (int i = 0; i < data.TableIDs.Count; i++)
+        {
+            string id = data.TableIDs[i];
+            SingleData sData = data[data.TableIDs[i]];
+            string value = sData.GetString(key);
+
+            //跳过空数据
+            if (string.IsNullOrEmpty(value))
+            {
+                continue;
+            }
+
+            if (!DataManager.GetEnumList(enumName).Contains(value))
+            {
+                throw new Exception("找不到枚举 ->" + value + "<- 行 " + (i + 5) + " ID=" + id
+                    + "\n枚举名称 " + enumName
+                    + CheckSpace(value));
+            }
+        }
+
+        return result;
+    }
+
     static string CheckSpace(string content)
     {
-        if(content.Contains(" "))
+        if (content.Contains(" "))
         {
             return "\n注意文本里有空格";
         }

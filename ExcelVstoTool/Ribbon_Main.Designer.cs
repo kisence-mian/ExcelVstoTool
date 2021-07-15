@@ -164,7 +164,7 @@
             // button_dataInit
             // 
             this.button_dataInit.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button_dataInit.Label = "刷新外部数据";
+            this.button_dataInit.Label = "刷新数据";
             this.button_dataInit.Name = "button_dataInit";
             this.button_dataInit.OfficeImageId = "Refresh";
             this.button_dataInit.ShowImage = true;
@@ -201,7 +201,7 @@
             // 
             this.button_LanguageComment.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.button_LanguageComment.Enabled = false;
-            this.button_LanguageComment.Label = "查询到批注";
+            this.button_LanguageComment.Label = "多语言批注";
             this.button_LanguageComment.Name = "button_LanguageComment";
             this.button_LanguageComment.OfficeImageId = "ReviewEditComment";
             this.button_LanguageComment.ShowImage = true;

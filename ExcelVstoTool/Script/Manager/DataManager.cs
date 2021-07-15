@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Excel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -32,6 +33,14 @@ public static class DataManager
     /// </summary>
     static List<string> tableNameCache = new List<string>();
 
+    /// <summary>
+    /// 枚举缓存
+    /// </summary>
+    static Dictionary<string, List<string>> enumCache = new Dictionary<string, List<string>>();
+
+    /// <summary>
+    /// 枚举名称缓存
+    /// </summary>
     static List<string> enumNameCache = new List<string>();
 
     public static FieldType CurrentFieldType
@@ -84,12 +93,15 @@ public static class DataManager
     public static List<string> TableName { get => tableNameCache;  }
     public static List<string> EnumName { get => enumNameCache;  }
 
-    public static void Init()
+    public static void Init(Worksheet config)
     {
         IsEnable = true;
 
-        //清空缓存
+        //生成缓存
         GenerateLanguageCache();
+
+        //读取枚举设置
+        ReadEnumConfig(config);
     }
 
     static void GenerateLanguageCache()
@@ -136,6 +148,39 @@ public static class DataManager
         }
     }
 
+    static void ReadEnumConfig(Worksheet config)
+    {
+        int col = 5;
+        int row = 2;
+
+        enumNameCache = new List<string>();
+        enumCache = new Dictionary<string, List<string>>();
+
+        //横向读取枚举名称
+        while(!string.IsNullOrEmpty(config.Cells[row,col].Text))
+        {
+            //纵向读取枚举内容
+            string enumName = config.Cells[row, col].Text;
+            
+            enumNameCache.Add(enumName);
+
+            row++;
+            List<string> list = new List<string>();
+            while (!string.IsNullOrEmpty(config.Cells[row, col].Text))
+            {
+                string enumValue = config.Cells[row, col].Text;
+                list.Add(enumValue);
+
+                row++;
+            }
+
+            enumCache.Add(enumName, list);
+
+            row = 2;
+            col++;
+        }
+    }
+
     public static bool CheckDataFileNameExist( string fileName)
     {
         if (!IsEnable)
@@ -159,6 +204,18 @@ public static class DataManager
         if(dataCache.ContainsKey(tableName))
         {
             return dataCache[tableName].TableIDs;
+        }
+
+        return list;
+    }
+
+    public static List<string> GetEnumList(string enumName)
+    {
+        List<string> list = new List<string>();
+
+        if (enumCache.ContainsKey(enumName))
+        {
+            return enumCache[enumName];
         }
 
         return list;

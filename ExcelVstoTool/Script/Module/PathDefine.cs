@@ -43,4 +43,13 @@ public static class PathDefine
 
         return resourcesPath;
     }
+
+    public static string GetDataGeneratePath()
+    {
+        string filePath = Globals.ThisAddIn.Application.ActiveWorkbook.FullName;
+        string assetsPath = filePath.Substring(0, filePath.IndexOf(Const.c_DireName_Assets) + Const.c_DireName_Assets.Length);
+        string resourcesPath = assetsPath + @"\" + Const.c_DireName_Script + @"\" + Const.c_DireName_DataClassGenerate;
+
+        return resourcesPath;
+    }
 }

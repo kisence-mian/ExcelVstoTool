@@ -11,6 +11,8 @@ public static class Const
 
     public const string c_DireName_Assets = "Assets";
     public const string c_DireName_Resources = "Resources";
+    public const string c_DireName_Script = "Script";
+    public const string c_DireName_DataClassGenerate = "DataClassGenerate";
     public const string c_DireName_Data = "Data";
     public const string c_DireName_Language = "Language";
 

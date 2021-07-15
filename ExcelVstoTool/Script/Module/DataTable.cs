@@ -1086,14 +1086,13 @@ public enum DataFieldAssetType
     /// </summary>
     Prefab,
     /// <summary>
-    /// 关联其他表格的key
-    /// </summary>
-    TableKey,
-
-    /// <summary>
     /// 其他表格的名称
     /// </summary>
     TableName,
+    /// <summary>
+    /// 关联其他表格的key
+    /// </summary>
+    TableKey,
     /// <summary>
     /// 图片资源
     /// </summary>

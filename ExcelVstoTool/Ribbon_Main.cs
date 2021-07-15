@@ -31,7 +31,7 @@ namespace ExcelVstoTool
 
                 if (!DataManager.IsEnable)
                 {
-                    DataInit();
+                    DataInit(config);
                     UpdateDataUI();
                 }
 
@@ -88,16 +88,10 @@ namespace ExcelVstoTool
                 return;
             }
 
-            //获取真实路径
+            DateTime now = System.DateTime.Now;
 
-            if(checkBox_exportCheck.Checked)
-            {
-                if(!CheckAll())
-                {
-                    MessageBox.Show("导出失败： 校验未通过");
-                    return;
-                }
-            }
+            bool allSuccess = true;
+            Dictionary<string, DataTable> result = new Dictionary<string, DataTable>();
 
             //进行转换
             for (int i = 2; i < config.UsedRange.Rows.Count + 1; i++)
@@ -107,12 +101,40 @@ namespace ExcelVstoTool
                 if (!string.IsNullOrEmpty(dataConfig.m_sheetName) && !string.IsNullOrEmpty(dataConfig.GetTextPath()))
                 {
                     Worksheet wst = ExcelTool.GetSheet(Globals.ThisAddIn.Application, dataConfig.m_sheetName, true);
+                    DataTable dataTable = null;
 
-                    DataTool.Excel2Data(wst, dataConfig);
+                    //为了提高导出效率，所以尽量减少excel的读取次数
+                    //将检验过后的DataTable直接进行序列化
+                    if (checkBox_exportCheck.Checked)
+                    {
+                        dataTable = CheckTool.CheckSheet(wst, dataConfig);
+                        if (dataTable == null)
+                        {
+                            allSuccess = false;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        dataTable = DataTool.Excel2Table(wst, dataConfig);
+                    }
+
+                    result.Add(dataConfig.GetTextPath(), dataTable);
                 }
             }
 
-            MessageBox.Show("导出完毕");
+            if(allSuccess)
+            {
+                foreach (var item in result)
+                {
+                    FileTool.WriteStringByFile(item.Key, DataTable.Serialize(item.Value));
+                }
+                MessageBox.Show("导出完毕\n用时：" + (DateTime.Now - now).TotalSeconds + "s");
+            }
+            else
+            {
+                MessageBox.Show("导出失败");
+            }
         }
 
         private void button_ToExcel_Click(object sender, RibbonControlEventArgs e)
@@ -165,9 +187,6 @@ namespace ExcelVstoTool
                     info += "\n  " + nofindPath[i];
                 }
             }
-
-
-
             MessageBox.Show(info);
         }
 
@@ -177,13 +196,13 @@ namespace ExcelVstoTool
 
         private void button_dataInit_Click(object sender, RibbonControlEventArgs e)
         {
-            DataInit();
+            DataInit(GetConfigSheet());
             LanguageInit();
         }
 
-        void DataInit()
+        void DataInit(Worksheet config)
         {
-            DataManager.Init();
+            DataManager.Init(config);
 
             //构造类型的下拉列表
             dropDown_dataType.Items.Clear();
@@ -232,7 +251,7 @@ namespace ExcelVstoTool
                 if (!string.IsNullOrEmpty(dataConfig.m_sheetName) && !string.IsNullOrEmpty(dataConfig.GetTextPath()))
                 {
                     Worksheet wst = ExcelTool.GetSheet(Globals.ThisAddIn.Application, dataConfig.m_sheetName, true);
-                    if(!CheckTool.CheckSheet(wst, dataConfig))
+                    if(CheckTool.CheckSheet(wst, dataConfig) == null)
                     {
                         info += "\n->" + dataConfig.m_sheetName + " 校验未能通过";
                     }
@@ -245,28 +264,36 @@ namespace ExcelVstoTool
             MessageBox.Show(info);
         }
 
-        bool CheckAll()
-        {
-            bool result = true;
-            Worksheet config = GetConfigSheet();
-            //进行校验
-            for (int i = 2; i < config.UsedRange.Rows.Count + 1; i++)
-            {
-                DataConfig dataConfig = new DataConfig(config, i);
-
-                if (!string.IsNullOrEmpty(dataConfig.m_sheetName) && !string.IsNullOrEmpty(dataConfig.GetTextPath()))
-                {
-                    Worksheet wst = ExcelTool.GetSheet(Globals.ThisAddIn.Application, dataConfig.m_sheetName, true);
-                    
-                    result &= CheckTool.CheckSheet(wst, dataConfig);
-                }
-            }
-            return result;
-        }
-
         private void button_generateDataClass_Click(object sender, RibbonControlEventArgs e)
         {
+            DataConfig dataConfig = GetActiveDataConfig();
+            DataTable table = null;
 
+            DateTime now = System.DateTime.Now;
+
+            if (checkBox_exportCheck.Checked)
+            {
+                table = CheckTool.CheckSheet(GetActiveSheet(), dataConfig);
+            }
+            else
+            {
+                table = DataTool.Excel2Table(GetActiveSheet(), dataConfig);
+            }
+
+            if (table != null)
+            {
+                string dataName = dataConfig.m_txtName;
+                string csPath = PathDefine.GetDataGeneratePath() + @"\" + dataName + "Generate.cs";
+                string content = DataTool.CreateDataCSharpFile(dataName, table);
+
+                FileTool.WriteStringByFile(csPath, content);
+
+                MessageBox.Show("生成完毕\n用时：" + (DateTime.Now - now).TotalSeconds + "s");
+            }
+            else
+            {
+                MessageBox.Show("生成失败");
+            }
         }
 
         private void button_dataInfo_Click(object sender, RibbonControlEventArgs e)
@@ -526,7 +553,6 @@ namespace ExcelVstoTool
             {
                 //直接忽略
             }
-
         }
 
         private void button_deleteLanguageComment_Click(object sender, RibbonControlEventArgs e)
@@ -613,22 +639,38 @@ namespace ExcelVstoTool
 
         private void Language_OnSheetChange(Worksheet activeSheet)
         {
-
+            UpdateLanguageUI();
         }
-
 
         void Language_OnSelectChange(Worksheet sheet, Range range)
         {
-            if(LanguageManager.IsEnable)
+            UpdateLanguageUI();
+        }
+
+        void UpdateLanguageUI()
+        {
+            //依赖DataManager的解析
+            if (DataManager.IsEnable && LanguageManager.IsEnable)
             {
-                bool isLanguage = false;
+                button_LanguageComment.Enabled = IsConfigWorkSheet();
+                button_deleteLanguageComment.Enabled = IsConfigWorkSheet();
+
                 bool isCanChangeLanguage = false;
+                bool isCanOpenLanguage = false;
 
-                if(!isLanguage)
+                if (DataManager.CurrentFieldType == FieldType.String && IsConfigWorkSheet())
                 {
-
+                    if (DataManager.CurrentAssetType == DataFieldAssetType.LocalizedLanguage)
+                    {
+                        isCanOpenLanguage = true;
+                    }
+                    else
+                    {
+                        isCanChangeLanguage = true;
+                    }
                 }
 
+                button_openLanguageSheet.Enabled = isCanOpenLanguage;
                 button_changeLanguageColumn.Enabled = isCanChangeLanguage;
             }
         }
@@ -662,6 +704,8 @@ namespace ExcelVstoTool
             return ExcelTool.GetSheet(Globals.ThisAddIn.Application, Const.c_SheetName_Config);
         }
 
+
+
         Worksheet GetActiveSheet()
         {
             return Globals.ThisAddIn.Application.ActiveSheet;
@@ -671,6 +715,13 @@ namespace ExcelVstoTool
         {
             return DataConfig.IsWorkSheet(GetConfigSheet(), Globals.ThisAddIn.Application.ActiveSheet.Name);
         }
+
+        DataConfig GetActiveDataConfig()
+        {
+            Worksheet config = GetConfigSheet();
+            return new DataConfig(config, DataConfig.GetWorkIndex(config, Globals.ThisAddIn.Application.ActiveSheet.Name)); 
+        }
+
 
         void SetDropDown(RibbonDropDown dropDown,string content)
         {

@@ -45,6 +45,8 @@ public class DataConfig
         configSheet.Range["A1"].Value = "页签名称";
         configSheet.Range["B1"].Value = "文件名";
         configSheet.Range["C1"].Value = "覆盖公式";
+
+        configSheet.Range["E1"].Value = "枚举设置";
     }
 
     public static void AddSheetConfig(Worksheet configSheet,DataConfig config)
