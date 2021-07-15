@@ -186,9 +186,17 @@ public class CheckTool
         {
             string id = data.TableIDs[i];
             SingleData sData = data[id];
-            if (!dict.ContainsKey(sData.GetString(key)))
+            string value = sData.GetString(key);
+
+            //跳过空数据
+            if (string.IsNullOrEmpty(value))
             {
-                throw new Exception("找不到 预设资源 -> " + sData.GetString(key) + "<- 行 " + (i + 5) + " ID = " + id
+                continue;
+            }
+
+            if (!dict.ContainsKey(value))
+            {
+                throw new Exception("找不到 预设资源 -> " + value + "<- 行 " + (i + 5) + " ID = " + id
                     + CheckSpace(sData.GetString(key))); 
             }
         }
@@ -210,10 +218,17 @@ public class CheckTool
         {
             string id = data.TableIDs[i];
             SingleData sData = data[id];
+            string value = sData.GetString(key);
 
-            if (!dict.ContainsKey(sData.GetString(key)))
+            //跳过空数据
+            if (string.IsNullOrEmpty(value))
             {
-                throw new Exception("找不到 图片资源 -> " + sData.GetString(key)  + "<- 行 " + (i + 5) + " ID = " + id 
+                continue;
+            }
+
+            if (!dict.ContainsKey(value))
+            {
+                throw new Exception("找不到 图片资源 -> " + value + "<- 行 " + (i + 5) + " ID = " + id 
                     + CheckSpace(sData.GetString(key)));
             }
         }
@@ -234,6 +249,12 @@ public class CheckTool
             string id = data.TableIDs[i];
             SingleData sData = data[data.TableIDs[i]];
             string value = sData.GetString(key);
+
+            //跳过空数据
+            if(string.IsNullOrEmpty(value))
+            {
+                continue;
+            }
 
             string fileName = LanguageManager.GetFileName(value);
             string languageKey = LanguageManager.GetLanguageKey(value);
@@ -275,6 +296,12 @@ public class CheckTool
             string id = data.TableIDs[i];
             SingleData sData = data[data.TableIDs[i]];
             string value = sData.GetString(key);
+
+            //跳过空数据
+            if (string.IsNullOrEmpty(value))
+            {
+                continue;
+            }
 
             if (!DataManager.CheckDataFileNameExist(tableKey))
             {

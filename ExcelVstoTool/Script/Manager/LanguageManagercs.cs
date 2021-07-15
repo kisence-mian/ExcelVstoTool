@@ -72,7 +72,7 @@ public static class LanguageManager
                 string key = FileTool.RemoveExpandName(FileTool.GetFileNameByPath(list[j]));
                 try
                 {
-                    string simpleKey = key.Replace("LangData_" + language.ToString() + "_", "");
+                    string simpleKey = key.Replace(Const.c_LanguagePrefix +"_" + language.ToString() + "_", "");
 
                     string content = FileTool.ReadStringByFile(list[j]);
                     DataTable data = DataTable.Analysis(content);
@@ -146,6 +146,46 @@ public static class LanguageManager
         else
         {
             throw new Exception("找不到对应的语言类型 " + language);
+        }
+    }
+
+    public static string GetLanguageAcronym(SystemLanguage language)
+    {
+        switch(language)
+        {
+            case SystemLanguage.Chinese:
+            case SystemLanguage.ChineseSimplified:
+                return "cn";
+
+            case SystemLanguage.ChineseTraditional:
+                return "hk";
+
+            case SystemLanguage.English:
+                return "en";
+
+            case SystemLanguage.Japanese:
+                return "jp";
+
+            case SystemLanguage.Russian:
+                return "ru";
+        }
+
+
+        return ((int)language).ToString();
+    }
+
+    public static string GetLanguageContent(SystemLanguage language, string languageKey)
+    {
+        string fileName = GetFileName(languageKey);
+        string key = GetLanguageKey(languageKey); ;
+        try
+        {
+            SingleData sData = languageCache[language][fileName][key];
+            return sData.GetString("value");
+        }
+        catch (Exception e)
+        {
+            return "" + e.Message;
         }
     }
 }

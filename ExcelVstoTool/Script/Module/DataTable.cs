@@ -13,8 +13,8 @@ using System.Text;
         public const string c_noteTableTitle = "note";
         public const string c_fieldTypeTableTitle = "type";
 
-        const char c_EnumSplit = '|';
-        const char c_DataFieldAssetTypeSplit = '&';
+        public const char c_EnumSplit = '|';
+        public const char c_DataFieldAssetTypeSplit = '&';
 
         public string m_tableName;
 
@@ -1089,6 +1089,11 @@ public enum DataFieldAssetType
     /// 关联其他表格的key
     /// </summary>
     TableKey,
+
+    /// <summary>
+    /// 其他表格的名称
+    /// </summary>
+    TableName,
     /// <summary>
     /// 图片资源
     /// </summary>

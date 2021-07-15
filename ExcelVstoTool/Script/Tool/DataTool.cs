@@ -17,11 +17,11 @@ public class DataTool
         try
         {
             data = Excel2Table(excel, dataConfig);
-            FileTool.WriteStringByFile(dataConfig.m_txtPath, DataTable.Serialize(data));
+            FileTool.WriteStringByFile(dataConfig.GetTextPath(), DataTable.Serialize(data));
         }
         catch (Exception e)
         {
-            System.Windows.Forms.MessageBox.Show(dataConfig.m_txtPath + "->" + e.ToString());
+            System.Windows.Forms.MessageBox.Show(dataConfig.GetTextPath() + "->" + e.ToString());
         }
     }
 
@@ -108,7 +108,7 @@ public class DataTool
 
     public static void Data2Excel(DataConfig dataConfig, Worksheet excel)
     {
-        DataTable data = DataTable.Analysis(FileTool.ReadStringByFile(dataConfig.m_txtPath));
+        DataTable data = DataTable.Analysis(FileTool.ReadStringByFile(dataConfig.GetTextPath()));
 
         Worksheet _wsh = excel;
 
@@ -225,7 +225,7 @@ public class DataTool
         }
         catch (Exception e)
         {
-            Console.WriteLine(dataConfig.m_txtPath + "->" + e.ToString());
+            Console.WriteLine(dataConfig.GetTextPath() + "->" + e.ToString());
         }
     }
 }
