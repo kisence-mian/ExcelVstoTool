@@ -17,6 +17,9 @@ public static class Const
     public const string c_DireName_Language = "Language";
 
     public const string c_ConfigName_Language = "LanguageConfig.txt";
+    public const string c_LanguageData_mainKey = "key";
+    public const string c_LanguageData_valueKey = "value";
+    public const string c_LanguageData_defaultValue = "NoValue";
 
     public const string c_LanguagePrefix = "LangData";
 }

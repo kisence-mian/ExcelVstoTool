@@ -53,7 +53,9 @@ public static class DataManager
             {
                 currentAssetType = DataFieldAssetType.Data;
 
-                if(value == FieldType.Enum && enumNameCache.Count > 0)
+                if((value == FieldType.Enum 
+                    || value == FieldType.EnumArray)
+                    && enumNameCache.Count > 0)
                 {
                     currentSecType = enumNameCache[0];
                 }

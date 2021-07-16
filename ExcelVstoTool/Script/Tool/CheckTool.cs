@@ -84,6 +84,7 @@ public class CheckTool
                 switch (type)
                 {
                     case FieldType.Enum:
+                    case FieldType.EnumArray:
                         string enumType = data.m_tableSecTypes[key];
                         result &= CheckEnum(workSheet, data, config, key, enumType);
                         break;
@@ -169,26 +170,27 @@ public class CheckTool
             if(data.m_fieldAssetTypes.ContainsKey(key))
             {
                 DataFieldAssetType assetType = data.m_fieldAssetTypes[key];
+                FieldType type = data.m_tableTypes[key];
 
-                switch(assetType)
+                switch (assetType)
                 {
                     case DataFieldAssetType.Prefab:
-                        result &= CheckPerfab(workSheet,data,config,key);
+                        result &= CheckPerfab(workSheet,data,config,key, type);
                         break;
                     case DataFieldAssetType.Texture:
-                        result &= CheckTexture(workSheet, data, config, key);
+                        result &= CheckTexture(workSheet, data, config, key, type);
                         break;
                     case DataFieldAssetType.LocalizedLanguage:
-                        result &= CheckLanguage(workSheet, data, config, key);
+                        result &= CheckLanguage(workSheet, data, config, key, type);
                         break;
                     case DataFieldAssetType.TableName:
-                        result &= CheckTableName(workSheet, data, config, key); break;
+                        result &= CheckTableName(workSheet, data, config, key, type); break;
                     case DataFieldAssetType.TableKey:
 
                         if(data.m_tableSecTypes.ContainsKey(key))
                         {
                             string tableKey = data.m_tableSecTypes[key];
-                            result &= CheckTableKey(workSheet, data, config, key, tableKey);
+                            result &= CheckTableKey(workSheet, data, config, key, tableKey, type);
                         }
                         else
                         {
@@ -206,7 +208,7 @@ public class CheckTool
         return result;
     }
 
-    static bool CheckPerfab(Worksheet workSheet, DataTable data, DataConfig config,string key)
+    static bool CheckPerfab(Worksheet workSheet, DataTable data, DataConfig config,string key,FieldType fieldType)
     {
         bool result = true;
 
@@ -222,23 +224,19 @@ public class CheckTool
             SingleData sData = data[id];
             string value = sData.GetString(key);
 
-            //跳过空数据
-            if (string.IsNullOrEmpty(value))
-            {
-                continue;
-            }
-
-            if (!dict.ContainsKey(value))
+            if (!CheckSingleResource(fieldType, sData, key, (v) => {
+                return dict.ContainsKey(v);
+            }))
             {
                 throw new Exception("找不到 预设资源 -> " + value + "<- 行 " + (i + 5) + " ID = " + id
-                    + CheckSpace(sData.GetString(key))); 
+                    + CheckSpace(sData.GetString(key)));
             }
         }
 
         return result;
     }
 
-    static bool CheckTexture(Worksheet workSheet, DataTable data, DataConfig config, string key)
+    static bool CheckTexture(Worksheet workSheet, DataTable data, DataConfig config, string key, FieldType fieldType)
     {
         bool result = true;
 
@@ -260,7 +258,9 @@ public class CheckTool
                 continue;
             }
 
-            if (!dict.ContainsKey(value))
+            if (!CheckSingleResource(fieldType, sData, key, (v)=>{
+                return dict.ContainsKey(v);
+            }))
             {
                 throw new Exception("找不到 图片资源 -> " + value + "<- 行 " + (i + 5) + " ID = " + id 
                     + CheckSpace(sData.GetString(key)));
@@ -269,7 +269,36 @@ public class CheckTool
         return result;
     }
 
-    static bool CheckLanguage(Worksheet workSheet, DataTable data, DataConfig config, string key)
+    static bool CheckSingleResource(FieldType fieldType, SingleData sData, string key, CheckHandle handle)
+    {
+        if (fieldType == FieldType.String
+            || fieldType == FieldType.Enum)
+        {
+            string value = sData.GetString(key);
+            return handle(value);
+        }
+        else if (fieldType == FieldType.StringArray
+            || fieldType == FieldType.EnumArray)
+        {
+            string[] values = sData.GetStringArray(key);
+
+            for (int i = 0; i < values.Length; i++)
+            {
+                if (!handle(values[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        else
+        {
+            throw new Exception("意料之外的类型 " + fieldType);
+        }
+    }
+
+    static bool CheckLanguage(Worksheet workSheet, DataTable data, DataConfig config, string key, FieldType fieldType)
     {
         bool result = true;
 
@@ -285,29 +314,37 @@ public class CheckTool
             string value = sData.GetString(key);
 
             //跳过空数据
-            if(string.IsNullOrEmpty(value))
+            if (string.IsNullOrEmpty(value))
             {
                 continue;
             }
-
-            string fileName = LanguageManager.GetFileName(value);
-            string languageKey = LanguageManager.GetLanguageKey(value);
 
             for (int j = 0; j < LanguageManager.allLanuage.Count; j++)
             {
                 SystemLanguage language = LanguageManager.allLanuage[j];
 
-                if(!LanguageManager.CheckLanguageFileNameExist(language, fileName))
+                if (!CheckSingleResource(fieldType, sData, key, (v) =>
+                {
+                    string fileName = LanguageManager.GetFileName(v);
+                    string languageKey = LanguageManager.GetLanguageKey(v);
+                    return LanguageManager.CheckLanguageFileNameExist(language, fileName);
+                }))
                 {
                     throw new Exception("多语言Key错误 ->" + value + "<- 行 " + (i + 5) + " ID = " + id
-                        + "\n找不到 多语言文件 "+ fileName
+                        //+ "\n找不到 多语言文件 "+ fileName
                         + CheckSpace(value));
                 }
 
-                if (!LanguageManager.CheckLanguageExist(language, fileName, languageKey))
+                //if (!LanguageManager.CheckLanguageExist(language, fileName, languageKey))
+                if (!CheckSingleResource(fieldType, sData, key, (v) =>
                 {
-                    throw new Exception("多语言Key错误 ->" + value + "<- 行 " +(i + 5) + " ID = " + id
-                       + "\n找不到 多语言Key " + languageKey
+                    string fileName = LanguageManager.GetFileName(v);
+                    string languageKey = LanguageManager.GetLanguageKey(v);
+                    return LanguageManager.CheckLanguageExist(language, fileName, languageKey);
+                }))
+                {
+                    throw new Exception("多语言Key错误 ->" + value + "<- 行 " + (i + 5) + " ID = " + id
+                       //+ "\n找不到 多语言Key " + languageKey
                        + CheckSpace(value));
                 }
             }
@@ -316,7 +353,7 @@ public class CheckTool
         return result;
     }
 
-    static bool CheckTableKey(Worksheet workSheet, DataTable data, DataConfig config, string key,string tableKey)
+    static bool CheckTableKey(Worksheet workSheet, DataTable data, DataConfig config, string key, string tableKey, FieldType fieldType)
     {
         bool result = true;
 
@@ -337,14 +374,21 @@ public class CheckTool
                 continue;
             }
 
-            if (!DataManager.CheckDataFileNameExist(tableKey))
+
+            if (!CheckSingleResource(fieldType, sData, key, (v) =>
+            {
+                return DataManager.CheckDataFileNameExist(v);
+            }))
             {
                 throw new Exception("配置表Key错误 ->" + tableKey + "<- 行 2 ID=" + id
                     + "\n找不到 配置表文件 " + tableKey
                     + CheckSpace(tableKey));
             }
 
-            if (!DataManager.CheckDataExist(tableKey, value))
+            if (!CheckSingleResource(fieldType, sData, key, (v) =>
+            {
+                return DataManager.CheckDataExist(tableKey, v);
+            }))
             {
                 throw new Exception("配置表Key错误 ->" + value + "<- 行 " + (i + 5) + " ID = " + id
                    + "\n找不到 配置表Key " + value
@@ -355,7 +399,7 @@ public class CheckTool
         return result;
     }
 
-    static bool CheckTableName(Worksheet workSheet, DataTable data, DataConfig config, string key)
+    static bool CheckTableName(Worksheet workSheet, DataTable data, DataConfig config, string key, FieldType fieldType)
     {
         bool result = true;
 
@@ -376,9 +420,12 @@ public class CheckTool
                 continue;
             }
 
-            if (!DataManager.CheckDataFileNameExist(value))
+            if (!CheckSingleResource(fieldType, sData, key, (v) =>
             {
-                throw new Exception("配置表Key错误 ->" + value + "<- 行 "+ ( i + 5 ) + " ID=" + id
+                return DataManager.CheckDataFileNameExist(v);
+            }))
+            {
+                throw new Exception("配置表Key错误 ->" + value + "<- 行 " + (i + 5) + " ID=" + id
                     + "\n找不到 配置表文件 " + value
                     + CheckSpace(value));
             }
@@ -401,6 +448,7 @@ public class CheckTool
             string id = data.TableIDs[i];
             SingleData sData = data[data.TableIDs[i]];
             string value = sData.GetString(key);
+            FieldType fieldType = data.m_tableTypes[key];
 
             //跳过空数据
             if (string.IsNullOrEmpty(value))
@@ -408,7 +456,10 @@ public class CheckTool
                 continue;
             }
 
-            if (!DataManager.GetEnumList(enumName).Contains(value))
+            if (!CheckSingleResource(fieldType, sData, key, (v) =>
+            {
+                return DataManager.GetEnumList(enumName).Contains(v);
+            }))
             {
                 throw new Exception("找不到枚举 ->" + value + "<- 行 " + (i + 5) + " ID=" + id
                     + "\n枚举名称 " + enumName
@@ -444,5 +495,5 @@ public class CheckTool
         return dict;
     }
 
-
+    public delegate bool CheckHandle(string value);
 }

@@ -418,7 +418,9 @@ namespace ExcelVstoTool
         private void dropDown_dataType_SelectionChanged(object sender, RibbonControlEventArgs e)
         {
             DataManager.CurrentFieldType = (FieldType)Enum.Parse(typeof(FieldType), dropDown_dataType.SelectedItem.Label);
+
             ResetTypeString();
+            UpdateLanguageUI();
         }
 
         private void dropDown_assetsType_SelectionChanged(object sender, RibbonControlEventArgs e)
@@ -426,12 +428,14 @@ namespace ExcelVstoTool
             DataManager.CurrentAssetType = (DataFieldAssetType)Enum.Parse(typeof(DataFieldAssetType), dropDown_assetsType.SelectedItem.Label);
 
             ResetTypeString();
+            UpdateLanguageUI();
         }
 
         private void dropDown_secType_SelectionChanged(object sender, RibbonControlEventArgs e)
         {
             DataManager.CurrentSecType = dropDown_secType.SelectedItem.Label;
             ResetTypeString();
+            UpdateLanguageUI();
         }
 
         #endregion
@@ -520,7 +524,8 @@ namespace ExcelVstoTool
             }
 
             dropDown_dataType.Enabled = true;
-            if (DataManager.CurrentFieldType == FieldType.String)
+            if (DataManager.CurrentFieldType == FieldType.String 
+                || DataManager.CurrentFieldType == FieldType.StringArray)
             {
                 dropDown_assetsType.Enabled = true;
 
@@ -537,7 +542,8 @@ namespace ExcelVstoTool
                     dropDown_secType.Enabled = false;
                 }
             }
-            else if (DataManager.CurrentFieldType == FieldType.Enum)
+            else if (DataManager.CurrentFieldType == FieldType.Enum 
+                || DataManager.CurrentFieldType == FieldType.EnumArray)
             {
                 dropDown_secType.Enabled = true;
                 dropDown_assetsType.Enabled = false;
@@ -595,7 +601,8 @@ namespace ExcelVstoTool
                     dropDown_secType.Items.Add(tmp);
                 }
             }
-            else if (DataManager.CurrentFieldType == FieldType.Enum)
+            else if (DataManager.CurrentFieldType == FieldType.Enum 
+                || DataManager.CurrentFieldType == FieldType.EnumArray)
             {
                 List<string> list = DataManager.EnumName;
 
@@ -644,11 +651,6 @@ namespace ExcelVstoTool
 
             comboBox_currentLanguage.Enabled = LanguageManager.IsEnable;
 
-            button_LanguageComment.Enabled = LanguageManager.IsEnable;
-            button_deleteLanguageComment.Enabled = LanguageManager.IsEnable;
-            button_openLanguageSheet.Enabled = LanguageManager.IsEnable;
-            button_changeLanguageColumn.Enabled = LanguageManager.IsEnable;
-
             if (LanguageManager.IsEnable)
             {
                 //下拉框
@@ -663,6 +665,8 @@ namespace ExcelVstoTool
 
                 comboBox_currentLanguage.Text = LanguageManager.currentLanguage.ToString();
             }
+
+            UpdateLanguageUI();
         }
 
         #region 事件监听
@@ -816,7 +820,57 @@ namespace ExcelVstoTool
 
         private void button_changeLanguageColumn_Click(object sender, RibbonControlEventArgs e)
         {
-            MessageBox.Show("功能暂未实现");
+            
+            Worksheet sheet = GetActiveSheet();
+            DataConfig config = GetActiveDataConfig();
+
+            string fileName = config.m_txtName + "_" + GetCurrentKeyName();
+            int col = GetCurrentSelectRange().Column;
+            int row = 5;
+
+            //进行重名判断
+
+            if(LanguageManager.CheckLanguageFileNameExist(LanguageManager.currentLanguage, fileName))
+            {
+                MessageBox.Show(fileName + " 文件名已存在");
+                return;
+            }
+
+            //进行弹窗确认
+            MessageBoxButtons mess = MessageBoxButtons.OKCancel;
+            DialogResult dr = MessageBox.Show("确定要以 " + fileName + " 创建多语言文件吗？","提示", mess);
+
+            if(dr != DialogResult.OK)
+            {
+                return;
+            }
+
+            //构造语言数据
+            Dictionary<string, string> languageData = new Dictionary<string, string>();
+            while (!string.IsNullOrEmpty( sheet.Cells[row, 1].Text))
+            {
+                string key = sheet.Cells[row, 1].Text;
+                string value = sheet.Cells[row, col].Text;
+
+                languageData.Add(key, value);
+
+                //修改现有的表格
+                sheet.Cells[row, col].Value = (fileName + "_" + key).Replace("_", "/");
+
+                row++;
+            }
+
+            //构造新的多语言文件
+            LanguageManager.CreateLanguageFile(LanguageManager.currentLanguage, fileName, languageData);
+
+            //修改表头
+            DataManager.CurrentAssetType = DataFieldAssetType.LocalizedLanguage;
+            DataManager.CurrentSecType = fileName;
+
+            ResetTypeString();
+
+
+            MessageBox.Show("转换完毕");
         }
 
         private void button_LanguageInfo_Click(object sender, RibbonControlEventArgs e)
@@ -934,6 +988,13 @@ namespace ExcelVstoTool
         {
             //当前选中的单元格
             return  Globals.ThisAddIn.Application.Selection;
+        }
+
+        string GetCurrentKeyName()
+        {
+            Range range = GetCurrentSelectRange();
+
+            return GetActiveSheet().Cells[1, range.Column].Text;
         }
 
         bool IsConfigWorkSheet()

@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 public static class LanguageManager
 {
+
+
     /// <summary>
     /// 是否生效
     /// </summary>
@@ -200,7 +202,7 @@ public static class LanguageManager
         for (int i = 0; i < languageCache[language][fileName].TableIDs.Count; i++)
         {
             string id = languageCache[language][fileName].TableIDs[i];
-            string languageKey = (fileName + "_" + id).Replace("_","\\");
+            string languageKey = (fileName + "_" + id).Replace("_","/");
 
             list.Add(languageKey);
         }
@@ -221,5 +223,41 @@ public static class LanguageManager
         {
             return "" + e.Message;
         }
+    }
+
+    public static void CreateLanguageFile(SystemLanguage dataLanguage,string fileName,Dictionary<string,string> languageData)
+    {
+        for (int i = 0; i < allLanuage.Count; i++)
+        {
+            SystemLanguage language = allLanuage[i];
+
+            CreateSingleLanguageFile(language, fileName, languageData, language == dataLanguage);
+        }
+    }
+
+    static void CreateSingleLanguageFile(SystemLanguage language, string fileName, Dictionary<string, string> languageData,bool isFull)
+    {
+        DataTable data = new DataTable();
+        data.TableKeys.Add(Const.c_LanguageData_mainKey);
+        data.TableKeys.Add(Const.c_LanguageData_valueKey);
+        data.SetDefault(Const.c_LanguageData_valueKey, Const.c_LanguageData_defaultValue);
+
+        foreach (var item in languageData)
+        {
+            SingleData sd = new SingleData();
+            sd.Add(Const.c_LanguageData_mainKey, item.Key);
+
+            if(isFull)
+            {
+                sd.Add(Const.c_LanguageData_valueKey, item.Value);
+            }
+            data.AddData(sd);
+        }
+
+        //写入缓存
+        languageCache[language].Add(fileName,data);
+
+        string filePath = PathDefine.GetLanguageDataPath() +@"/" + language.ToString() + @"/" + Const.c_LanguagePrefix + "_" + language.ToString() + "_" + fileName + ".txt";
+        FileTool.WriteStringByFile(filePath,DataTable.Serialize(data));
     }
 }
