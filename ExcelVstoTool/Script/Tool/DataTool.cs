@@ -279,11 +279,12 @@ public class DataTool
                 {
                     m_ArraySplitFormat = data.m_ArraySplitFormat[key];
                 }
-                string note = ";";
 
                 if (data.m_noteValue.ContainsKey(key))
                 {
-                    note = @"; //" + data.m_noteValue[key];
+                    content += "\t" + @"/// <summary>" + "\n";
+                    content += "\t" + @"/// " + data.m_noteValue[key] + "\n";
+                    content += "\t" + @"/// </summary>" + "\n";
                 }
 
                 content += "\t";
@@ -291,16 +292,16 @@ public class DataTool
                 if (data.m_tableTypes.ContainsKey(key))
                 {
                     //访问类型 + 字段类型  + 字段名
-                    content += "public " + OutPutFieldName(data.m_tableTypes[key], enumType, m_ArraySplitFormat) + " m_" + key + note;
+                    content += "public " + OutPutFieldName(data.m_tableTypes[key], enumType, m_ArraySplitFormat) + " m_" + key + ";";
                 }
                 //默认字符类型
                 else
                 {
                     //访问类型 + 字符串类型 + 字段名 
-                    content += "public " + "string" + " m_" + key + note;
+                    content += "public " + "string" + " m_" + key + ";";
                 }
 
-                content += "\n";
+                content += "\n\n";
             }
         }
 

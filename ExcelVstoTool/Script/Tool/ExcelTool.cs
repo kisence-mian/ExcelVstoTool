@@ -79,4 +79,18 @@ public class ExcelTool
             System.Windows.Forms.MessageBox.Show("ClearSheet Exception " + e.ToString());
         }
     }
+
+    public static string Int2ColumnName(int index)
+    {
+        string columnName = "";
+
+        while (index > 0)
+        {
+            var modulo = (index - 1) % 26;
+            columnName = Convert.ToChar(65 + modulo) + columnName;
+            index = (index - modulo) / 26;
+        }
+
+        return columnName;
+    }
 }

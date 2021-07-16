@@ -12,7 +12,7 @@ public static class DataManager
     /// <summary>
     /// 是否生效
     /// </summary>
-    public static bool IsEnable = false;
+    private static bool isEnable = false;
 
     /// <summary>
     /// 是否选中在了有效区域内
@@ -92,10 +92,28 @@ public static class DataManager
     public static string CurrentSecType { get => currentSecType; set => currentSecType = value; }
     public static List<string> TableName { get => tableNameCache;  }
     public static List<string> EnumName { get => enumNameCache;  }
+    public static bool IsEnable {
+        get => isEnable;
+
+        set
+        {
+            isEnable = value;
+
+            if(!isEnable)
+            {
+                isWorkRange = false;
+
+                //全部默认值
+                CurrentFieldType = FieldType.String;
+                CurrentAssetType = DataFieldAssetType.Data;
+                CurrentSecType = "";
+            }
+        }
+    }
 
     public static void Init(Worksheet config)
     {
-        IsEnable = true;
+        isEnable = true;
 
         //生成缓存
         GenerateLanguageCache();
@@ -183,7 +201,7 @@ public static class DataManager
 
     public static bool CheckDataFileNameExist( string fileName)
     {
-        if (!IsEnable)
+        if (!isEnable)
             return true;
 
         return dataCache.ContainsKey(fileName);
@@ -191,11 +209,12 @@ public static class DataManager
 
     public static bool CheckDataExist( string fileName, string key)
     {
-        if (!IsEnable)
+        if (!isEnable)
             return true;
 
         return dataCache[fileName].ContainsKey(key);
     }
+
 
     public static List<string> GetTableKeyList(string tableName)
     {
@@ -221,27 +240,57 @@ public static class DataManager
         return list;
     }
 
-
-    /// <summary>
-    /// 解析
-    /// </summary>
-    /// <param name="typeString"></param>
-    public static void PaseToCurrentType(string typeString)
+    public static List<string> GetTextureList()
     {
-        if(typeString == null)
+        List<string> list = new List<string>();
+
+        //构造图片清单
+        List<string> res = FileTool.GetAllFileNamesByPath(PathDefine.GetResourcesPath(), new string[] { "png", "jpg", "jpeg" });
+
+        for (int i = 0; i < res.Count; i++)
         {
-            isWorkRange = false;
+            list.Add(FileTool.RemoveExpandName(FileTool.GetFileNameByPath(res[i])));
+        }
+
+        return list;
+    }
+
+    public static List<string> GetPrefabList()
+    {
+        List<string> list = new List<string>();
+
+        //构造预设清单
+        List<string> res = FileTool.GetAllFileNamesByPath(PathDefine.GetResourcesPath(), new string[] { "prefab" });
+
+        for (int i = 0; i < res.Count; i++)
+        {
+            list.Add(FileTool.RemoveExpandName(FileTool.GetFileNameByPath(res[i])));
+        }
+
+        return list;
+    }
+
+    public static FieldTypeStruct PaseToFieldStructType(string typeString)
+    {
+        FieldTypeStruct typeStruct = new FieldTypeStruct();
+
+        if (typeString == null)
+        {
+            //全部默认值
+            typeStruct.fieldType = FieldType.String;
+            typeStruct.assetType = DataFieldAssetType.Data;
+            typeStruct.secType = "";
         }
         else
         {
             isWorkRange = true;
 
-            if(typeString == "")
+            if (typeString == "")
             {
                 //全部默认值
-                CurrentFieldType = FieldType.String;
-                CurrentAssetType = DataFieldAssetType.Data;
-                CurrentSecType = "";
+                typeStruct.fieldType = FieldType.String;
+                typeStruct.assetType = DataFieldAssetType.Data;
+                typeStruct.secType = "";
             }
             else
             {
@@ -259,32 +308,58 @@ public static class DataManager
                         //data.m_ArraySplitFormat.Add(field, splitStr.ToCharArray());
                     }
 
-                    CurrentFieldType = (FieldType)Enum.Parse(typeof(FieldType), fieldType);
+                    typeStruct.fieldType = (FieldType)Enum.Parse(typeof(FieldType), fieldType);
 
                     if (content.Length > 1)
                     {
-                        CurrentSecType = content[1];
+                        typeStruct.secType = content[1];
                     }
                     else
                     {
-                        CurrentSecType = "";
+                        typeStruct.secType = "";
                     }
                 }
                 catch (Exception)
                 {
-                    CurrentFieldType = FieldType.String;
-                    CurrentSecType = "";
+                    typeStruct.fieldType = FieldType.String;
+                    typeStruct.secType = "";
                 }
 
                 if (tempType.Length > 1)
                 {
-                    CurrentAssetType =(DataFieldAssetType)Enum.Parse(typeof(DataFieldAssetType), tempType[1]);
+                    typeStruct.assetType = (DataFieldAssetType)Enum.Parse(typeof(DataFieldAssetType), tempType[1]);
                 }
                 else
                 {
-                    CurrentAssetType = DataFieldAssetType.Data;
+                    typeStruct.assetType = DataFieldAssetType.Data;
                 }
             }
+        }
+
+
+        return typeStruct;
+    }
+
+
+    /// <summary>
+    /// 解析
+    /// </summary>
+    /// <param name="typeString"></param>
+    public static void PaseToCurrentType(string typeString)
+    {
+        FieldTypeStruct typeStruct = PaseToFieldStructType(typeString);
+
+        CurrentFieldType = typeStruct.fieldType;
+        CurrentAssetType = typeStruct.assetType;
+        CurrentSecType = typeStruct.secType;
+
+        if (typeString == null)
+        {
+            isWorkRange = false;
+        }
+        else
+        {
+            isWorkRange = true;
         }
     }
 
@@ -304,4 +379,11 @@ public static class DataManager
 
         return typeString;
     }
+}
+
+public struct FieldTypeStruct
+{
+    public FieldType fieldType ;
+    public DataFieldAssetType assetType ;
+    public string secType;
 }

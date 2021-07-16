@@ -31,7 +31,7 @@ public class CheckTool
         }
         catch (Exception e)
         {
-            System.Windows.Forms.MessageBox.Show("校验出错 ->" + config.m_sheetName + " \n" + e.ToString());
+            System.Windows.Forms.MessageBox.Show("校验出错 ->" + config.m_sheetName + " \n" + e.Message);
             return null;
         }
         return data;

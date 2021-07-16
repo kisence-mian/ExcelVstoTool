@@ -174,6 +174,40 @@ public static class LanguageManager
         return ((int)language).ToString();
     }
 
+    public static List<string> GetLanguageFileNameList(SystemLanguage language)
+    {
+        List<string> list = new List<string>();
+
+        //允许空值
+        list.Add("");
+
+        foreach (string key in languageCache[language].Keys)
+        {
+            //排除其他空值
+            if(!string.IsNullOrEmpty(key))
+            {
+                list.Add(key);
+            }
+        }
+
+        return list;
+    }
+
+    public static List<string> GetLanguageKeyList(SystemLanguage language, string fileName)
+    {
+        List<string> list = new List<string>();
+
+        for (int i = 0; i < languageCache[language][fileName].TableIDs.Count; i++)
+        {
+            string id = languageCache[language][fileName].TableIDs[i];
+            string languageKey = (fileName + "_" + id).Replace("_","\\");
+
+            list.Add(languageKey);
+        }
+
+        return list;
+    }
+
     public static string GetLanguageContent(SystemLanguage language, string languageKey)
     {
         string fileName = GetFileName(languageKey);

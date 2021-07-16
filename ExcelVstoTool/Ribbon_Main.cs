@@ -20,7 +20,32 @@ namespace ExcelVstoTool
             Globals.ThisAddIn.Application.SheetSelectionChange += Application_SheetSelectionChange;//选中区域
         }
 
+        #region 生命周期派发
+
         private void Application_WorkbookActivate(Workbook Wb)
+        {
+            ConfigLogic();
+        }
+
+        private void Application_SheetActivate(object Sh)
+        {
+            ConfigLogic();
+            Data_OnSheetChange(Globals.ThisAddIn.Application.ActiveSheet);
+            Language_OnSheetChange(Globals.ThisAddIn.Application.ActiveSheet);
+        }
+
+        private void Application_SheetSelectionChange(object Sh, Range Target)
+        {
+            ConfigLogic();
+            Data_OnSelectChange(Globals.ThisAddIn.Application.ActiveSheet, Target);
+            Language_OnSelectChange(Globals.ThisAddIn.Application.ActiveSheet, Target);
+        }
+
+        #endregion
+
+        #region 设置
+
+        void ConfigLogic()
         {
             //如果读取到设置页签则自动进行初始化
             Worksheet config = GetConfigSheet();
@@ -28,6 +53,9 @@ namespace ExcelVstoTool
             {
                 //隐藏初始化按钮
                 button_initConfig.Visible = false;
+
+                SetDataUIEnabled(true);
+                SetLanguageUIEnable(true);
 
                 if (!DataManager.IsEnable)
                 {
@@ -40,23 +68,21 @@ namespace ExcelVstoTool
                     LanguageInit();
                 }
             }
+            else
+            {
+                button_initConfig.Visible = true;
+                DataManager.IsEnable = false;
+                LanguageManager.IsEnable = false;
+
+                SetDataUIEnabled(false);
+                SetLanguageUIEnable(false);
+            }
         }
 
-        private void Application_SheetActivate(object Sh)
-        {
-            Data_OnSheetChange(Globals.ThisAddIn.Application.ActiveSheet);
-            Language_OnSheetChange(Globals.ThisAddIn.Application.ActiveSheet);
-        }
-
-        private void Application_SheetSelectionChange(object Sh, Range Target)
-        {
-            Data_OnSelectChange(Globals.ThisAddIn.Application.ActiveSheet, Target);
-            Language_OnSelectChange(Globals.ThisAddIn.Application.ActiveSheet,Target);
-        }
         private void button_initData_Click(object sender, RibbonControlEventArgs e)
         {
             //判断 config 页是否存在
-            Worksheet config; 
+            Worksheet config;
 
             if (!ExcelTool.ExistSheetName(Globals.ThisAddIn.Application, Const.c_SheetName_Config))
             {
@@ -74,6 +100,8 @@ namespace ExcelVstoTool
             }
         }
 
+        #endregion
+
         #region 导入导出
 
         private void button_toTxt_Click(object sender, RibbonControlEventArgs e)
@@ -81,6 +109,10 @@ namespace ExcelVstoTool
             //先进行一次保存
             Globals.ThisAddIn.Application.ActiveWorkbook.Save();
             Worksheet config = GetConfigSheet();
+
+            //刷新一次数据
+            DataManager.Init(GetConfigSheet());
+            LanguageManager.Init();
 
             //没有初始化直接返回
             if (config == null)
@@ -100,7 +132,7 @@ namespace ExcelVstoTool
 
                 if (!string.IsNullOrEmpty(dataConfig.m_sheetName) && !string.IsNullOrEmpty(dataConfig.GetTextPath()))
                 {
-                    Worksheet wst = ExcelTool.GetSheet(Globals.ThisAddIn.Application, dataConfig.m_sheetName, true);
+                    Worksheet wst = GetSheet(dataConfig.m_sheetName, true);
                     DataTable dataTable = null;
 
                     //为了提高导出效率，所以尽量减少excel的读取次数
@@ -123,7 +155,7 @@ namespace ExcelVstoTool
                 }
             }
 
-            if(allSuccess)
+            if (allSuccess)
             {
                 foreach (var item in result)
                 {
@@ -145,7 +177,7 @@ namespace ExcelVstoTool
             Worksheet config = GetConfigSheet();
 
             //没有初始化直接返回
-            if(config == null)
+            if (config == null)
             {
                 return;
             }
@@ -161,9 +193,9 @@ namespace ExcelVstoTool
 
                 if (!string.IsNullOrEmpty(dataConfig.m_sheetName) && !string.IsNullOrEmpty(dataConfig.GetTextPath()))
                 {
-                    if(File.Exists(dataConfig.GetTextPath()))
+                    if (File.Exists(dataConfig.GetTextPath()))
                     {
-                        Worksheet wst = ExcelTool.GetSheet(Globals.ThisAddIn.Application, dataConfig.m_sheetName, true);
+                        Worksheet wst = GetSheet(dataConfig.m_sheetName, true);
                         DataTool.Data2Excel(dataConfig, wst);
                     }
                     else
@@ -194,19 +226,13 @@ namespace ExcelVstoTool
 
         #region 数据
 
-        private void button_dataInit_Click(object sender, RibbonControlEventArgs e)
-        {
-            DataInit(GetConfigSheet());
-            LanguageInit();
-        }
-
         void DataInit(Worksheet config)
         {
             DataManager.Init(config);
 
             //构造类型的下拉列表
             dropDown_dataType.Items.Clear();
-            foreach (FieldType fieldType in Enum.GetValues(typeof( FieldType)))
+            foreach (FieldType fieldType in Enum.GetValues(typeof(FieldType)))
             {
                 RibbonDropDownItem tmp = Globals.Factory.GetRibbonFactory().CreateRibbonDropDownItem();
 
@@ -224,8 +250,16 @@ namespace ExcelVstoTool
                 tmp.Label = assetsType.ToString();
                 dropDown_assetsType.Items.Add(tmp);
             }
+        }
 
-            //根据类型或者用途判断次级类型是否显示
+        #region 事件监听
+
+        #region UI交互事件
+
+        private void button_dataInit_Click(object sender, RibbonControlEventArgs e)
+        {
+            DataInit(GetConfigSheet());
+            LanguageInit();
         }
 
         private void button_check_Click(object sender, RibbonControlEventArgs e)
@@ -250,8 +284,8 @@ namespace ExcelVstoTool
 
                 if (!string.IsNullOrEmpty(dataConfig.m_sheetName) && !string.IsNullOrEmpty(dataConfig.GetTextPath()))
                 {
-                    Worksheet wst = ExcelTool.GetSheet(Globals.ThisAddIn.Application, dataConfig.m_sheetName, true);
-                    if(CheckTool.CheckSheet(wst, dataConfig) == null)
+                    Worksheet wst = GetSheet(dataConfig.m_sheetName, true);
+                    if (CheckTool.CheckSheet(wst, dataConfig) == null)
                     {
                         info += "\n->" + dataConfig.m_sheetName + " 校验未能通过";
                     }
@@ -296,6 +330,86 @@ namespace ExcelVstoTool
             }
         }
 
+        private void button_CreateDataDropDownList_Click(object sender, RibbonControlEventArgs e)
+        {
+            Worksheet sheet = GetActiveSheet();
+            int totalRow = sheet.UsedRange.Rows.Count;
+            int col = 2;
+            int row = 2;
+
+            while (!string.IsNullOrEmpty(sheet.Cells[row, col].Text))
+            {
+                string typeString = sheet.Cells[row, col].Text;
+                FieldTypeStruct typeStruct = DataManager.PaseToFieldStructType(typeString);
+                GenerateDropDownList(totalRow, col, typeStruct.fieldType, typeStruct.assetType, typeStruct.secType);
+
+                col++;
+            }
+        }
+
+        void GenerateDropDownList(int totalRow, int col,FieldType fieldType, DataFieldAssetType assetType,string secType)
+        {
+            //构造下拉列表
+            List<String> list = new List<string>();
+            if (DataManager.CurrentFieldType == FieldType.Enum)
+            {
+                list = DataManager.GetEnumList(DataManager.CurrentSecType);
+            }
+            else if (DataManager.CurrentFieldType == FieldType.String)
+            {
+                if (DataManager.CurrentAssetType == DataFieldAssetType.Texture)
+                {
+                    //数据量过大，暂不支持生成下拉列表
+                    //list = DataManager.GetTextureList();
+                }
+                else if (DataManager.CurrentAssetType == DataFieldAssetType.Prefab)
+                {
+                    //数据量过大，暂不支持生成下拉列表
+                    //list = DataManager.GetPrefabList();
+                }
+                else if (DataManager.CurrentAssetType == DataFieldAssetType.TableName)
+                {
+                    list = DataManager.TableName;
+                }
+                else if (DataManager.CurrentAssetType == DataFieldAssetType.TableKey)
+                {
+                    list = DataManager.GetTableKeyList(DataManager.CurrentSecType);
+                }
+                else if (DataManager.CurrentAssetType == DataFieldAssetType.LocalizedLanguage)
+                {
+                    if (DataManager.CurrentSecType != "")
+                    {
+                        list = LanguageManager.GetLanguageKeyList(LanguageManager.currentLanguage, DataManager.CurrentSecType);
+                    }
+                }
+            }
+
+            //确定下拉范围
+            string colName = ExcelTool.Int2ColumnName(col);
+            Range aimRange = GetActiveSheet().Range[colName + "4:" + colName + totalRow];
+
+            if (list.Count > 0)
+            {
+                string values = string.Join(",", list);
+                aimRange.Validation.Delete();
+                aimRange.Validation.Add(
+                    Microsoft.Office.Interop.Excel.XlDVType.xlValidateList,
+                    Microsoft.Office.Interop.Excel.XlDVAlertStyle.xlValidAlertStop,
+                    Microsoft.Office.Interop.Excel.XlFormatConditionOperator.xlBetween,
+                    values,
+                    Type.Missing);
+            }
+            else
+            {
+                aimRange.Validation.Delete();
+            }
+        }
+
+        private void button_ClearDropDownList_Click(object sender, RibbonControlEventArgs e)
+        {
+            GetActiveSheet().UsedRange.Validation.Delete();
+        }
+
         private void button_dataInfo_Click(object sender, RibbonControlEventArgs e)
         {
             MessageBox.Show("初始化后可以使用对外部表格和多语言Key的校验");
@@ -314,49 +428,15 @@ namespace ExcelVstoTool
             ResetTypeString();
         }
 
-        void ResetSecTypeDropDownItem()
-        {
-            dropDown_secType.Items.Clear();
-
-            if (DataManager.CurrentAssetType == DataFieldAssetType.TableKey)
-            {
-                List<string> list = DataManager.TableName;
-
-                for (int i = 0; i < list.Count; i++)
-                {
-                    RibbonDropDownItem tmp = Globals.Factory.GetRibbonFactory().CreateRibbonDropDownItem();
-
-                    tmp.Label = list[i];
-                    dropDown_secType.Items.Add(tmp);
-                }
-            }
-            else if(DataManager.CurrentFieldType == FieldType.Enum)
-            {
-                List<string> list = DataManager.EnumName;
-
-                for (int i = 0; i < list.Count; i++)
-                {
-                    RibbonDropDownItem tmp = Globals.Factory.GetRibbonFactory().CreateRibbonDropDownItem();
-
-                    tmp.Label = list[i];
-                    dropDown_secType.Items.Add(tmp);
-                }
-            }
-            else
-            {
-                RibbonDropDownItem tmp = Globals.Factory.GetRibbonFactory().CreateRibbonDropDownItem();
-
-                tmp.Label = "";
-                dropDown_secType.Items.Add(tmp);
-            }
-
-        }
-
         private void dropDown_secType_SelectionChanged(object sender, RibbonControlEventArgs e)
         {
             DataManager.CurrentSecType = dropDown_secType.SelectedItem.Label;
             ResetTypeString();
         }
+
+        #endregion
+
+        #region 生命周期回调
 
         private void Data_OnSheetChange(Worksheet activeSheet)
         {
@@ -367,14 +447,14 @@ namespace ExcelVstoTool
             }
         }
 
-        private void Data_OnSelectChange(Worksheet sheet,Range target)
+        private void Data_OnSelectChange(Worksheet sheet, Range target)
         {
             if (DataManager.IsEnable)
             {
                 if (IsConfigWorkSheet())
                 {
                     //第一列不处理
-                    if(target.Column == 1)
+                    if (target.Column == 1)
                     {
                         DataManager.PaseToCurrentType(null);
                         UpdateDataUI();
@@ -414,6 +494,12 @@ namespace ExcelVstoTool
             }
         }
 
+        #endregion
+
+        #endregion
+
+        #region UI更新逻辑
+
         void UpdateDataUI()
         {
             button_generateDataClass.Enabled = IsConfigWorkSheet();
@@ -437,8 +523,12 @@ namespace ExcelVstoTool
             if (DataManager.CurrentFieldType == FieldType.String)
             {
                 dropDown_assetsType.Enabled = true;
-                
+
                 if (DataManager.CurrentAssetType == DataFieldAssetType.TableKey)
+                {
+                    dropDown_secType.Enabled = true;
+                }
+                else if (DataManager.CurrentAssetType == DataFieldAssetType.LocalizedLanguage)
                 {
                     dropDown_secType.Enabled = true;
                 }
@@ -459,9 +549,77 @@ namespace ExcelVstoTool
             }
         }
 
+        private void SetDataUIEnabled(bool isEnable)
+        {
+            button_refreshData.Enabled = isEnable;
+
+            button_ToExcel.Enabled = isEnable;
+            button_toTxt.Enabled = isEnable;
+
+            button_check.Enabled = isEnable;
+            button_CreateDataDropDownList.Enabled = isEnable;
+            button_generateDataClass.Enabled = isEnable;
+
+            dropDown_assetsType.Enabled = isEnable;
+            dropDown_dataType.Enabled = isEnable;
+            dropDown_secType.Enabled = isEnable;
+
+            UpdateDataUI();
+        }
+
+        void ResetSecTypeDropDownItem()
+        {
+            dropDown_secType.Items.Clear();
+
+            if (DataManager.CurrentAssetType == DataFieldAssetType.TableKey)
+            {
+                List<string> list = DataManager.TableName;
+
+                for (int i = 0; i < list.Count; i++)
+                {
+                    RibbonDropDownItem tmp = Globals.Factory.GetRibbonFactory().CreateRibbonDropDownItem();
+
+                    tmp.Label = list[i];
+                    dropDown_secType.Items.Add(tmp);
+                }
+            }
+            if (DataManager.CurrentAssetType == DataFieldAssetType.LocalizedLanguage)
+            {
+                List<string> list = LanguageManager.GetLanguageFileNameList(LanguageManager.currentLanguage);
+
+                for (int i = 0; i < list.Count; i++)
+                {
+                    RibbonDropDownItem tmp = Globals.Factory.GetRibbonFactory().CreateRibbonDropDownItem();
+
+                    tmp.Label = list[i];
+                    dropDown_secType.Items.Add(tmp);
+                }
+            }
+            else if (DataManager.CurrentFieldType == FieldType.Enum)
+            {
+                List<string> list = DataManager.EnumName;
+
+                for (int i = 0; i < list.Count; i++)
+                {
+                    RibbonDropDownItem tmp = Globals.Factory.GetRibbonFactory().CreateRibbonDropDownItem();
+
+                    tmp.Label = list[i];
+                    dropDown_secType.Items.Add(tmp);
+                }
+            }
+            else
+            {
+                RibbonDropDownItem tmp = Globals.Factory.GetRibbonFactory().CreateRibbonDropDownItem();
+
+                tmp.Label = "";
+                dropDown_secType.Items.Add(tmp);
+            }
+
+        }
+
         void ResetTypeString()
         {
-            if(DataManager.IsEnable && DataManager.isWorkRange)
+            if (DataManager.IsEnable && DataManager.isWorkRange)
             {
                 Worksheet sheet = GetActiveSheet();
                 //当前选中的单元格
@@ -476,6 +634,8 @@ namespace ExcelVstoTool
 
         #endregion
 
+        #endregion
+
         #region 多语言
 
         void LanguageInit()
@@ -484,10 +644,10 @@ namespace ExcelVstoTool
 
             comboBox_currentLanguage.Enabled = LanguageManager.IsEnable;
 
-            button_LanguageComment.Enabled       = LanguageManager.IsEnable;
+            button_LanguageComment.Enabled = LanguageManager.IsEnable;
             button_deleteLanguageComment.Enabled = LanguageManager.IsEnable;
-            button_openLanguageSheet.Enabled     = LanguageManager.IsEnable;
-            button_changeLanguageColumn.Enabled  = LanguageManager.IsEnable;
+            button_openLanguageSheet.Enabled = LanguageManager.IsEnable;
+            button_changeLanguageColumn.Enabled = LanguageManager.IsEnable;
 
             if (LanguageManager.IsEnable)
             {
@@ -505,6 +665,10 @@ namespace ExcelVstoTool
             }
         }
 
+        #region 事件监听
+
+        #region UI交互事件
+
         private void comboBox_currentLanguage_TextChanged(object sender, RibbonControlEventArgs e)
         {
             LanguageManager.currentLanguage = (SystemLanguage)Enum.Parse(typeof(SystemLanguage), comboBox_currentLanguage.Text);
@@ -515,12 +679,12 @@ namespace ExcelVstoTool
             //只影响当前页面
             //判断当前页面是否是工作页面
 
-            if(IsConfigWorkSheet())
+            if (IsConfigWorkSheet())
             {
                 Worksheet worksheet = Globals.ThisAddIn.Application.ActiveSheet;
                 //找到文件中所有多语言项
                 int index = 1;
-                while(!string.IsNullOrEmpty(worksheet.Cells[2,index].Value))
+                while (!string.IsNullOrEmpty(worksheet.Cells[2, index].Value))
                 {
                     string value = worksheet.Cells[2, index].Value;
                     if (value.Contains(FieldType.String + "&" + DataFieldAssetType.LocalizedLanguage))
@@ -530,7 +694,7 @@ namespace ExcelVstoTool
                         {
                             string content = worksheet.Cells[row, index].Value;
 
-                            if(string.IsNullOrEmpty(content))
+                            if (string.IsNullOrEmpty(content))
                             {
                                 continue;
                             }
@@ -597,8 +761,9 @@ namespace ExcelVstoTool
                 return;
             }
 
-            string filePath = Const.c_LanguagePrefix +"_" + LanguageManager.currentLanguage + "_"+ LanguageManager.GetFileName(selectValue);
+            string filePath = Const.c_LanguagePrefix + "_" + LanguageManager.currentLanguage + "_" + LanguageManager.GetFileName(selectValue);
             string sheetName = LanguageManager.GetLanguageAcronym(LanguageManager.currentLanguage) + "_" + LanguageManager.GetFileName(selectValue);
+            string key = LanguageManager.GetLanguageKey(selectValue);
 
             if (string.IsNullOrEmpty(LanguageManager.GetFileName(selectValue)) && LanguageManager.CheckLanguageFileNameExist(LanguageManager.currentLanguage, sheetName))
             {
@@ -627,15 +792,41 @@ namespace ExcelVstoTool
 
             if (File.Exists(dataConfig.GetTextPath()))
             {
-                Worksheet wst = ExcelTool.GetSheet(Globals.ThisAddIn.Application, dataConfig.m_sheetName, true);
+                Worksheet wst = GetSheet(dataConfig.m_sheetName, true);
                 DataTool.Data2Excel(dataConfig, wst);
 
                 //激活目标页签
                 wst.Activate();
 
+                int row = 1;
                 //选中目标内容
+                while (!string.IsNullOrEmpty(wst.Cells[row, 1].Text))
+                {
+                    string value = wst.Cells[row, 1].Text;
+                    if (value  == key)
+                    {
+                        wst.Cells[row, 2].Select();
+                        break;
+                    }
+
+                    row++;
+                }
             }
         }
+
+        private void button_changeLanguageColumn_Click(object sender, RibbonControlEventArgs e)
+        {
+            MessageBox.Show("功能暂未实现");
+        }
+
+        private void button_LanguageInfo_Click(object sender, RibbonControlEventArgs e)
+        {
+            MessageBox.Show("此功能需要读取 Resources\\Data\\Language\\LanguageConfig.txt 的配置 \n 如果该配置不存在，功能不可用");
+        }
+
+        #endregion
+
+        #region 生命周期
 
         private void Language_OnSheetChange(Worksheet activeSheet)
         {
@@ -646,6 +837,13 @@ namespace ExcelVstoTool
         {
             UpdateLanguageUI();
         }
+
+
+        #endregion
+
+        #endregion
+
+        #region UI更新逻辑
 
         void UpdateLanguageUI()
         {
@@ -658,7 +856,9 @@ namespace ExcelVstoTool
                 bool isCanChangeLanguage = false;
                 bool isCanOpenLanguage = false;
 
-                if (DataManager.CurrentFieldType == FieldType.String && IsConfigWorkSheet())
+                if (DataManager.CurrentFieldType == FieldType.String
+                    && IsConfigWorkSheet()
+                    && DataManager.isWorkRange)
                 {
                     if (DataManager.CurrentAssetType == DataFieldAssetType.LocalizedLanguage)
                     {
@@ -675,15 +875,19 @@ namespace ExcelVstoTool
             }
         }
 
-        private void button_changeLanguageColumn_Click(object sender, RibbonControlEventArgs e)
+
+        private void SetLanguageUIEnable(bool isEnable)
         {
-            MessageBox.Show("功能暂未实现");
+            button_LanguageComment.Enabled = isEnable;
+            button_deleteLanguageComment.Enabled = isEnable;
+
+            button_openLanguageSheet.Enabled = isEnable;
+            button_changeLanguageColumn.Enabled = isEnable;
+
+            comboBox_currentLanguage.Enabled = isEnable;
         }
 
-        private void button_LanguageInfo_Click(object sender, RibbonControlEventArgs e)
-        {
-            MessageBox.Show("此功能需要读取 Resources\\Data\\Language\\LanguageConfig.txt 的配置 \n 如果该配置不存在，功能不可用");
-        }
+        #endregion
 
         #endregion
 
@@ -699,11 +903,26 @@ namespace ExcelVstoTool
             }
         }
 
-        Worksheet GetConfigSheet()
+        Worksheet GetSheet(string shetName, bool isCreate = false)
         {
-            return ExcelTool.GetSheet(Globals.ThisAddIn.Application, Const.c_SheetName_Config);
+            if (!ExcelTool.ExistSheetName(Globals.ThisAddIn.Application, Const.c_SheetName_Config))
+            {
+                return null;
+            }
+
+            return ExcelTool.GetSheet(Globals.ThisAddIn.Application, shetName, isCreate);
         }
 
+
+        Worksheet GetConfigSheet()
+        {
+            if (!ExcelTool.ExistSheetName(Globals.ThisAddIn.Application, Const.c_SheetName_Config))
+            {
+                return null;
+            }
+
+            return ExcelTool.GetSheet(Globals.ThisAddIn.Application, Const.c_SheetName_Config);
+        }
 
 
         Worksheet GetActiveSheet()
@@ -711,23 +930,33 @@ namespace ExcelVstoTool
             return Globals.ThisAddIn.Application.ActiveSheet;
         }
 
+        Range GetCurrentSelectRange()
+        {
+            //当前选中的单元格
+            return  Globals.ThisAddIn.Application.Selection;
+        }
+
         bool IsConfigWorkSheet()
         {
+            if (!ExcelTool.ExistSheetName(Globals.ThisAddIn.Application, Const.c_SheetName_Config))
+            {
+                return false;
+            }
+
             return DataConfig.IsWorkSheet(GetConfigSheet(), Globals.ThisAddIn.Application.ActiveSheet.Name);
         }
 
         DataConfig GetActiveDataConfig()
         {
             Worksheet config = GetConfigSheet();
-            return new DataConfig(config, DataConfig.GetWorkIndex(config, Globals.ThisAddIn.Application.ActiveSheet.Name)); 
+            return new DataConfig(config, DataConfig.GetWorkIndex(config, Globals.ThisAddIn.Application.ActiveSheet.Name));
         }
 
-
-        void SetDropDown(RibbonDropDown dropDown,string content)
+        void SetDropDown(RibbonDropDown dropDown, string content)
         {
             for (int i = 0; i < dropDown.Items.Count; i++)
             {
-                if(dropDown.Items[i].Label == content)
+                if (dropDown.Items[i].Label == content)
                 {
                     dropDown.SelectedItem = dropDown.Items[i];
                 }
@@ -735,5 +964,7 @@ namespace ExcelVstoTool
         }
 
         #endregion
+
+
     }
 }

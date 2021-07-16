@@ -46,7 +46,7 @@
             this.group_language = this.Factory.CreateRibbonGroup();
             this.comboBox_currentLanguage = this.Factory.CreateRibbonComboBox();
             this.button_initConfig = this.Factory.CreateRibbonButton();
-            this.button_dataInit = this.Factory.CreateRibbonButton();
+            this.button_refreshData = this.Factory.CreateRibbonButton();
             this.button_ToExcel = this.Factory.CreateRibbonButton();
             this.button_toTxt = this.Factory.CreateRibbonButton();
             this.button_check = this.Factory.CreateRibbonButton();
@@ -56,6 +56,8 @@
             this.button_changeLanguageColumn = this.Factory.CreateRibbonButton();
             this.button_LanguageInfo = this.Factory.CreateRibbonButton();
             this.button_generateDataClass = this.Factory.CreateRibbonButton();
+            this.button_CreateDataDropDownList = this.Factory.CreateRibbonButton();
+            this.button_ClearDropDownList = this.Factory.CreateRibbonButton();
             this.tab_main.SuspendLayout();
             this.group_main.SuspendLayout();
             this.group_InOut.SuspendLayout();
@@ -76,7 +78,7 @@
             // group_main
             // 
             this.group_main.Items.Add(this.button_initConfig);
-            this.group_main.Items.Add(this.button_dataInit);
+            this.group_main.Items.Add(this.button_refreshData);
             this.group_main.Items.Add(this.checkBox_CloseView);
             this.group_main.Items.Add(this.checkBox_exportCheck);
             this.group_main.Label = "设置";
@@ -104,6 +106,8 @@
             // group_Data
             // 
             this.group_Data.Items.Add(this.button_check);
+            this.group_Data.Items.Add(this.button_CreateDataDropDownList);
+            this.group_Data.Items.Add(this.button_ClearDropDownList);
             this.group_Data.Items.Add(this.button_generateDataClass);
             this.group_Data.Items.Add(this.dropDown_dataType);
             this.group_Data.Items.Add(this.dropDown_assetsType);
@@ -161,14 +165,14 @@
             this.button_initConfig.ShowImage = true;
             this.button_initConfig.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_initData_Click);
             // 
-            // button_dataInit
+            // button_refreshData
             // 
-            this.button_dataInit.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button_dataInit.Label = "刷新数据";
-            this.button_dataInit.Name = "button_dataInit";
-            this.button_dataInit.OfficeImageId = "Refresh";
-            this.button_dataInit.ShowImage = true;
-            this.button_dataInit.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_dataInit_Click);
+            this.button_refreshData.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.button_refreshData.Label = "刷新数据";
+            this.button_refreshData.Name = "button_refreshData";
+            this.button_refreshData.OfficeImageId = "Refresh";
+            this.button_refreshData.ShowImage = true;
+            this.button_refreshData.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_dataInit_Click);
             // 
             // button_ToExcel
             // 
@@ -255,6 +259,24 @@
             this.button_generateDataClass.ShowImage = true;
             this.button_generateDataClass.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_generateDataClass_Click);
             // 
+            // button_CreateDataDropDownList
+            // 
+            this.button_CreateDataDropDownList.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.button_CreateDataDropDownList.Label = "打开下拉列表";
+            this.button_CreateDataDropDownList.Name = "button_CreateDataDropDownList";
+            this.button_CreateDataDropDownList.OfficeImageId = "TablePropertiesDialog";
+            this.button_CreateDataDropDownList.ShowImage = true;
+            this.button_CreateDataDropDownList.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_CreateDataDropDownList_Click);
+            // 
+            // button_ClearDropDownList
+            // 
+            this.button_ClearDropDownList.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.button_ClearDropDownList.Label = "清除下拉列表";
+            this.button_ClearDropDownList.Name = "button_ClearDropDownList";
+            this.button_ClearDropDownList.OfficeImageId = "TableDeleteRowsAndColumnsMenuWord";
+            this.button_ClearDropDownList.ShowImage = true;
+            this.button_ClearDropDownList.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_ClearDropDownList_Click);
+            // 
             // Ribbon_Main
             // 
             this.Name = "Ribbon_Main";
@@ -291,7 +313,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_changeLanguageColumn;
         internal Microsoft.Office.Tools.Ribbon.RibbonComboBox comboBox_currentLanguage;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_LanguageInfo;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton button_dataInit;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button_refreshData;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_openLanguageSheet;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_LanguageComment;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_deleteLanguageComment;
@@ -299,6 +321,8 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonDropDown dropDown_assetsType;
         internal Microsoft.Office.Tools.Ribbon.RibbonDropDown dropDown_secType;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_generateDataClass;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button_CreateDataDropDownList;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button_ClearDropDownList;
     }
 
     partial class ThisRibbonCollection
