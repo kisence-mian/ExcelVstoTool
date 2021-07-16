@@ -8,6 +8,13 @@ using System.Threading.Tasks;
 
 public static class PathDefine
 {
+    public static bool IsAssetsPath()
+    {
+        string filePath = Globals.ThisAddIn.Application.ActiveWorkbook.FullName;
+        return filePath.Contains(Const.c_DireName_Assets);
+    }
+
+
     public static string GetResourcesPath()
     {
         string filePath = Globals.ThisAddIn.Application.ActiveWorkbook.FullName;

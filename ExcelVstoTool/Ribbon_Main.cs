@@ -86,6 +86,13 @@ namespace ExcelVstoTool
 
             if (!ExcelTool.ExistSheetName(Globals.ThisAddIn.Application, Const.c_SheetName_Config))
             {
+                //判断文件是否存在于项目资源路径下
+                if(!PathDefine.IsAssetsPath())
+                {
+                    MessageBox.Show("工作簿没有放在 项目 " + Const.c_DireName_Assets + " 路径下");
+                    return;
+                }
+
                 //创建一个Config 页面
                 config = ExcelTool.CreateSheet(Globals.ThisAddIn.Application, Const.c_SheetName_Config);
 
@@ -351,37 +358,41 @@ namespace ExcelVstoTool
         {
             //构造下拉列表
             List<String> list = new List<string>();
-            if (DataManager.CurrentFieldType == FieldType.Enum)
+            if (fieldType == FieldType.Enum)
             {
                 list = DataManager.GetEnumList(DataManager.CurrentSecType);
             }
-            else if (DataManager.CurrentFieldType == FieldType.String)
+            else if (fieldType == FieldType.String)
             {
-                if (DataManager.CurrentAssetType == DataFieldAssetType.Texture)
+                if (assetType == DataFieldAssetType.Texture)
                 {
-                    //数据量过大，暂不支持生成下拉列表
-                    //list = DataManager.GetTextureList();
+                    list = DataManager.GetTextureList();
                 }
-                else if (DataManager.CurrentAssetType == DataFieldAssetType.Prefab)
+                else if (assetType == DataFieldAssetType.Prefab)
                 {
-                    //数据量过大，暂不支持生成下拉列表
-                    //list = DataManager.GetPrefabList();
+                    list = DataManager.GetPrefabList();
                 }
-                else if (DataManager.CurrentAssetType == DataFieldAssetType.TableName)
+                else if (assetType == DataFieldAssetType.TableName)
                 {
                     list = DataManager.TableName;
                 }
-                else if (DataManager.CurrentAssetType == DataFieldAssetType.TableKey)
+                else if (assetType == DataFieldAssetType.TableKey)
                 {
                     list = DataManager.GetTableKeyList(DataManager.CurrentSecType);
                 }
-                else if (DataManager.CurrentAssetType == DataFieldAssetType.LocalizedLanguage)
+                else if (assetType == DataFieldAssetType.LocalizedLanguage)
                 {
-                    if (DataManager.CurrentSecType != "")
+                    if (secType != "")
                     {
-                        list = LanguageManager.GetLanguageKeyList(LanguageManager.currentLanguage, DataManager.CurrentSecType);
+                        list = LanguageManager.GetLanguageKeyList(LanguageManager.currentLanguage, secType);
                     }
                 }
+            }
+
+            //只保留前50的数据，避免报错
+            if(list.Count > 5)
+            {
+                list.RemoveRange(5, list.Count - 5);
             }
 
             //确定下拉范围

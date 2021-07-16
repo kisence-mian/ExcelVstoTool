@@ -262,7 +262,7 @@
             // button_CreateDataDropDownList
             // 
             this.button_CreateDataDropDownList.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button_CreateDataDropDownList.Label = "打开下拉列表";
+            this.button_CreateDataDropDownList.Label = "生成下拉列表";
             this.button_CreateDataDropDownList.Name = "button_CreateDataDropDownList";
             this.button_CreateDataDropDownList.OfficeImageId = "TablePropertiesDialog";
             this.button_CreateDataDropDownList.ShowImage = true;
