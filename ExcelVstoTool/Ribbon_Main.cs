@@ -559,6 +559,8 @@ namespace ExcelVstoTool
         void UpdateDataUI()
         {
             button_generateDataClass.Enabled = IsConfigWorkSheet();
+            button_CreateDataDropDownList.Enabled = IsConfigWorkSheet();
+            button_ClearDropDownList.Enabled = IsConfigWorkSheet();
 
             ResetSecTypeDropDownItem();
 

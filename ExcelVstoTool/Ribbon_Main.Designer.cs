@@ -87,7 +87,7 @@
             // checkBox_CloseView
             // 
             this.checkBox_CloseView.Checked = true;
-            this.checkBox_CloseView.Label = "关闭窗口以提高执行效率";
+            this.checkBox_CloseView.Label = "导入时隐藏窗口以提高效率";
             this.checkBox_CloseView.Name = "checkBox_CloseView";
             // 
             // checkBox_exportCheck
