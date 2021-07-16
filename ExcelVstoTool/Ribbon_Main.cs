@@ -237,6 +237,56 @@ namespace ExcelVstoTool
             MessageBox.Show(info);
         }
 
+        private void button_CreateNewTable_Click(object sender, RibbonControlEventArgs e)
+        {
+            Worksheet config = GetConfigSheet();
+
+            //没有初始化直接返回
+            if (config == null)
+            {
+                return;
+            }
+
+            List<string> newList = new List<string>();
+
+            //进行转换
+            for (int i = 2; i < config.UsedRange.Rows.Count + 1; i++)
+            {
+                DataConfig dataConfig = new DataConfig(config, i);
+
+                //只有不存在的表格才会进行创建
+                if (!string.IsNullOrEmpty(dataConfig.m_sheetName) 
+                    && !string.IsNullOrEmpty(dataConfig.m_txtName)
+                    && !dataConfig.GetFileIsExist())
+                {
+                    string fileName = PathDefine.GetDataPath() + @"\" + dataConfig.m_txtName + ".txt";
+                    Worksheet wst = GetSheet(dataConfig.m_sheetName, true);
+                    //创建一个新表格到目标位置
+                    DataTool.CreateNewData(fileName);
+
+                    DataTool.Data2Excel(dataConfig, wst);
+
+                    newList.Add(dataConfig.m_sheetName + "|" + dataConfig.m_txtName);
+                }
+            }
+
+            if(newList.Count == 0)
+            {
+                MessageBox.Show("没有新表被创建");
+            }
+            else
+            {
+                string info = "创建完成";
+
+                for (int i = 0; i < newList.Count; i++)
+                {
+                    info += "\n->" + newList[i];
+                }
+
+                MessageBox.Show(info);
+            }
+        }
+
         #endregion
 
         #region 数据
@@ -613,12 +663,15 @@ namespace ExcelVstoTool
         {
             button_refreshData.Enabled = isEnable;
 
+            button_createNewTable.Enabled = isEnable;
             button_ToExcel.Enabled = isEnable;
             button_toTxt.Enabled = isEnable;
 
             button_check.Enabled = isEnable;
             button_CreateDataDropDownList.Enabled = isEnable;
+            button_ClearDropDownList.Enabled = isEnable;
             button_generateDataClass.Enabled = isEnable;
+            
 
             dropDown_assetsType.Enabled = isEnable;
             dropDown_dataType.Enabled = isEnable;
@@ -1078,8 +1131,8 @@ namespace ExcelVstoTool
             }
         }
 
-        #endregion
 
+        #endregion
 
     }
 }

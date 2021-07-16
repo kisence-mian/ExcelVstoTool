@@ -228,6 +228,18 @@ public class DataTool
             Console.WriteLine(dataConfig.GetTextPath() + "->" + e.ToString());
         }
     }
+
+    public static void CreateNewData(string filePath)
+    {
+        DataTable data = new DataTable();
+        data.TableKeys.Add(Const.c_LanguageData_mainKey);
+        data.TableKeys.Add(Const.c_LanguageData_valueKey);
+        data.SetDefault(Const.c_LanguageData_valueKey, "这里填写默认值");
+        data.SetNote(Const.c_LanguageData_valueKey, "这里填写描述");
+
+        FileTool.WriteStringByFile(filePath, DataTable.Serialize(data));
+    }
+
     #region 自动生成代码
 
     /// <summary>

@@ -130,4 +130,28 @@ public class DataConfig
             return null;
         }
     }
+
+    public bool GetFileIsExist()
+    {
+        //如果是绝对路径不进行转化
+        if (m_txtName.Contains(":")  )
+        {
+            return File.Exists(m_txtName);
+        }
+        else
+        {
+            List<string> files = FileTool.GetAllFileNamesByPath(PathDefine.GetDataPath(), new string[] { "txt" });
+
+            for (int i = 0; i < files.Count; i++)
+            {
+                string fileName = FileTool.RemoveExpandName(FileTool.GetFileNameByPath(files[i]));
+
+                if (fileName == m_txtName)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
 }

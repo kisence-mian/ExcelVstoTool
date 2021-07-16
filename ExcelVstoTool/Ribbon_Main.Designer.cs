@@ -58,6 +58,7 @@
             this.button_generateDataClass = this.Factory.CreateRibbonButton();
             this.button_CreateDataDropDownList = this.Factory.CreateRibbonButton();
             this.button_ClearDropDownList = this.Factory.CreateRibbonButton();
+            this.button_createNewTable = this.Factory.CreateRibbonButton();
             this.tab_main.SuspendLayout();
             this.group_main.SuspendLayout();
             this.group_InOut.SuspendLayout();
@@ -98,6 +99,7 @@
             // 
             // group_InOut
             // 
+            this.group_InOut.Items.Add(this.button_createNewTable);
             this.group_InOut.Items.Add(this.button_ToExcel);
             this.group_InOut.Items.Add(this.button_toTxt);
             this.group_InOut.Label = "导入导出";
@@ -161,7 +163,7 @@
             this.button_initConfig.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.button_initConfig.Label = "设置初始化";
             this.button_initConfig.Name = "button_initConfig";
-            this.button_initConfig.OfficeImageId = "AdpDiagramNewTable";
+            this.button_initConfig.OfficeImageId = "TableSharePointListsModifyColumnsAndSettings";
             this.button_initConfig.ShowImage = true;
             this.button_initConfig.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_initData_Click);
             // 
@@ -277,6 +279,15 @@
             this.button_ClearDropDownList.ShowImage = true;
             this.button_ClearDropDownList.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_ClearDropDownList_Click);
             // 
+            // button_createNewTable
+            // 
+            this.button_createNewTable.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.button_createNewTable.Label = "创建表格";
+            this.button_createNewTable.Name = "button_createNewTable";
+            this.button_createNewTable.OfficeImageId = "AdpDiagramNewTable";
+            this.button_createNewTable.ShowImage = true;
+            this.button_createNewTable.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_CreateNewTable_Click);
+            // 
             // Ribbon_Main
             // 
             this.Name = "Ribbon_Main";
@@ -323,6 +334,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_generateDataClass;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_CreateDataDropDownList;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_ClearDropDownList;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button_createNewTable;
     }
 
     partial class ThisRibbonCollection
