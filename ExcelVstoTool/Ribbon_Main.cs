@@ -18,9 +18,17 @@ namespace ExcelVstoTool
             Globals.ThisAddIn.Application.WorkbookActivate += Application_WorkbookActivate; //打开工作簿
             Globals.ThisAddIn.Application.SheetActivate += Application_SheetActivate; //激活页签
             Globals.ThisAddIn.Application.SheetSelectionChange += Application_SheetSelectionChange;//选中区域
+
+            Globals.ThisAddIn.Application.WorkbookBeforeClose += Application_WorkbookBeforeClose; //工作簿关闭
         }
 
+
         #region 生命周期派发
+
+        private void Application_WorkbookBeforeClose(Workbook Wb, ref bool Cancel)
+        {
+            Data_OnWorkSheetClose();
+        }
 
         private void Application_WorkbookActivate(Workbook Wb)
         {
@@ -360,7 +368,7 @@ namespace ExcelVstoTool
             List<String> list = new List<string>();
             if (fieldType == FieldType.Enum)
             {
-                list = DataManager.GetEnumList(DataManager.CurrentSecType);
+                list = DataManager.GetEnumList(secType);
             }
             else if (fieldType == FieldType.String)
             {
@@ -389,10 +397,10 @@ namespace ExcelVstoTool
                 }
             }
 
-            //只保留前50的数据，避免报错
-            if(list.Count > 5)
+            //只保留前500的数据，避免报错
+            if(list.Count > 200)
             {
-                list.RemoveRange(5, list.Count - 5);
+                list.RemoveRange(200, list.Count - 200);
             }
 
             //确定下拉范围
@@ -506,6 +514,39 @@ namespace ExcelVstoTool
 
                 //更新UI
                 UpdateDataUI();
+            }
+        }
+
+        private void Data_OnWorkSheetClose()
+        {
+            if(DataManager.IsEnable)
+            {
+                //退出时清除所有的数据校验，以免出错
+                Worksheet config = GetConfigSheet();
+
+                //没有初始化直接返回
+                if (config == null)
+                {
+                    return;
+                }
+
+                for (int i = 2; i < config.UsedRange.Rows.Count + 1; i++)
+                {
+                    DataConfig dataConfig = new DataConfig(config, i);
+
+                    if (!string.IsNullOrEmpty(dataConfig.m_sheetName))
+                    {
+                        Worksheet wst = GetSheet(dataConfig.m_sheetName, false);
+                        
+                        if(wst != null)
+                        {
+                            wst.UsedRange.Validation.Delete();
+                        }
+                    }
+                }
+
+                //保存
+                Globals.ThisAddIn.Application.ActiveWorkbook.Save();
             }
         }
 
