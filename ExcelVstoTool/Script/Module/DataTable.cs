@@ -710,13 +710,13 @@ public class SingleData : Dictionary<string, string>
         {
             if (this.ContainsKey(key))
             {
-                content = this[key];
+                content = StringFilter(this[key]);
                 return ParseTool.String2IntArray(content);
             }
 
             if (data.m_defaultValue.ContainsKey(key))
             {
-                content = data.m_defaultValue[key];
+                content = StringFilter(data.m_defaultValue[key]);
                 return ParseTool.String2IntArray(content);
             }
         }
@@ -756,12 +756,12 @@ public class SingleData : Dictionary<string, string>
         {
             if (this.ContainsKey(key))
             {
-                return ParseTool.String2FloatArray(this[key]);
+                return ParseTool.String2FloatArray(StringFilter(this[key]));
             }
 
             if (data.m_defaultValue.ContainsKey(key))
             {
-                return ParseTool.String2FloatArray(data.m_defaultValue[key]);
+                return ParseTool.String2FloatArray(StringFilter(data.m_defaultValue[key]));
             }
         }
         catch (Exception e)
@@ -804,12 +804,12 @@ public class SingleData : Dictionary<string, string>
         {
             if (this.ContainsKey(key))
             {
-                return ParseTool.String2BoolArray(this[key]);
+                return ParseTool.String2BoolArray(StringFilter(this[key]));
             }
 
             if (data.m_defaultValue.ContainsKey(key))
             {
-                return ParseTool.String2BoolArray(data.m_defaultValue[key]);
+                return ParseTool.String2BoolArray(StringFilter(data.m_defaultValue[key]));
             }
         }
         catch (Exception e)
@@ -891,12 +891,12 @@ public class SingleData : Dictionary<string, string>
         {
             if (this.ContainsKey(key))
             {
-                return ParseTool.String2Vector2Array(this[key]);
+                return ParseTool.String2Vector2Array(StringFilter(this[key]));
             }
 
             if (data.m_defaultValue.ContainsKey(key))
             {
-                return ParseTool.String2Vector2Array(data.m_defaultValue[key]);
+                return ParseTool.String2Vector2Array(StringFilter(data.m_defaultValue[key]));
             }
 
         }
@@ -915,12 +915,12 @@ public class SingleData : Dictionary<string, string>
         {
             if (this.ContainsKey(key))
             {
-                return ParseTool.String2Vector3Array(this[key]);
+                return ParseTool.String2Vector3Array(StringFilter(this[key]));
             }
 
             if (data.m_defaultValue.ContainsKey(key))
             {
-                return ParseTool.String2Vector3Array(data.m_defaultValue[key]);
+                return ParseTool.String2Vector3Array(StringFilter(data.m_defaultValue[key]));
             }
 
         }
@@ -983,7 +983,7 @@ public class SingleData : Dictionary<string, string>
         {
             if (this.ContainsKey(key))
             {
-                return (T)Enum.Parse(typeof(T), this[key]);
+                return (T)Enum.Parse(typeof(T), StringFilter(this[key]));
             }
 
             if (data.m_defaultValue.ContainsKey(key))
@@ -1006,12 +1006,12 @@ public class SingleData : Dictionary<string, string>
         {
             if (this.ContainsKey(key))
             {
-                return ParseTool.String2StringArray(this[key]);
+                return ParseTool.String2StringArray(StringFilter(this[key]));
             }
 
             if (data.m_defaultValue.ContainsKey(key))
             {
-                return ParseTool.String2StringArray(data.m_defaultValue[key]);
+                return ParseTool.String2StringArray(StringFilter(data.m_defaultValue[key]));
             }
 
         }
@@ -1033,12 +1033,12 @@ public class SingleData : Dictionary<string, string>
         {
             if (this.ContainsKey(key))
             {
-                return ParseTool.String2Array(data.GetFieldType(key), this[key], data.GetArraySplitFormat(key));
+                return ParseTool.String2Array(data.GetFieldType(key), StringFilter(this[key]), data.GetArraySplitFormat(key));
             }
 
             else if (data.m_defaultValue.ContainsKey(key))
             {
-                return ParseTool.String2Array(data.GetFieldType(key), data.m_defaultValue[key], data.GetArraySplitFormat(key));
+                return ParseTool.String2Array(data.GetFieldType(key), StringFilter(data.m_defaultValue[key]), data.GetArraySplitFormat(key));
             }
 
         }

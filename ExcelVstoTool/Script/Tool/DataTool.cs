@@ -185,7 +185,10 @@ public class DataTool
             _wsh.Cells[4, 1] = DataTable.c_defaultValueTableTitle;
             foreach (var key in data.TableKeys)
             {
-                _wsh.Cells[4, index] = data.m_defaultValue[key];
+                if (data.m_defaultValue.ContainsKey(key))
+                {
+                    _wsh.Cells[4, index] = data.m_defaultValue[key];
+                }
                 index++;
             }
 

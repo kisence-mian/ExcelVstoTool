@@ -31,7 +31,7 @@ public class CheckTool
         }
         catch (Exception e)
         {
-            System.Windows.Forms.MessageBox.Show("校验出错 ->" + config.m_sheetName + " \n" + e.Message);
+            System.Windows.Forms.MessageBox.Show("校验出错 ->" + config.m_sheetName + " \n" + e.Message /*+ "\n" + e.ToString()*/);
             return null;
         }
         return data;
@@ -142,11 +142,12 @@ public class CheckTool
                             default: break;
                         }
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
-                        throw new Exception("格式不匹配 ID = " + id + " 第 " + (i + 5) + "行"
+                        throw new Exception("格式不匹配 ID = " + id + " 第 " + (i + 5) + "行 Key:" + key
                             + "\n 类型是" + assetType + " --->" + value + "<-"
-                            + CheckSpace(sData.GetString(key)));
+                            + CheckSpace(sData.GetString(key))
+                            + "\n" + e.ToString());
                     }
                 }
                 else
@@ -228,7 +229,7 @@ public class CheckTool
                 return dict.ContainsKey(v);
             }))
             {
-                throw new Exception("找不到 预设资源 -> " + value + "<- 行 " + (i + 5) + " ID = " + id
+                throw new Exception("找不到 预设资源 -> " + value + "<- 行 " + (i + 5) + " ID = " + id + " Key " + key
                     + CheckSpace(sData.GetString(key)));
             }
         }
@@ -262,7 +263,7 @@ public class CheckTool
                 return dict.ContainsKey(v);
             }))
             {
-                throw new Exception("找不到 图片资源 -> " + value + "<- 行 " + (i + 5) + " ID = " + id 
+                throw new Exception("找不到 图片资源 -> " + value + "<- 行 " + (i + 5) + " ID = " + id + " Key " + key
                     + CheckSpace(sData.GetString(key)));
             }
         }
@@ -323,6 +324,9 @@ public class CheckTool
             {
                 SystemLanguage language = LanguageManager.allLanuage[j];
 
+                string fn = LanguageManager.GetFileName(value);
+                string lk = LanguageManager.GetLanguageKey(value);
+
                 if (!CheckSingleResource(fieldType, sData, key, (v) =>
                 {
                     string fileName = LanguageManager.GetFileName(v);
@@ -330,8 +334,9 @@ public class CheckTool
                     return LanguageManager.CheckLanguageFileNameExist(language, fileName);
                 }))
                 {
-                    throw new Exception("多语言Key错误 ->" + value + "<- 行 " + (i + 5) + " ID = " + id
-                        //+ "\n找不到 多语言文件 "+ fileName
+                    throw new Exception("多语言文件错误 ->" + value + "<- 行 " + (i + 5) + " ID = " + id + " Key " + key
+                        + "\n找不到 多语言文件 "+ fn
+                        + "\n语种是 " + language
                         + CheckSpace(value));
                 }
 
@@ -340,11 +345,13 @@ public class CheckTool
                 {
                     string fileName = LanguageManager.GetFileName(v);
                     string languageKey = LanguageManager.GetLanguageKey(v);
+
                     return LanguageManager.CheckLanguageExist(language, fileName, languageKey);
                 }))
                 {
-                    throw new Exception("多语言Key错误 ->" + value + "<- 行 " + (i + 5) + " ID = " + id
-                       //+ "\n找不到 多语言Key " + languageKey
+                    throw new Exception("多语言Key错误 ->" + value + "<- 行 " + (i + 5) + " ID = " + id + " Key " + key
+                       + "\n找不到 多语言Key " + lk
+                       + "\n语种是 " + language
                        + CheckSpace(value));
                 }
             }
@@ -380,7 +387,7 @@ public class CheckTool
                 return DataManager.CheckDataFileNameExist(v);
             }))
             {
-                throw new Exception("配置表Key错误 ->" + tableKey + "<- 行 2 ID=" + id
+                throw new Exception("配置表Key错误 ->" + tableKey + "<- 行 2 ID=" + id + " Key " + key
                     + "\n找不到 配置表文件 " + tableKey
                     + CheckSpace(tableKey));
             }
@@ -390,7 +397,7 @@ public class CheckTool
                 return DataManager.CheckDataExist(tableKey, v);
             }))
             {
-                throw new Exception("配置表Key错误 ->" + value + "<- 行 " + (i + 5) + " ID = " + id
+                throw new Exception("配置表Key错误 ->" + value + "<- 行 " + (i + 5) + " ID = " + id + " Key " + key
                    + "\n找不到 配置表Key " + value
                    + CheckSpace(value));
             }
@@ -425,7 +432,7 @@ public class CheckTool
                 return DataManager.CheckDataFileNameExist(v);
             }))
             {
-                throw new Exception("配置表Key错误 ->" + value + "<- 行 " + (i + 5) + " ID=" + id
+                throw new Exception("配置表Key错误 ->" + value + "<- 行 " + (i + 5) + " ID=" + id + " Key " + key
                     + "\n找不到 配置表文件 " + value
                     + CheckSpace(value));
             }
@@ -461,7 +468,7 @@ public class CheckTool
                 return DataManager.GetEnumList(enumName).Contains(v);
             }))
             {
-                throw new Exception("找不到枚举 ->" + value + "<- 行 " + (i + 5) + " ID=" + id
+                throw new Exception("找不到枚举 ->" + value + "<- 行 " + (i + 5) + " ID=" + id + " Key " + key
                     + "\n枚举名称 " + enumName
                     + CheckSpace(value));
             }
@@ -472,6 +479,11 @@ public class CheckTool
 
     static string CheckSpace(string content)
     {
+        if(content == null)
+        {
+            return "";
+        }
+
         if (content.Contains(" "))
         {
             return "\n注意文本里有空格";

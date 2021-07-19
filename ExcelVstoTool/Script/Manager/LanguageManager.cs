@@ -87,7 +87,14 @@ public static class LanguageManager
                 }
             }
 
-            languageCache.Add(language, dict);
+            if(!languageCache.ContainsKey(language))
+            {
+                languageCache.Add(language, dict);
+            }
+            else
+            {
+                MessageBox.Show("检测到重复的多语言设置" + language + " 请检查 LanguageConfig.txt");
+            }
         }
 
         if(errorFile.Count > 0)
