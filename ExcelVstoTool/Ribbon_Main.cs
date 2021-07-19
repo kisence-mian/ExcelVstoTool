@@ -237,6 +237,7 @@ namespace ExcelVstoTool
             MessageBox.Show(info);
         }
 
+
         private void button_CreateNewTable_Click(object sender, RibbonControlEventArgs e)
         {
             Worksheet config = GetConfigSheet();
@@ -285,6 +286,33 @@ namespace ExcelVstoTool
 
                 MessageBox.Show(info);
             }
+        }
+
+        bool JudgeCanCreateTable()
+        {
+            Worksheet config = GetConfigSheet();
+
+            //没有初始化直接返回
+            if (config == null)
+            {
+                return false;
+            }
+
+            //进行转换
+            for (int i = 2; i < config.UsedRange.Rows.Count + 1; i++)
+            {
+                DataConfig dataConfig = new DataConfig(config, i);
+
+                //只有不存在的表格才会进行创建
+                if (!string.IsNullOrEmpty(dataConfig.m_sheetName)
+                    && !string.IsNullOrEmpty(dataConfig.m_txtName)
+                    && !dataConfig.GetFileIsExist())
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         #endregion
@@ -410,6 +438,37 @@ namespace ExcelVstoTool
 
                 col++;
             }
+        }
+
+        private void button_deleteTable_Click(object sender, RibbonControlEventArgs e)
+        {
+            Worksheet config = GetConfigSheet();
+            DataConfig dataConfig = GetActiveDataConfig();
+
+            //确认弹窗
+            MessageBoxButtons mess = MessageBoxButtons.OKCancel;
+            DialogResult dr = MessageBox.Show("确定要删除 " + dataConfig.m_sheetName + "|" + dataConfig.m_txtName, "提示",mess);
+            if(dr == DialogResult.Cancel)
+            {
+                return;
+            }
+
+            //删除页面
+            Worksheet wsheet = GetActiveSheet();
+            wsheet.Delete();
+
+            //删除文件
+            if(File.Exists(dataConfig.GetTextPath()))
+            {
+                File.Delete(dataConfig.GetTextPath());
+            }
+            else
+            {
+                MessageBox.Show("没有找到 " + dataConfig.GetTextPath() +"");
+            }
+
+            //删除配置
+            dataConfig.Delete(config);
         }
 
         void GenerateDropDownList(int totalRow, int col,FieldType fieldType, DataFieldAssetType assetType,string secType)
@@ -611,6 +670,9 @@ namespace ExcelVstoTool
             button_generateDataClass.Enabled = IsConfigWorkSheet();
             button_CreateDataDropDownList.Enabled = IsConfigWorkSheet();
             button_ClearDropDownList.Enabled = IsConfigWorkSheet();
+            button_deleteTable.Enabled = IsConfigWorkSheet();
+
+            button_createNewTable.Enabled = JudgeCanCreateTable();
 
             ResetSecTypeDropDownItem();
 
@@ -618,7 +680,7 @@ namespace ExcelVstoTool
             SetDropDown(dropDown_assetsType, DataManager.CurrentAssetType.ToString());
             SetDropDown(dropDown_secType, DataManager.CurrentSecType.ToString());
 
-            if (!DataManager.isWorkRange)
+            if (!DataManager.isWorkRange || !IsConfigWorkSheet())
             {
                 dropDown_dataType.Enabled = false;
                 dropDown_secType.Enabled = false;
@@ -671,8 +733,8 @@ namespace ExcelVstoTool
             button_CreateDataDropDownList.Enabled = isEnable;
             button_ClearDropDownList.Enabled = isEnable;
             button_generateDataClass.Enabled = isEnable;
+            button_deleteTable.Enabled = isEnable;
             
-
             dropDown_assetsType.Enabled = isEnable;
             dropDown_dataType.Enabled = isEnable;
             dropDown_secType.Enabled = isEnable;
@@ -1011,8 +1073,10 @@ namespace ExcelVstoTool
             //依赖DataManager的解析
             if (DataManager.IsEnable && LanguageManager.IsEnable)
             {
+                comboBox_currentLanguage.Enabled = IsConfigWorkSheet();
                 button_LanguageComment.Enabled = IsConfigWorkSheet();
                 button_deleteLanguageComment.Enabled = IsConfigWorkSheet();
+
 
                 bool isCanChangeLanguage = false;
                 bool isCanOpenLanguage = false;
@@ -1104,6 +1168,10 @@ namespace ExcelVstoTool
             return GetActiveSheet().Cells[1, range.Column].Text;
         }
 
+        /// <summary>
+        /// 判断当前页面是否是被config管理的页面
+        /// </summary>
+        /// <returns></returns>
         bool IsConfigWorkSheet()
         {
             if (!ExcelTool.ExistSheetName(Globals.ThisAddIn.Application, Const.c_SheetName_Config))
@@ -1133,6 +1201,7 @@ namespace ExcelVstoTool
 
 
         #endregion
+
 
     }
 }

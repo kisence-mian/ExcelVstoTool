@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 public class DataConfig
 {
+    int m_index; 
+
     public string m_sheetName;
     public string m_txtName;
 
@@ -30,6 +32,8 @@ public class DataConfig
 
     public DataConfig(Worksheet configSheet, int index)
     {
+        m_index = index;
+
         string key             = "A" + index;
         string key_txtPath     = "B" + index;
         string key_saveFormula = "C" + index;
@@ -58,10 +62,17 @@ public class DataConfig
             index++;
         }
 
+        config.m_index = index;
+
         //进行写入
         configSheet.Range["A" + index].Value = config.m_sheetName;
         configSheet.Range["B" + index].Value = config.m_txtName;
         configSheet.Range["C" + index].Value = config.m_coverFormula;
+    }
+
+    public void Delete(Worksheet configSheet)
+    {
+        configSheet.Range["A" + m_index + ":C" + m_index].Delete(Microsoft.Office.Interop.Excel.XlDirection.xlUp);
     }
 
     /// <summary>

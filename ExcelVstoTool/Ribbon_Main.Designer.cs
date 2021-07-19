@@ -47,18 +47,19 @@
             this.comboBox_currentLanguage = this.Factory.CreateRibbonComboBox();
             this.button_initConfig = this.Factory.CreateRibbonButton();
             this.button_refreshData = this.Factory.CreateRibbonButton();
+            this.button_createNewTable = this.Factory.CreateRibbonButton();
+            this.button_deleteTable = this.Factory.CreateRibbonButton();
             this.button_ToExcel = this.Factory.CreateRibbonButton();
             this.button_toTxt = this.Factory.CreateRibbonButton();
             this.button_check = this.Factory.CreateRibbonButton();
+            this.button_CreateDataDropDownList = this.Factory.CreateRibbonButton();
+            this.button_ClearDropDownList = this.Factory.CreateRibbonButton();
+            this.button_generateDataClass = this.Factory.CreateRibbonButton();
             this.button_LanguageComment = this.Factory.CreateRibbonButton();
             this.button_deleteLanguageComment = this.Factory.CreateRibbonButton();
             this.button_openLanguageSheet = this.Factory.CreateRibbonButton();
             this.button_changeLanguageColumn = this.Factory.CreateRibbonButton();
             this.button_LanguageInfo = this.Factory.CreateRibbonButton();
-            this.button_generateDataClass = this.Factory.CreateRibbonButton();
-            this.button_CreateDataDropDownList = this.Factory.CreateRibbonButton();
-            this.button_ClearDropDownList = this.Factory.CreateRibbonButton();
-            this.button_createNewTable = this.Factory.CreateRibbonButton();
             this.tab_main.SuspendLayout();
             this.group_main.SuspendLayout();
             this.group_InOut.SuspendLayout();
@@ -100,6 +101,7 @@
             // group_InOut
             // 
             this.group_InOut.Items.Add(this.button_createNewTable);
+            this.group_InOut.Items.Add(this.button_deleteTable);
             this.group_InOut.Items.Add(this.button_ToExcel);
             this.group_InOut.Items.Add(this.button_toTxt);
             this.group_InOut.Label = "导入导出";
@@ -176,6 +178,24 @@
             this.button_refreshData.ShowImage = true;
             this.button_refreshData.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_dataInit_Click);
             // 
+            // button_createNewTable
+            // 
+            this.button_createNewTable.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.button_createNewTable.Label = "创建表格";
+            this.button_createNewTable.Name = "button_createNewTable";
+            this.button_createNewTable.OfficeImageId = "AdpDiagramNewTable";
+            this.button_createNewTable.ShowImage = true;
+            this.button_createNewTable.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_CreateNewTable_Click);
+            // 
+            // button_deleteTable
+            // 
+            this.button_deleteTable.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.button_deleteTable.Label = "删除表格";
+            this.button_deleteTable.Name = "button_deleteTable";
+            this.button_deleteTable.OfficeImageId = "RecordsDeleteRecord";
+            this.button_deleteTable.ShowImage = true;
+            this.button_deleteTable.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_deleteTable_Click);
+            // 
             // button_ToExcel
             // 
             this.button_ToExcel.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -202,6 +222,33 @@
             this.button_check.OfficeImageId = "AcceptInvitation";
             this.button_check.ShowImage = true;
             this.button_check.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_check_Click);
+            // 
+            // button_CreateDataDropDownList
+            // 
+            this.button_CreateDataDropDownList.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.button_CreateDataDropDownList.Label = "生成下拉列表";
+            this.button_CreateDataDropDownList.Name = "button_CreateDataDropDownList";
+            this.button_CreateDataDropDownList.OfficeImageId = "TablePropertiesDialog";
+            this.button_CreateDataDropDownList.ShowImage = true;
+            this.button_CreateDataDropDownList.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_CreateDataDropDownList_Click);
+            // 
+            // button_ClearDropDownList
+            // 
+            this.button_ClearDropDownList.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.button_ClearDropDownList.Label = "清除下拉列表";
+            this.button_ClearDropDownList.Name = "button_ClearDropDownList";
+            this.button_ClearDropDownList.OfficeImageId = "TableDeleteRowsAndColumnsMenuWord";
+            this.button_ClearDropDownList.ShowImage = true;
+            this.button_ClearDropDownList.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_ClearDropDownList_Click);
+            // 
+            // button_generateDataClass
+            // 
+            this.button_generateDataClass.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.button_generateDataClass.Label = "生成数据类";
+            this.button_generateDataClass.Name = "button_generateDataClass";
+            this.button_generateDataClass.OfficeImageId = "CreateClassModule";
+            this.button_generateDataClass.ShowImage = true;
+            this.button_generateDataClass.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_generateDataClass_Click);
             // 
             // button_LanguageComment
             // 
@@ -252,42 +299,6 @@
             this.button_LanguageInfo.ShowLabel = false;
             this.button_LanguageInfo.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_LanguageInfo_Click);
             // 
-            // button_generateDataClass
-            // 
-            this.button_generateDataClass.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button_generateDataClass.Label = "生成数据类";
-            this.button_generateDataClass.Name = "button_generateDataClass";
-            this.button_generateDataClass.OfficeImageId = "CreateClassModule";
-            this.button_generateDataClass.ShowImage = true;
-            this.button_generateDataClass.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_generateDataClass_Click);
-            // 
-            // button_CreateDataDropDownList
-            // 
-            this.button_CreateDataDropDownList.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button_CreateDataDropDownList.Label = "生成下拉列表";
-            this.button_CreateDataDropDownList.Name = "button_CreateDataDropDownList";
-            this.button_CreateDataDropDownList.OfficeImageId = "TablePropertiesDialog";
-            this.button_CreateDataDropDownList.ShowImage = true;
-            this.button_CreateDataDropDownList.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_CreateDataDropDownList_Click);
-            // 
-            // button_ClearDropDownList
-            // 
-            this.button_ClearDropDownList.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button_ClearDropDownList.Label = "清除下拉列表";
-            this.button_ClearDropDownList.Name = "button_ClearDropDownList";
-            this.button_ClearDropDownList.OfficeImageId = "TableDeleteRowsAndColumnsMenuWord";
-            this.button_ClearDropDownList.ShowImage = true;
-            this.button_ClearDropDownList.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_ClearDropDownList_Click);
-            // 
-            // button_createNewTable
-            // 
-            this.button_createNewTable.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button_createNewTable.Label = "创建表格";
-            this.button_createNewTable.Name = "button_createNewTable";
-            this.button_createNewTable.OfficeImageId = "AdpDiagramNewTable";
-            this.button_createNewTable.ShowImage = true;
-            this.button_createNewTable.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_CreateNewTable_Click);
-            // 
             // Ribbon_Main
             // 
             this.Name = "Ribbon_Main";
@@ -335,6 +346,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_CreateDataDropDownList;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_ClearDropDownList;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_createNewTable;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button_deleteTable;
     }
 
     partial class ThisRibbonCollection
