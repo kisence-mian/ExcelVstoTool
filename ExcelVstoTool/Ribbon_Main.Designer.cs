@@ -187,7 +187,7 @@
             this.button_createNewTable.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.button_createNewTable.Label = "创建表格";
             this.button_createNewTable.Name = "button_createNewTable";
-            this.button_createNewTable.OfficeImageId = "AdpDiagramNewTable";
+            this.button_createNewTable.OfficeImageId = "GoToNewRecord";
             this.button_createNewTable.ShowImage = true;
             this.button_createNewTable.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_CreateNewTable_Click);
             // 
@@ -205,7 +205,7 @@
             this.button_ToExcel.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.button_ToExcel.Label = "全部导入";
             this.button_ToExcel.Name = "button_ToExcel";
-            this.button_ToExcel.OfficeImageId = "ImportTextFile";
+            this.button_ToExcel.OfficeImageId = "ImportSavedImports";
             this.button_ToExcel.ShowImage = true;
             this.button_ToExcel.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_ToExcel_Click);
             // 
@@ -214,7 +214,7 @@
             this.button_toTxt.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.button_toTxt.Label = "全部导出";
             this.button_toTxt.Name = "button_toTxt";
-            this.button_toTxt.OfficeImageId = "ExportTextFile";
+            this.button_toTxt.OfficeImageId = "ExportSavedExports";
             this.button_toTxt.ShowImage = true;
             this.button_toTxt.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_toTxt_Click);
             // 
@@ -308,7 +308,7 @@
             this.button_exportSingleTable.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.button_exportSingleTable.Label = "导出当前表格";
             this.button_exportSingleTable.Name = "button_exportSingleTable";
-            this.button_exportSingleTable.OfficeImageId = "ExportSavedExports";
+            this.button_exportSingleTable.OfficeImageId = "ExportTextFile";
             this.button_exportSingleTable.ShowImage = true;
             this.button_exportSingleTable.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_exportSingleTable_Click);
             // 
@@ -317,7 +317,7 @@
             this.button_importSingleTable.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.button_importSingleTable.Label = "导入当前表格";
             this.button_importSingleTable.Name = "button_importSingleTable";
-            this.button_importSingleTable.OfficeImageId = "ImportSavedImports";
+            this.button_importSingleTable.OfficeImageId = "ImportTextFile";
             this.button_importSingleTable.ShowImage = true;
             this.button_importSingleTable.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_importSingleTable_Click);
             // 
