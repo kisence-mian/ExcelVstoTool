@@ -60,6 +60,8 @@
             this.button_openLanguageSheet = this.Factory.CreateRibbonButton();
             this.button_changeLanguageColumn = this.Factory.CreateRibbonButton();
             this.button_LanguageInfo = this.Factory.CreateRibbonButton();
+            this.button_exportSingleTable = this.Factory.CreateRibbonButton();
+            this.button_importSingleTable = this.Factory.CreateRibbonButton();
             this.tab_main.SuspendLayout();
             this.group_main.SuspendLayout();
             this.group_InOut.SuspendLayout();
@@ -104,6 +106,8 @@
             this.group_InOut.Items.Add(this.button_deleteTable);
             this.group_InOut.Items.Add(this.button_ToExcel);
             this.group_InOut.Items.Add(this.button_toTxt);
+            this.group_InOut.Items.Add(this.button_importSingleTable);
+            this.group_InOut.Items.Add(this.button_exportSingleTable);
             this.group_InOut.Label = "导入导出";
             this.group_InOut.Name = "group_InOut";
             // 
@@ -199,7 +203,7 @@
             // button_ToExcel
             // 
             this.button_ToExcel.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button_ToExcel.Label = "从文本导入";
+            this.button_ToExcel.Label = "全部导入";
             this.button_ToExcel.Name = "button_ToExcel";
             this.button_ToExcel.OfficeImageId = "ImportTextFile";
             this.button_ToExcel.ShowImage = true;
@@ -208,7 +212,7 @@
             // button_toTxt
             // 
             this.button_toTxt.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button_toTxt.Label = "导出到文本";
+            this.button_toTxt.Label = "全部导出";
             this.button_toTxt.Name = "button_toTxt";
             this.button_toTxt.OfficeImageId = "ExportTextFile";
             this.button_toTxt.ShowImage = true;
@@ -299,6 +303,24 @@
             this.button_LanguageInfo.ShowLabel = false;
             this.button_LanguageInfo.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_LanguageInfo_Click);
             // 
+            // button_exportSingleTable
+            // 
+            this.button_exportSingleTable.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.button_exportSingleTable.Label = "导出当前表格";
+            this.button_exportSingleTable.Name = "button_exportSingleTable";
+            this.button_exportSingleTable.OfficeImageId = "ExportSavedExports";
+            this.button_exportSingleTable.ShowImage = true;
+            this.button_exportSingleTable.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_exportSingleTable_Click);
+            // 
+            // button_importSingleTable
+            // 
+            this.button_importSingleTable.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.button_importSingleTable.Label = "导入当前表格";
+            this.button_importSingleTable.Name = "button_importSingleTable";
+            this.button_importSingleTable.OfficeImageId = "ImportSavedImports";
+            this.button_importSingleTable.ShowImage = true;
+            this.button_importSingleTable.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_importSingleTable_Click);
+            // 
             // Ribbon_Main
             // 
             this.Name = "Ribbon_Main";
@@ -347,6 +369,8 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_ClearDropDownList;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_createNewTable;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_deleteTable;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button_exportSingleTable;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button_importSingleTable;
     }
 
     partial class ThisRibbonCollection

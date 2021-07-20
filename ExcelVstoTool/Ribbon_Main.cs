@@ -533,6 +533,72 @@ namespace ExcelVstoTool
             }
         }
 
+        private void button_importSingleTable_Click(object sender, RibbonControlEventArgs e)
+        {
+            DataConfig dataConfig = GetActiveDataConfig();
+            Worksheet wst = GetSheet(dataConfig.m_sheetName);
+
+            DateTime now = System.DateTime.Now;
+
+            PerformanceSwitch(true);
+
+            //进行转换
+            if (!string.IsNullOrEmpty(dataConfig.m_sheetName) && !string.IsNullOrEmpty(dataConfig.GetTextPath()))
+            {
+                if (File.Exists(dataConfig.GetTextPath()))
+                {
+                    DataTool.Data2Excel(dataConfig, wst);
+                }
+                else
+                {
+                    MessageBox.Show("没有找到文件 " + dataConfig.GetTextPath());
+                }
+            }
+
+            PerformanceSwitch(false);
+
+            MessageBox.Show("导入完成\n用时：" + (DateTime.Now - now).TotalSeconds + "s");
+        }
+
+        private void button_exportSingleTable_Click(object sender, RibbonControlEventArgs e)
+        {
+            DataConfig dataConfig = GetActiveDataConfig();
+            Worksheet wst = GetSheet(dataConfig.m_sheetName);
+
+            if (!string.IsNullOrEmpty(dataConfig.m_sheetName) 
+                && !string.IsNullOrEmpty(dataConfig.GetTextPath())
+                && wst != null)
+            {
+                DataTable dataTable = null;
+
+                //为了提高导出效率，所以尽量减少excel的读取次数
+                //将检验过后的DataTable直接进行序列化
+                if (checkBox_exportCheck.Checked)
+                {
+                    dataTable = CheckTool.CheckSheet(wst, dataConfig);
+                    if (dataTable != null)
+                    {
+                        FileTool.WriteStringByFile(dataConfig.GetTextPath(), DataTable.Serialize(dataTable));
+                    }
+                    else
+                    {
+                        MessageBox.Show("导出失败：校验未能通过: " + dataConfig.m_sheetName + "|" + dataConfig.m_txtName);
+                        return;
+                    }
+                }
+                else
+                {
+                    dataTable = DataTool.Excel2Table(wst, dataConfig);
+                }
+
+                MessageBox.Show("导出完毕");
+            }
+            else
+            {
+                MessageBox.Show("导出失败：配置或者文件不正确 " + dataConfig.m_sheetName);
+            }
+        }
+
         private void button_ClearDropDownList_Click(object sender, RibbonControlEventArgs e)
         {
             GetActiveSheet().UsedRange.Validation.Delete();
@@ -671,6 +737,8 @@ namespace ExcelVstoTool
             button_CreateDataDropDownList.Enabled = IsConfigWorkSheet();
             button_ClearDropDownList.Enabled = IsConfigWorkSheet();
             button_deleteTable.Enabled = IsConfigWorkSheet();
+            button_importSingleTable.Enabled = IsConfigWorkSheet();
+            button_exportSingleTable.Enabled = IsConfigWorkSheet();
 
             button_createNewTable.Enabled = JudgeCanCreateTable();
 
@@ -728,6 +796,8 @@ namespace ExcelVstoTool
             button_createNewTable.Enabled = isEnable;
             button_ToExcel.Enabled = isEnable;
             button_toTxt.Enabled = isEnable;
+            button_importSingleTable.Enabled = isEnable;
+            button_exportSingleTable.Enabled = isEnable;
 
             button_check.Enabled = isEnable;
             button_CreateDataDropDownList.Enabled = isEnable;
@@ -1200,8 +1270,8 @@ namespace ExcelVstoTool
         }
 
 
+
+
         #endregion
-
-
     }
 }
