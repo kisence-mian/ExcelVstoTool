@@ -930,7 +930,9 @@ namespace ExcelVstoTool
                 while (!string.IsNullOrEmpty(worksheet.Cells[2, index].Value))
                 {
                     string value = worksheet.Cells[2, index].Value;
-                    if (value.Contains(FieldType.String + "&" + DataFieldAssetType.LocalizedLanguage))
+                    FieldTypeStruct typeStruct = DataManager.PaseToFieldStructType(value);
+                    if (typeStruct.fieldType == FieldType.String 
+                        && typeStruct.assetType == DataFieldAssetType.LocalizedLanguage)
                     {
                         //查询它们的值并写入批注
                         for (int row = 5; row <= worksheet.UsedRange.Rows.Count; row++)
@@ -972,7 +974,9 @@ namespace ExcelVstoTool
                 while (!string.IsNullOrEmpty(worksheet.Cells[2, index].Value))
                 {
                     string value = worksheet.Cells[2, index].Value;
-                    if (value.Contains(FieldType.String + "&" + DataFieldAssetType.LocalizedLanguage))
+                    FieldTypeStruct typeStruct = DataManager.PaseToFieldStructType(value);
+                    if (typeStruct.fieldType == FieldType.String
+                        && typeStruct.assetType == DataFieldAssetType.LocalizedLanguage)
                     {
                         //查询它们的值并删除批注
                         for (int row = 5; row <= worksheet.UsedRange.Rows.Count; row++)

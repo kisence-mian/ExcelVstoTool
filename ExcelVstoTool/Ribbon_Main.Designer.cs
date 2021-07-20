@@ -239,7 +239,7 @@
             // button_ClearDropDownList
             // 
             this.button_ClearDropDownList.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button_ClearDropDownList.Label = "清除下拉列表";
+            this.button_ClearDropDownList.Label = "删除下拉列表";
             this.button_ClearDropDownList.Name = "button_ClearDropDownList";
             this.button_ClearDropDownList.OfficeImageId = "TableDeleteRowsAndColumnsMenuWord";
             this.button_ClearDropDownList.ShowImage = true;
