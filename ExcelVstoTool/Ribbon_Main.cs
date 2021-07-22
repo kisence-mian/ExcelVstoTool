@@ -543,6 +543,11 @@ namespace ExcelVstoTool
             {
                 list = DataManager.GetEnumList(secType);
             }
+            else if (fieldType == FieldType.Bool)
+            {
+                list.Add("TRUE");
+                list.Add("FALSE");
+            }
             else if (fieldType == FieldType.String)
             {
                 if (assetType == DataFieldAssetType.Texture)
