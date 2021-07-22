@@ -38,10 +38,10 @@ public class DataConfig
         string key_txtPath     = "B" + index;
         string key_saveFormula = "C" + index;
 
-        m_sheetName = configSheet.Range[key].Value;
-        m_txtName = configSheet.Range[key_txtPath].Value;
+        m_sheetName = configSheet.Range[key].Text;
+        m_txtName = configSheet.Range[key_txtPath].Text;
 
-        m_coverFormula = (bool)ParseTool.GetBool( configSheet.Range[key_saveFormula].Value);
+        m_coverFormula = (bool)ParseTool.GetBool( configSheet.Range[key_saveFormula].Text);
     }
 
     public static void ConfigInit(Worksheet configSheet)
@@ -57,7 +57,7 @@ public class DataConfig
     {
         //找到可以写入的位置
         int index = 2;
-        while(!string.IsNullOrEmpty(configSheet.Range["A" + index].Value))
+        while(!string.IsNullOrEmpty(configSheet.Range["A" + index].Text))
         {
             index++;
         }
@@ -81,9 +81,9 @@ public class DataConfig
     public static bool IsWorkSheet(Worksheet configSheet,string sheetName)
     {
         int index = 2;
-        while (!string.IsNullOrEmpty(configSheet.Range["A" + index].Value))
+        while (!string.IsNullOrEmpty(configSheet.Range["A" + index].Text))
         {
-            if(configSheet.Range["A" + index].Value == sheetName)
+            if(configSheet.Range["A" + index].Text == sheetName)
             {
                 return true;
             }
@@ -97,9 +97,9 @@ public class DataConfig
     public static int GetWorkIndex(Worksheet configSheet, string sheetName)
     {
         int index = 2;
-        while (!string.IsNullOrEmpty(configSheet.Range["A" + index].Value))
+        while (!string.IsNullOrEmpty(configSheet.Range["A" + index].Text))
         {
-            if (configSheet.Range["A" + index].Value == sheetName)
+            if (configSheet.Range["A" + index].Text == sheetName)
             {
                 return index;
             }

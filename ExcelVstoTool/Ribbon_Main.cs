@@ -62,9 +62,6 @@ namespace ExcelVstoTool
                 //隐藏初始化按钮
                 button_initConfig.Visible = false;
 
-                SetDataUIEnabled(true);
-                SetLanguageUIEnable(true);
-
                 if (!DataManager.IsEnable)
                 {
                     DataInit(config);
@@ -75,6 +72,9 @@ namespace ExcelVstoTool
                 {
                     LanguageInit();
                 }
+
+                SetDataUIEnabled(true);
+                SetLanguageUIEnable(true);
             }
             else
             {
@@ -353,6 +353,70 @@ namespace ExcelVstoTool
         {
             DataInit(GetConfigSheet());
             LanguageInit();
+        }
+
+        private void button_openFile_Click(object sender, RibbonControlEventArgs e)
+        {
+            Worksheet configSheet = GetConfigSheet();
+            string fileName = dropDown_fileList.SelectedItem.Label;
+            if(!string.IsNullOrEmpty(fileName))
+            {
+                //判断这个页签是否存在
+                Worksheet sheet = null;
+
+                if(!GetSheetIsExist(fileName))
+                {
+                    sheet = GetSheet(fileName,true);
+
+                    PerformanceSwitch(true);
+
+                    DataConfig dataConfig = new DataConfig();
+                    dataConfig.m_txtName = fileName;
+                    dataConfig.m_sheetName = fileName;
+
+                    //写入
+                    DataConfig.AddSheetConfig(configSheet, dataConfig);
+
+                    if (!string.IsNullOrEmpty(dataConfig.m_sheetName) && !string.IsNullOrEmpty(dataConfig.GetTextPath()))
+                    {
+                        if (File.Exists(dataConfig.GetTextPath()))
+                        {
+                            Worksheet wst = GetSheet(dataConfig.m_sheetName, true);
+                            DataTool.Data2Excel(dataConfig, wst);
+                        }
+                        else
+                        {
+                            //TODO 打开失败反馈
+                            MessageBox.Show("打开失败 文件不存在 " + dataConfig.m_txtName);
+                        }
+                    }
+
+                    PerformanceSwitch(false);
+                }
+                else
+                {
+                    sheet = GetSheet(fileName);
+                }
+
+                sheet.Activate();
+            }
+        }
+
+        private void button_closeFile_Click(object sender, RibbonControlEventArgs e)
+        {
+            Worksheet config = GetConfigSheet();
+            DataConfig dataConfig = GetActiveDataConfig();
+            Worksheet worksheet = GetActiveSheet();
+
+            //MessageBoxButtons mess = MessageBoxButtons.OKCancel;
+            //DialogResult dr = MessageBox.Show("确定要关闭 " + dataConfig.m_sheetName + "|" + dataConfig.m_txtName, "提示", mess);
+            //if (dr == DialogResult.Cancel)
+            //{
+            //    return;
+            //}
+
+            dataConfig.Delete(config);
+            worksheet.Delete();
         }
 
         private void button_check_Click(object sender, RibbonControlEventArgs e)
@@ -731,8 +795,26 @@ namespace ExcelVstoTool
 
         #region UI更新逻辑
 
+        void UpdateFileList()
+        {
+            dropDown_fileList.Items.Clear();
+
+            List<string> list = DataManager.TableName;
+            for (int i = 0; i < list.Count; i++)
+            {
+                RibbonDropDownItem tmp = Globals.Factory.GetRibbonFactory().CreateRibbonDropDownItem();
+
+                tmp.Label = list[i];
+                dropDown_fileList.Items.Add(tmp);
+            }
+        }
+
         void UpdateDataUI()
         {
+            //文件操作
+            UpdateFileList();
+            button_closeFile.Enabled = IsConfigWorkSheet();
+
             button_generateDataClass.Enabled = IsConfigWorkSheet();
             button_CreateDataDropDownList.Enabled = IsConfigWorkSheet();
             button_ClearDropDownList.Enabled = IsConfigWorkSheet();
@@ -792,6 +874,11 @@ namespace ExcelVstoTool
         private void SetDataUIEnabled(bool isEnable)
         {
             button_refreshData.Enabled = isEnable;
+
+            //文件操作
+            dropDown_fileList.Enabled = isEnable;
+            button_openFile.Enabled = isEnable;
+            button_closeFile.Enabled = isEnable;
 
             button_createNewTable.Enabled = isEnable;
             button_ToExcel.Enabled = isEnable;
@@ -917,6 +1004,56 @@ namespace ExcelVstoTool
             LanguageManager.currentLanguage = (SystemLanguage)Enum.Parse(typeof(SystemLanguage), comboBox_currentLanguage.Text);
         }
 
+        private void button_openLanguageFile_Click(object sender, RibbonControlEventArgs e)
+        {
+            Worksheet configSheet = GetConfigSheet();
+            string fileName = dropDown_languageFileList.SelectedItem.Label;
+
+            string filePath = Const.c_LanguagePrefix + "_" + LanguageManager.currentLanguage + "_" + fileName;
+            string sheetName = CutSheetName( LanguageManager.GetLanguageAcronym(LanguageManager.currentLanguage) + "_" + fileName);
+
+            if (!string.IsNullOrEmpty(fileName))
+            {
+                //判断这个页签是否存在
+                Worksheet sheet = null;
+
+                if (!GetSheetIsExist(sheetName))
+                {
+                    sheet = GetSheet(sheetName, true);
+
+                    PerformanceSwitch(true);
+
+                    DataConfig dataConfig = new DataConfig();
+                    dataConfig.m_txtName = filePath;
+                    dataConfig.m_sheetName = sheetName;
+
+                    //写入
+                    DataConfig.AddSheetConfig(configSheet, dataConfig);
+
+                    if (!string.IsNullOrEmpty(dataConfig.m_sheetName) && !string.IsNullOrEmpty(dataConfig.GetTextPath()))
+                    {
+                        if (File.Exists(dataConfig.GetTextPath()))
+                        {
+                            Worksheet wst = GetSheet(dataConfig.m_sheetName, true);
+                            DataTool.Data2Excel(dataConfig, wst);
+                        }
+                        else
+                        {
+                            MessageBox.Show("打开失败 文件不存在 " + dataConfig.m_txtName);
+                        }
+                    }
+
+                    PerformanceSwitch(false);
+                }
+                else
+                {
+                    sheet = GetSheet(sheetName);
+                }
+
+                sheet.Activate();
+            }
+        }
+
         private void button_LanguageComment_Click(object sender, RibbonControlEventArgs e)
         {
             //只影响当前页面
@@ -1009,7 +1146,7 @@ namespace ExcelVstoTool
             }
 
             string filePath = Const.c_LanguagePrefix + "_" + LanguageManager.currentLanguage + "_" + LanguageManager.GetFileName(selectValue);
-            string sheetName = LanguageManager.GetLanguageAcronym(LanguageManager.currentLanguage) + "_" + LanguageManager.GetFileName(selectValue);
+            string sheetName = CutSheetName(LanguageManager.GetLanguageAcronym(LanguageManager.currentLanguage) + "_" + LanguageManager.GetFileName(selectValue));
             string key = LanguageManager.GetLanguageKey(selectValue);
 
             if (string.IsNullOrEmpty(LanguageManager.GetFileName(selectValue)) && LanguageManager.CheckLanguageFileNameExist(LanguageManager.currentLanguage, sheetName))
@@ -1142,12 +1279,28 @@ namespace ExcelVstoTool
 
         #region UI更新逻辑
 
+        void UpdateLanguageFileList()
+        {
+            dropDown_languageFileList.Items.Clear();
+
+            List<string> list = LanguageManager.GetLanguageFileNameList(LanguageManager.currentLanguage);
+            for (int i = 0; i < list.Count; i++)
+            {
+                RibbonDropDownItem tmp = Globals.Factory.GetRibbonFactory().CreateRibbonDropDownItem();
+
+                tmp.Label = list[i];
+                dropDown_languageFileList.Items.Add(tmp);
+            }
+        }
+
         void UpdateLanguageUI()
         {
             //依赖DataManager的解析
             if (DataManager.IsEnable && LanguageManager.IsEnable)
             {
-                comboBox_currentLanguage.Enabled = IsConfigWorkSheet();
+                UpdateLanguageFileList();
+
+                //comboBox_currentLanguage.Enabled = IsConfigWorkSheet();
                 button_LanguageComment.Enabled = IsConfigWorkSheet();
                 button_deleteLanguageComment.Enabled = IsConfigWorkSheet();
 
@@ -1177,13 +1330,16 @@ namespace ExcelVstoTool
 
         private void SetLanguageUIEnable(bool isEnable)
         {
-            button_LanguageComment.Enabled = isEnable;
-            button_deleteLanguageComment.Enabled = isEnable;
+            dropDown_languageFileList.Enabled = LanguageManager.IsEnable;
+            button_openLanguageFile.Enabled = LanguageManager.IsEnable;
 
-            button_openLanguageSheet.Enabled = isEnable;
-            button_changeLanguageColumn.Enabled = isEnable;
+            button_LanguageComment.Enabled = LanguageManager.IsEnable;
+            button_deleteLanguageComment.Enabled = LanguageManager.IsEnable;
 
-            comboBox_currentLanguage.Enabled = isEnable;
+            button_openLanguageSheet.Enabled = LanguageManager.IsEnable;
+            button_changeLanguageColumn.Enabled = LanguageManager.IsEnable;
+
+            comboBox_currentLanguage.Enabled = LanguageManager.IsEnable;
         }
 
         #endregion
@@ -1199,6 +1355,7 @@ namespace ExcelVstoTool
             {
                 Globals.ThisAddIn.Application.Visible = !enable;
                 Globals.ThisAddIn.Application.ScreenUpdating = !enable;
+                Globals.ThisAddIn.Application.EnableEvents = !enable;
             }
         }
 
@@ -1210,6 +1367,11 @@ namespace ExcelVstoTool
             }
 
             return ExcelTool.GetSheet(Globals.ThisAddIn.Application, shetName, isCreate);
+        }
+
+        bool GetSheetIsExist(string sheetName)
+        {
+            return ExcelTool.ExistSheetName(Globals.ThisAddIn.Application, sheetName);
         }
 
 
@@ -1273,9 +1435,22 @@ namespace ExcelVstoTool
             }
         }
 
+        string CutSheetName(string sheetName)
+        {
+            if(sheetName.Length < 30)
+            {
+                return sheetName;
+            }
+            else
+            {
+                return sheetName.Substring(0, 30);
+            }
+        }
 
 
 
         #endregion
+
+
     }
 }
