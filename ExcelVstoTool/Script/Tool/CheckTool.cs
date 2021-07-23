@@ -31,7 +31,7 @@ public class CheckTool
         }
         catch (Exception e)
         {
-            System.Windows.Forms.MessageBox.Show("校验出错 ->" + config.m_sheetName + " \n" + e.Message + "\n" + e.ToString());
+            System.Windows.Forms.MessageBox.Show("校验出错 ->" + config.m_sheetName + " \n" + e.Message /*+ "\n" + e.ToString()*/);
             return null;
         }
         return data;
@@ -384,7 +384,7 @@ public class CheckTool
 
             if (!CheckSingleResource(fieldType, sData, key, (v) =>
             {
-                return DataManager.CheckDataFileNameExist(v);
+                return DataManager.CheckDataFileNameExist(tableKey);
             }))
             {
                 throw new Exception("配置表Key错误 ->" + tableKey + "<- 行 2 ID=" + id + " Key " + key
