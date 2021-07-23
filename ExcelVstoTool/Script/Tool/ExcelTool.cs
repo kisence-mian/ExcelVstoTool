@@ -93,4 +93,78 @@ public class ExcelTool
 
         return columnName;
     }
+
+    /// <summary>
+    /// 从一个起点开始，返回其右边第一个空列的列序号
+    /// </summary>
+    public static int GetEmptyCellByCol(Worksheet sheet,int startRow,int startCol)
+    {
+        int row = startRow;
+        int col = startCol;
+
+        while(!string.IsNullOrEmpty( sheet.Cells[row,col].Text ))
+        {
+            col++;
+        }
+
+        return col;
+    }
+
+    /// <summary>
+    ///  从一个起点开始，返回其下边第一个空行的行序号
+    /// </summary>
+    public static int GetEmptyCellByRow(Worksheet sheet, int startRow, int startCol)
+    {
+        int row = startRow;
+        int col = startCol;
+
+        while (!string.IsNullOrEmpty(sheet.Cells[row, col].Text))
+        {
+            row++;
+        }
+
+        return row;
+    }
+
+    /// <summary>
+    /// 从一个起点开始，返回其右边第一个与传入值相同的列序号
+    /// </summary>
+    public static int FindCellByCol(Worksheet sheet, int startRow, int startCol,string value)
+    {
+        int row = startRow;
+        int col = startCol;
+
+        while (!string.IsNullOrEmpty(sheet.Cells[row, col].Text))
+        {
+            if(sheet.Cells[row, col].Text == value)
+            {
+                return col;
+            }
+
+            col++;
+        }
+
+        return -1;
+    }
+
+    /// <summary>
+    /// 从一个起点开始，返回其下方第一个与传入值相同的行序号
+    /// </summary>
+    public static int FindCellByRow(Worksheet sheet, int startRow, int startCol, string value)
+    {
+        int row = startRow;
+        int col = startCol;
+
+        while (!string.IsNullOrEmpty(sheet.Cells[row, col].Text))
+        {
+            if (sheet.Cells[row, col].Text == value)
+            {
+                return col;
+            }
+
+            row++;
+        }
+
+        return -1;
+    }
 }

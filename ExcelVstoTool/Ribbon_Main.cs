@@ -212,6 +212,8 @@ namespace ExcelVstoTool
                     {
                         Worksheet wst = GetSheet(dataConfig.m_sheetName, true);
                         DataTool.Data2Excel(dataConfig, wst);
+                        //重新生成一次枚举
+                        DataManager.WriteEnumConfig(dataConfig, config);
                     }
                     else
                     {
@@ -383,6 +385,8 @@ namespace ExcelVstoTool
                         {
                             Worksheet wst = GetSheet(dataConfig.m_sheetName, true);
                             DataTool.Data2Excel(dataConfig, wst);
+                            //重新生成一次枚举
+                            DataManager.WriteEnumConfig(dataConfig, configSheet);
                         }
                         else
                         {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Forms;
 
 public class DataTool
 {
@@ -228,7 +228,7 @@ public class DataTool
         }
         catch (Exception e)
         {
-            Console.WriteLine(dataConfig.GetTextPath() + "->" + e.ToString());
+            MessageBox.Show("导入出错  "+ dataConfig .m_txtName+ "\n" + e.ToString());
         }
     }
 

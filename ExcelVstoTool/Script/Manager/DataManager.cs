@@ -194,10 +194,80 @@ public static class DataManager
                 row++;
             }
 
-            enumCache.Add(enumName, list);
+            if(!enumCache.ContainsKey(enumName))
+            {
+                enumCache.Add(enumName, list);
+            }
+            else
+            {
+                MessageBox.Show("重复的枚举名 " + enumName);
+            }
 
             row = 2;
             col++;
+        }
+    }
+
+    /// <summary>
+    /// 将某个表的枚举数据添加到配置中去
+    /// </summary>
+    public static void WriteEnumConfig(DataConfig dataConfig, Worksheet configSheet)
+    {
+        //刷新一次枚举表
+        ReadEnumConfig(configSheet);
+
+        DataTable data = DataTable.Analysis(FileTool.ReadStringByFile(dataConfig.GetTextPath()));
+
+        //找到枚举名称
+        for (int i = 0; i < data.TableKeys.Count; i++)
+        {
+            string key = data.TableKeys[i];
+            if (data.m_tableTypes.ContainsKey(key) && data.m_tableTypes[key] == FieldType.Enum)
+            {
+                string enumName = data.m_tableSecTypes[key];
+
+                //再找到有没有相同的枚举
+                FindEnumConfig(data, configSheet,key, enumName);
+            }
+        }
+
+        //再判断有没有新的key
+    }
+
+    static void FindEnumConfig(DataTable data, Worksheet configSheet,string key,string enumName)
+    {
+        List<string> enumList = null;
+        int col = 5;
+        int row = 2;
+
+        if(enumCache.ContainsKey(enumName))
+        {
+            enumList = enumCache[enumName];
+            //找到对应的列index
+            col = ExcelTool.FindCellByCol(configSheet, row, col, enumName);
+        }
+        else
+        {
+            enumList = new List<string>();
+            enumCache.Add(enumName,enumList);
+            //创建一个新的列表
+            col = ExcelTool.GetEmptyCellByCol(configSheet, row, col);
+            configSheet.Cells[row, col].Value = enumName;
+        }
+
+        //遍历所有的id,查找所有枚举的变量
+        for (int i = 0; i < data.TableIDs.Count; i++)
+        {
+            string value = data[data.TableIDs[i]].GetString(key);
+
+            if(!enumList.Contains(value))
+            {
+                enumList.Add(value);
+
+                //写在队尾
+                row = ExcelTool.GetEmptyCellByRow(configSheet, row, col);
+                configSheet.Cells[row, col].Value = value;
+            }
         }
     }
 
