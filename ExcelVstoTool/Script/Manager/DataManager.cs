@@ -222,19 +222,19 @@ public static class DataManager
         for (int i = 0; i < data.TableKeys.Count; i++)
         {
             string key = data.TableKeys[i];
-            if (data.m_tableTypes.ContainsKey(key) && data.m_tableTypes[key] == FieldType.Enum)
+            FieldType fieldType = data.m_tableTypes[key];
+            if (data.m_tableTypes.ContainsKey(key) 
+                && (fieldType == FieldType.Enum || fieldType == FieldType.EnumArray))
             {
                 string enumName = data.m_tableSecTypes[key];
-
+                
                 //再找到有没有相同的枚举
-                FindEnumConfig(data, configSheet,key, enumName);
+                FindEnumConfig(data, configSheet,key, enumName, fieldType);
             }
         }
-
-        //再判断有没有新的key
     }
 
-    static void FindEnumConfig(DataTable data, Worksheet configSheet,string key,string enumName)
+    static void FindEnumConfig(DataTable data, Worksheet configSheet,string key,string enumName,FieldType fieldType)
     {
         List<string> enumList = null;
         int col = 5;
@@ -258,15 +258,38 @@ public static class DataManager
         //遍历所有的id,查找所有枚举的变量
         for (int i = 0; i < data.TableIDs.Count; i++)
         {
-            string value = data[data.TableIDs[i]].GetString(key);
-
-            if(!enumList.Contains(value))
+            if(fieldType == FieldType.Enum)
             {
-                enumList.Add(value);
+                string value = data[data.TableIDs[i]].GetString(key);
 
-                //写在队尾
-                row = ExcelTool.GetEmptyCellByRow(configSheet, row, col);
-                configSheet.Cells[row, col].Value = value;
+                if (!enumList.Contains(value))
+                {
+                    enumList.Add(value);
+
+                    //写在队尾
+                    row = ExcelTool.GetEmptyCellByRow(configSheet, row, col);
+                    configSheet.Cells[row, col].Value = value;
+                }
+            }
+            else if(fieldType == FieldType.EnumArray)
+            {
+                string[] values = data[data.TableIDs[i]].GetStringArray(key);
+                for (int j = 0; j < values.Length; j++)
+                {
+                    string value = values[j];
+                    if (!enumList.Contains(value))
+                    {
+                        enumList.Add(value);
+
+                        //写在队尾
+                        row = ExcelTool.GetEmptyCellByRow(configSheet, row, col);
+                        configSheet.Cells[row, col].Value = value;
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("FindEnumConfig 意外的类型 " + fieldType);
             }
         }
     }
