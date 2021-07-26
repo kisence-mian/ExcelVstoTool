@@ -222,14 +222,13 @@ public static class DataManager
         for (int i = 0; i < data.TableKeys.Count; i++)
         {
             string key = data.TableKeys[i];
-            FieldType fieldType = data.m_tableTypes[key];
             if (data.m_tableTypes.ContainsKey(key) 
-                && (fieldType == FieldType.Enum || fieldType == FieldType.EnumArray))
+                && (data.m_tableTypes[key] == FieldType.Enum || data.m_tableTypes[key] == FieldType.EnumArray))
             {
                 string enumName = data.m_tableSecTypes[key];
                 
                 //再找到有没有相同的枚举
-                FindEnumConfig(data, configSheet,key, enumName, fieldType);
+                FindEnumConfig(data, configSheet,key, enumName, data.m_tableTypes[key]);
             }
         }
     }

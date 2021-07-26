@@ -1459,7 +1459,5 @@ namespace ExcelVstoTool
 
 
         #endregion
-
-
     }
 }
