@@ -276,6 +276,13 @@ public class CheckTool
             || fieldType == FieldType.Enum)
         {
             string value = sData.GetString(key);
+
+            //忽略空值
+            if(string.IsNullOrEmpty(value))
+            {
+                return true;
+            }
+
             return handle(value);
         }
         else if (fieldType == FieldType.StringArray
@@ -285,6 +292,12 @@ public class CheckTool
 
             for (int i = 0; i < values.Length; i++)
             {
+                //忽略空值
+                if (string.IsNullOrEmpty(values[i]))
+                {
+                    return true;
+                }
+
                 if (!handle(values[i]))
                 {
                     return false;
