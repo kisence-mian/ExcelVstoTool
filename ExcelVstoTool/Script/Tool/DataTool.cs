@@ -115,13 +115,17 @@ public class DataTool
         //如果全覆盖公式则整个删除
         ExcelTool.ClearSheet(_wsh,dataConfig.m_coverFormula);
 
+        //构造加速数组
+        object[,] buffer = new object[data.TableIDs.Count + 4, data.TableKeys.Count];
+
         try
         {
             //表头
             int index = 1;
             foreach (var key in data.TableKeys)
             {
-                _wsh.Cells[1, index] = key;
+                //_wsh.Cells[1, index] = key;
+                buffer[0, index-1] = key;
 
                 index++;
             }
@@ -156,25 +160,30 @@ public class DataTool
                             typeString += "&" + data.m_fieldAssetTypes[key];
                     }
 
-                    _wsh.Cells[2, index] = typeString;
+                    //_wsh.Cells[2, index] = typeString;
+                    buffer[1, index-1] = typeString;
                 }
                 else
                 {
-                    _wsh.Cells[2, index] = FieldType.String.ToString();
+                    //_wsh.Cells[2, index] = FieldType.String.ToString();
+                    buffer[1, index - 1] = FieldType.String.ToString();
                 }
 
                 index++;
             }
-            _wsh.Cells[2, 1] = DataTable.c_fieldTypeTableTitle;
+            //_wsh.Cells[2, 1] = DataTable.c_fieldTypeTableTitle;
+            buffer[1, 0] = DataTable.c_fieldTypeTableTitle;
 
             //描述
             index = 1;
-            _wsh.Cells[3, 1] = DataTable.c_noteTableTitle;
+            //_wsh.Cells[3, 1] = DataTable.c_noteTableTitle;
+            buffer[2, 0] = DataTable.c_noteTableTitle;
             foreach (var key in data.TableKeys)
             {
                 if(data.m_noteValue.ContainsKey(key))
                 {
-                    _wsh.Cells[3, index] = data.m_noteValue[key];
+                    //_wsh.Cells[3, index] = data.m_noteValue[key];
+                    buffer[2, index - 1] = data.m_noteValue[key];
                 }
 
                 index++;
@@ -182,12 +191,14 @@ public class DataTool
 
             //默认值
             index = 1;
-            _wsh.Cells[4, 1] = DataTable.c_defaultValueTableTitle;
+            //_wsh.Cells[4, 1] = DataTable.c_defaultValueTableTitle;
+            buffer[3, 0] = DataTable.c_defaultValueTableTitle;
             foreach (var key in data.TableKeys)
             {
                 if (data.m_defaultValue.ContainsKey(key))
                 {
-                    _wsh.Cells[4, index] = data.m_defaultValue[key];
+                    //_wsh.Cells[4, index] = data.m_defaultValue[key];
+                    buffer[3, index - 1] = data.m_defaultValue[key];
                 }
                 index++;
             }
@@ -207,7 +218,8 @@ public class DataTool
                         {
                             if(dataConfig.m_coverFormula)
                             {
-                                _wsh.Cells[row, index] = dataTmp[key].ToString();
+                                //_wsh.Cells[row, index] = dataTmp[key].ToString();
+                                buffer[row - 1, index - 1] = dataTmp[key].ToString();
                             }
                             else
                             {
@@ -216,7 +228,8 @@ public class DataTool
                         }
                         else
                         {
-                            _wsh.Cells[row, index] = dataTmp[key].ToString();
+                            //_wsh.Cells[row, index] = dataTmp[key].ToString();
+                            buffer[row - 1, index - 1] = dataTmp[key].ToString();
                         }
                     }
                     index++;
@@ -224,6 +237,10 @@ public class DataTool
                 row++;
             }
 
+
+            Range range = _wsh.Range["A1:A1"];
+            range = range.Resize[data.TableIDs.Count + 4, data.TableKeys.Count];
+            range.Value2 = buffer;
 
         }
         catch (Exception e)
