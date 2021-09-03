@@ -118,16 +118,22 @@ public static class DataManager
         isEnable = true;
 
         //生成缓存
-        GenerateLanguageCache();
+        GenerateDataCache();
 
         //读取枚举设置
         ReadEnumConfig(config);
     }
 
-    static void GenerateLanguageCache()
+    static void GenerateDataCache()
     {
         List<string> errorFile = new List<string>();
         dataCache = new Dictionary<string, DataTable>();
+        tableNameCache = new List<string>();
+
+        if (!Directory.Exists(PathDefine.GetDataPath()))
+        {
+            return;
+        }
 
         List<string> list = FileTool.GetAllFileNamesByPath(PathDefine.GetDataPath(), new string[] { "txt" },false);
 
@@ -148,7 +154,6 @@ public static class DataManager
         }
 
         //缓存表名
-        tableNameCache = new List<string>();
         foreach (string key in dataCache.Keys)
         {
             tableNameCache.Add(key);

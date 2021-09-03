@@ -1097,6 +1097,14 @@ public enum DataFieldAssetType
     /// 图片资源
     /// </summary>
     Texture,
+    /// <summary>
+    /// 音频资源
+    /// </summary>
+    Audio,
+    /// <summary>
+    /// 视频资源
+    /// </summary>
+    Video,
 }
 
 public struct Color

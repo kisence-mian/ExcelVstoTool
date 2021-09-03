@@ -186,6 +186,14 @@ namespace ExcelVstoTool
 
         private void button_ToExcel_Click(object sender, RibbonControlEventArgs e)
         {
+            //确认弹窗
+            MessageBoxButtons mess = MessageBoxButtons.OKCancel;
+            DialogResult dr = MessageBox.Show("确定要导入吗，此操作无法撤销", "提示", mess);
+            if (dr == DialogResult.Cancel)
+            {
+                return;
+            }
+
             string info = "导入完毕";
             List<string> nofindPath = new List<string>();
 
@@ -608,6 +616,14 @@ namespace ExcelVstoTool
 
         private void button_importSingleTable_Click(object sender, RibbonControlEventArgs e)
         {
+            //确认弹窗
+            MessageBoxButtons mess = MessageBoxButtons.OKCancel;
+            DialogResult dr = MessageBox.Show("确定要导入吗，此操作无法撤销", "提示", mess);
+            if (dr == DialogResult.Cancel)
+            {
+                return;
+            }
+
             DataConfig dataConfig = GetActiveDataConfig();
             Worksheet wst = GetSheet(dataConfig.m_sheetName);
 
@@ -621,6 +637,8 @@ namespace ExcelVstoTool
                 if (File.Exists(dataConfig.GetTextPath()))
                 {
                     DataTool.Data2Excel(dataConfig, wst);
+                    //重新生成一次枚举
+                    DataManager.WriteEnumConfig(dataConfig, GetConfigSheet());
                 }
                 else
                 {

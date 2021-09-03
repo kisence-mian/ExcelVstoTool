@@ -151,6 +151,11 @@ public class DataConfig
         }
         else
         {
+            if(!Directory.Exists(PathDefine.GetDataPath()))
+            {
+                return false;
+            }
+
             List<string> files = FileTool.GetAllFileNamesByPath(PathDefine.GetDataPath(), new string[] { "txt" });
 
             for (int i = 0; i < files.Count; i++)

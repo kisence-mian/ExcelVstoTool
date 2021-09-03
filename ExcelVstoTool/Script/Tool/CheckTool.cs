@@ -181,11 +181,18 @@ public class CheckTool
                     case DataFieldAssetType.Texture:
                         result &= CheckTexture(workSheet, data, config, key, type);
                         break;
+                    case DataFieldAssetType.Audio:
+                        result &= CheckAudio(workSheet, data, config, key, type);
+                        break;
+                    case DataFieldAssetType.Video:
+                        result &= CheckVideo(workSheet, data, config, key, type);
+                        break;
                     case DataFieldAssetType.LocalizedLanguage:
                         result &= CheckLanguage(workSheet, data, config, key, type);
                         break;
                     case DataFieldAssetType.TableName:
-                        result &= CheckTableName(workSheet, data, config, key, type); break;
+                        result &= CheckTableName(workSheet, data, config, key, type);
+                        break;
                     case DataFieldAssetType.TableKey:
 
                         if(data.m_tableSecTypes.ContainsKey(key))
@@ -264,6 +271,72 @@ public class CheckTool
             }))
             {
                 throw new Exception("找不到 图片资源 -> " + value + "<- 行 " + (i + 5) + " ID = " + id + " Key " + key
+                    + CheckSpace(sData.GetString(key)));
+            }
+        }
+        return result;
+    }
+
+    static bool CheckAudio(Worksheet workSheet, DataTable data, DataConfig config, string key, FieldType fieldType)
+    {
+        bool result = true;
+
+        //构造图片清单
+        List<string> list = FileTool.GetAllFileNamesByPath(PathDefine.GetResourcesPath(), new string[] { "mp3", "wav", "mid" , "ogg" });
+        Dictionary<string, string> dict = GenerateNameDict(list);
+
+        //逐项检查表格中的数据是否存在
+
+        for (int i = 0; i < data.TableIDs.Count; i++)
+        {
+            string id = data.TableIDs[i];
+            SingleData sData = data[id];
+            string value = sData.GetString(key);
+
+            //跳过空数据
+            if (string.IsNullOrEmpty(value))
+            {
+                continue;
+            }
+
+            if (!CheckSingleResource(fieldType, sData, key, (v) => {
+                return dict.ContainsKey(v);
+            }))
+            {
+                throw new Exception("找不到 音频资源 -> " + value + "<- 行 " + (i + 5) + " ID = " + id + " Key " + key
+                    + CheckSpace(sData.GetString(key)));
+            }
+        }
+        return result;
+    }
+
+    static bool CheckVideo(Worksheet workSheet, DataTable data, DataConfig config, string key, FieldType fieldType)
+    {
+        bool result = true;
+
+        //构造视频清单
+        List<string> list = FileTool.GetAllFileNamesByPath(PathDefine.GetResourcesPath(), new string[] { "mp4", "mkv", "avi" , "flv" });
+        Dictionary<string, string> dict = GenerateNameDict(list);
+
+        //逐项检查表格中的数据是否存在
+
+        for (int i = 0; i < data.TableIDs.Count; i++)
+        {
+            string id = data.TableIDs[i];
+            SingleData sData = data[id];
+            string value = sData.GetString(key);
+
+            //跳过空数据
+            if (string.IsNullOrEmpty(value))
+            {
+                continue;
+            }
+
+            if (!CheckSingleResource(fieldType, sData, key, (v) => {
+                return dict.ContainsKey(v);
+            }))
+            {
+                throw new Exception("找不到 音频资源 -> " + value + "<- 行 " + (i + 5) + " ID = " + id + " Key " + key
                     + CheckSpace(sData.GetString(key)));
             }
         }

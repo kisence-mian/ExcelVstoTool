@@ -10,8 +10,6 @@ using System.Windows.Forms;
 
 public static class LanguageManager
 {
-
-
     /// <summary>
     /// 是否生效
     /// </summary>
@@ -31,6 +29,8 @@ public static class LanguageManager
     /// 多语言缓存
     /// </summary>
     static Dictionary<SystemLanguage, Dictionary<string, DataTable>> languageCache = new Dictionary<SystemLanguage, Dictionary<string, DataTable>>();
+
+    public static bool isFirstInit = true;
 
     public static void Init()
     {
@@ -53,7 +53,16 @@ public static class LanguageManager
         {
             IsEnable = false;
 
-            MessageBox.Show("没有找到 " + configPath);
+            //只在第一次初始化时弹出这个提示
+            if (isFirstInit)
+            {
+                MessageBox.Show("没有找到 " + configPath);
+            }
+        }
+
+        if(isFirstInit)
+        {
+            isFirstInit = false;
         }
     }
 
@@ -189,6 +198,11 @@ public static class LanguageManager
 
         //允许空值
         list.Add("");
+
+        if(!languageCache.ContainsKey(language))
+        {
+            return list;
+        }
 
         foreach (string key in languageCache[language].Keys)
         {
