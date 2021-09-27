@@ -480,6 +480,15 @@ public class CheckTool
 
             if (!CheckSingleResource(fieldType, sData, key, (v) =>
             {
+                bool r = DataManager.CheckDataExist(tableKey, v);
+
+                if(!r)
+                {
+                    throw new Exception("配置表Key错误 ->" + value + "<- 行 " + (i + 5) + " ID = " + id + " Key =" + key
+                   + "\n找不到 配置表Key " + v
+                   + CheckSpace(v));
+                }
+
                 return DataManager.CheckDataExist(tableKey, v);
             }))
             {

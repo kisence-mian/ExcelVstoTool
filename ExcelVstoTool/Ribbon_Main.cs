@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using ExcelVstoTool.DialogWindow;
 using Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Tools.Ribbon;
 
@@ -24,6 +25,10 @@ namespace ExcelVstoTool
 
 
         #region 生命周期派发
+
+        public delegate void SelectChangeHandle(Worksheet sheet, Range range);
+
+        public static SelectChangeHandle OnSelectChange;
 
         private void Application_WorkbookBeforeClose(Workbook Wb, ref bool Cancel)
         {
@@ -47,6 +52,9 @@ namespace ExcelVstoTool
             ConfigLogic();
             Data_OnSelectChange(Globals.ThisAddIn.Application.ActiveSheet, Target);
             Language_OnSelectChange(Globals.ThisAddIn.Application.ActiveSheet, Target);
+
+            //派发事件
+            OnSelectChange?.Invoke(Globals.ThisAddIn.Application.ActiveSheet, Target);
         }
 
         #endregion
@@ -177,6 +185,7 @@ namespace ExcelVstoTool
                     FileTool.WriteStringByFile(item.Key, DataTable.Serialize(item.Value));
                 }
                 MessageBox.Show("导出完毕\n用时：" + (DateTime.Now - now).TotalSeconds + "s");
+                RefreshData();
             }
             else
             {
@@ -361,8 +370,8 @@ namespace ExcelVstoTool
 
         private void button_dataInit_Click(object sender, RibbonControlEventArgs e)
         {
-            DataInit(GetConfigSheet());
-            LanguageInit();
+            RefreshData();
+
         }
 
         private void button_openFile_Click(object sender, RibbonControlEventArgs e)
@@ -680,6 +689,9 @@ namespace ExcelVstoTool
                 else
                 {
                     dataTable = DataTool.Excel2Table(wst, dataConfig);
+                    FileTool.WriteStringByFile(dataConfig.GetTextPath(), DataTable.Serialize(dataTable));
+
+                    RefreshData();
                 }
 
                 MessageBox.Show("导出完毕");
@@ -1373,7 +1385,25 @@ namespace ExcelVstoTool
 
         #endregion
 
+        #region 数据工具
+
+        private void button_ArraryToolWindow_Click(object sender, RibbonControlEventArgs e)
+        {
+            ArrayToolWindow atw = new ArrayToolWindow();
+            atw.Show();
+            //将当前选中区域传入
+            atw.OnSelectChange(GetActiveSheet(), GetCurrentSelectRange());
+        }
+
+        #endregion
+
         #region 工具方法
+
+        void RefreshData()
+        {
+            DataInit(GetConfigSheet());
+            LanguageInit();
+        }
 
         //性能开关
         void PerformanceSwitch(bool enable)
@@ -1386,7 +1416,7 @@ namespace ExcelVstoTool
             }
         }
 
-        Worksheet GetSheet(string shetName, bool isCreate = false)
+        public static Worksheet GetSheet(string shetName, bool isCreate = false)
         {
             if (!ExcelTool.ExistSheetName(Globals.ThisAddIn.Application, Const.c_SheetName_Config))
             {
@@ -1396,7 +1426,7 @@ namespace ExcelVstoTool
             return ExcelTool.GetSheet(Globals.ThisAddIn.Application, shetName, isCreate);
         }
 
-        bool GetSheetIsExist(string sheetName)
+        public static bool GetSheetIsExist(string sheetName)
         {
             return ExcelTool.ExistSheetName(Globals.ThisAddIn.Application, sheetName);
         }
@@ -1413,12 +1443,12 @@ namespace ExcelVstoTool
         }
 
 
-        Worksheet GetActiveSheet()
+        public static Worksheet GetActiveSheet()
         {
             return Globals.ThisAddIn.Application.ActiveSheet;
         }
 
-        Range GetCurrentSelectRange()
+        public static Range GetCurrentSelectRange()
         {
             //当前选中的单元格
             return  Globals.ThisAddIn.Application.Selection;
@@ -1477,5 +1507,6 @@ namespace ExcelVstoTool
 
 
         #endregion
+
     }
 }

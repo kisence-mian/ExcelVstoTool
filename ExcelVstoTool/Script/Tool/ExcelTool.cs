@@ -167,4 +167,11 @@ public class ExcelTool
 
         return -1;
     }
+
+    public static string GetRangeString(Range range)
+    {
+        return Int2ColumnName(range.Column) + range.Row
+            + ":"
+            + Int2ColumnName(range.Column + range.Columns.Count-1) + (range.Row + +range.Rows.Count-1);
+    }
 }
