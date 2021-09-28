@@ -21,7 +21,8 @@ namespace ExcelVstoTool.DialogWindow
             InitializeComponent();
 
             helpProvider_tool.SetHelpString(button_merge, "把选中范围的数据合并成竖线分割的格式，并输出到选中区域");
-            helpProvider_tool.SetHelpString(button_Expand, "把选中读取范围内的所有数组数据，并展开到选中区域");
+            helpProvider_tool.SetHelpString(button_Expand, "把选中读取范围内的所有数组数据展开到选中区域");
+            helpProvider_tool.SetHelpString(button_saveData, "把选中读取范围内的的公式计算结果保存下来");
         }
 
         protected override void OnHandleCreated(EventArgs e)
@@ -93,6 +94,19 @@ namespace ExcelVstoTool.DialogWindow
             MergeData(selectRange, targetRange);
         }
 
+        private void button_saveData_Click(object sender, EventArgs e)
+        {
+            if (!CheckRangeFormat(textBox_selectRange.Text))
+            {
+                MessageBox.Show("不正确的范围格式");
+                return;
+            }
+
+            //获取Range
+            Range selectRange = GetRangeByRangeString(textBox_selectRange.Text);
+            SaveCalcResult(selectRange);
+        }
+
         bool CheckRangeFormat(string content)
         {
             return Regex.IsMatch(content, "^([\\s\\S]*)![A-Z]+[0-9]+:[A-Z]+[0-9]+$");
@@ -101,14 +115,20 @@ namespace ExcelVstoTool.DialogWindow
 
         private void radioButton_SelectRange_CheckedChanged(object sender, EventArgs e)
         {
-            currentCheck = CheckType.SelectRange;
-            textBox_selectRange.Text =  GetRangeString(Ribbon_Main.GetActiveSheet(), Ribbon_Main.GetCurrentSelectRange());
+            if(radioButton_SelectRange.Checked)
+            {
+                currentCheck = CheckType.SelectRange;
+                textBox_selectRange.Text = GetRangeString(Ribbon_Main.GetActiveSheet(), Ribbon_Main.GetCurrentSelectRange());
+            }
         }
 
         private void radioButton_TargetRange_CheckedChanged(object sender, EventArgs e)
         {
-            currentCheck = CheckType.TargetRange;
-            textBox_targetRange.Text = GetRangeString(Ribbon_Main.GetActiveSheet(), Ribbon_Main.GetCurrentSelectRange());
+            if (radioButton_TargetRange.Checked)
+            {
+                currentCheck = CheckType.TargetRange;
+                textBox_targetRange.Text = GetRangeString(Ribbon_Main.GetActiveSheet(), Ribbon_Main.GetCurrentSelectRange());
+            }
         }
 
         #endregion
@@ -168,18 +188,24 @@ namespace ExcelVstoTool.DialogWindow
 
         string GenerateArrayFormula(string[] array,Pos cPos,int rowOffset)
         {
-            string result = "=";
-            for (int i = 0; i < array.Length; i++)
+            if(array.Length != 0)
             {
-                result += ExcelTool.Int2ColumnName(cPos.col + i+1) + (cPos.row  + rowOffset);
-
-                if(i != array.Length -1)
+                string result = "=";
+                for (int i = 0; i < array.Length; i++)
                 {
-                    result += "&\"|\"&";
-                }
-            }
+                    result += ExcelTool.Int2ColumnName(cPos.col + i + 1) + (cPos.row + rowOffset);
 
-            return result;
+                    if (i != array.Length - 1)
+                    {
+                        result += "&\"|\"&";
+                    }
+                }
+                return result;
+            }
+            else
+            {
+                return "";
+            }
         }
 
         #endregion
@@ -221,6 +247,23 @@ namespace ExcelVstoTool.DialogWindow
 
         #endregion
 
+        #region 转换为计算结果
+
+        void SaveCalcResult(Range selectRange)
+        {
+            Pos sPos = new Pos(selectRange);
+
+            for (int col = 1; col <= selectRange.Columns.Count; col++)
+            {
+                for (int row = 1; row <= selectRange.Rows.Count; row++)
+                {
+                    selectRange[row, col] = selectRange[row, col].Text;
+                }
+            }
+        }
+
+        #endregion
+
         #region 工具方法
 
         string GetRangeString(Worksheet sheet, Range range)
@@ -238,8 +281,8 @@ namespace ExcelVstoTool.DialogWindow
             return worksheet.Range[range];
         }
 
-        #endregion
 
+        #endregion
 
     }
 

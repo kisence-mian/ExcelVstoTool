@@ -70,16 +70,9 @@ namespace ExcelVstoTool
                 //隐藏初始化按钮
                 button_initConfig.Visible = false;
 
-                if (!DataManager.IsEnable)
-                {
-                    DataInit(config);
-                    UpdateDataUI();
-                }
-
-                if (!LanguageManager.IsEnable)
-                {
-                    LanguageInit();
-                }
+                DataInit(config);
+                UpdateDataUI();
+                LanguageInit();
 
                 SetDataUIEnabled(true);
                 SetLanguageUIEnable(true);
