@@ -38,6 +38,7 @@
             this.button_merge = new System.Windows.Forms.Button();
             this.helpProvider_tool = new System.Windows.Forms.HelpProvider();
             this.button_saveData = new System.Windows.Forms.Button();
+            this.button_reverseExpand = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label_sheetName
@@ -54,9 +55,9 @@
             this.button_Expand.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button_Expand.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button_Expand.Location = new System.Drawing.Point(14, 358);
+            this.button_Expand.Location = new System.Drawing.Point(12, 328);
             this.button_Expand.Name = "button_Expand";
-            this.button_Expand.Size = new System.Drawing.Size(312, 23);
+            this.button_Expand.Size = new System.Drawing.Size(310, 23);
             this.button_Expand.TabIndex = 2;
             this.button_Expand.Text = "展开数组";
             this.button_Expand.UseVisualStyleBackColor = true;
@@ -66,7 +67,7 @@
             // 
             this.radioButton_TargetRange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButton_TargetRange.AutoSize = true;
-            this.radioButton_TargetRange.Location = new System.Drawing.Point(312, 46);
+            this.radioButton_TargetRange.Location = new System.Drawing.Point(303, 46);
             this.radioButton_TargetRange.Name = "radioButton_TargetRange";
             this.radioButton_TargetRange.Size = new System.Drawing.Size(14, 13);
             this.radioButton_TargetRange.TabIndex = 7;
@@ -78,7 +79,7 @@
             this.radioButton_SelectRange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButton_SelectRange.AutoSize = true;
             this.radioButton_SelectRange.Checked = true;
-            this.radioButton_SelectRange.Location = new System.Drawing.Point(312, 15);
+            this.radioButton_SelectRange.Location = new System.Drawing.Point(303, 15);
             this.radioButton_SelectRange.Name = "radioButton_SelectRange";
             this.radioButton_SelectRange.Size = new System.Drawing.Size(14, 13);
             this.radioButton_SelectRange.TabIndex = 6;
@@ -92,7 +93,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_targetRange.Location = new System.Drawing.Point(71, 43);
             this.textBox_targetRange.Name = "textBox_targetRange";
-            this.textBox_targetRange.Size = new System.Drawing.Size(235, 21);
+            this.textBox_targetRange.Size = new System.Drawing.Size(226, 21);
             this.textBox_targetRange.TabIndex = 5;
             // 
             // textBox_selectRange
@@ -101,7 +102,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_selectRange.Location = new System.Drawing.Point(71, 12);
             this.textBox_selectRange.Name = "textBox_selectRange";
-            this.textBox_selectRange.Size = new System.Drawing.Size(235, 21);
+            this.textBox_selectRange.Size = new System.Drawing.Size(226, 21);
             this.textBox_selectRange.TabIndex = 4;
             // 
             // label_targetRange
@@ -118,9 +119,9 @@
             this.button_merge.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button_merge.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button_merge.Location = new System.Drawing.Point(13, 387);
+            this.button_merge.Location = new System.Drawing.Point(13, 388);
             this.button_merge.Name = "button_merge";
-            this.button_merge.Size = new System.Drawing.Size(312, 23);
+            this.button_merge.Size = new System.Drawing.Size(310, 23);
             this.button_merge.TabIndex = 8;
             this.button_merge.Text = "合并数组";
             this.button_merge.UseVisualStyleBackColor = true;
@@ -131,19 +132,33 @@
             this.button_saveData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button_saveData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button_saveData.Location = new System.Drawing.Point(12, 416);
+            this.button_saveData.Location = new System.Drawing.Point(12, 417);
             this.button_saveData.Name = "button_saveData";
-            this.button_saveData.Size = new System.Drawing.Size(312, 23);
+            this.button_saveData.Size = new System.Drawing.Size(310, 23);
             this.button_saveData.TabIndex = 9;
             this.button_saveData.Text = "转换为计算结果";
             this.button_saveData.UseVisualStyleBackColor = true;
             this.button_saveData.Click += new System.EventHandler(this.button_saveData_Click);
             // 
+            // button_reverseExpand
+            // 
+            this.button_reverseExpand.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_reverseExpand.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.button_reverseExpand.Location = new System.Drawing.Point(13, 357);
+            this.button_reverseExpand.Name = "button_reverseExpand";
+            this.button_reverseExpand.Size = new System.Drawing.Size(310, 23);
+            this.button_reverseExpand.TabIndex = 10;
+            this.button_reverseExpand.Text = "反向展开数组";
+            this.button_reverseExpand.UseVisualStyleBackColor = true;
+            this.button_reverseExpand.Click += new System.EventHandler(this.button_reverseExpand_Click);
+            // 
             // ArrayToolWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(338, 450);
+            this.ClientSize = new System.Drawing.Size(329, 451);
+            this.Controls.Add(this.button_reverseExpand);
             this.Controls.Add(this.button_saveData);
             this.Controls.Add(this.button_merge);
             this.Controls.Add(this.button_Expand);
@@ -156,6 +171,7 @@
             this.HelpButton = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(300, 100);
             this.Name = "ArrayToolWindow";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -179,5 +195,6 @@
         private System.Windows.Forms.Button button_merge;
         private System.Windows.Forms.HelpProvider helpProvider_tool;
         private System.Windows.Forms.Button button_saveData;
+        private System.Windows.Forms.Button button_reverseExpand;
     }
 }

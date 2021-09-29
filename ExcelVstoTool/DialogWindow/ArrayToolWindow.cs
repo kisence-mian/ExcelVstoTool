@@ -22,6 +22,7 @@ namespace ExcelVstoTool.DialogWindow
 
             helpProvider_tool.SetHelpString(button_merge, "把选中范围的数据合并成竖线分割的格式，并输出到选中区域");
             helpProvider_tool.SetHelpString(button_Expand, "把选中读取范围内的所有数组数据展开到选中区域");
+            helpProvider_tool.SetHelpString(button_reverseExpand, "读取范围内的所有数据，并以引用的形式展开到指定位置");
             helpProvider_tool.SetHelpString(button_saveData, "把选中读取范围内的的公式计算结果保存下来");
         }
 
@@ -42,7 +43,7 @@ namespace ExcelVstoTool.DialogWindow
 
         public void OnSelectChange(Worksheet sheet, Range range)
         {
-            string rangeString = GetRangeString(sheet,range);
+            string rangeString = ExcelTool.GetRangeString(sheet,range);
 
             if(currentCheck == CheckType.SelectRange)
             {
@@ -64,61 +65,70 @@ namespace ExcelVstoTool.DialogWindow
 
         private void button_Expand_Click(object sender, EventArgs e)
         {
-            if(!CheckRangeFormat(textBox_selectRange.Text) 
-                || !CheckRangeFormat(textBox_targetRange.Text))
+            if(!WindowUntilTool.CheckRangeFormat(textBox_selectRange.Text) 
+                || !WindowUntilTool.CheckRangeFormat(textBox_targetRange.Text))
             {
                 MessageBox.Show("不正确的范围格式");
                 return;
             }
 
             //获取两个Range
-            Range selectRange = GetRangeByRangeString(textBox_selectRange.Text);
-            Range targetRange = GetRangeByRangeString(textBox_targetRange.Text);
+            Range selectRange = Ribbon_Main.GetRangeByRangeString(textBox_selectRange.Text);
+            Range targetRange = Ribbon_Main.GetRangeByRangeString(textBox_targetRange.Text);
 
             ExpandData(selectRange, targetRange);
         }
 
         private void button_merge_Click(object sender, EventArgs e)
         {
-            if (!CheckRangeFormat(textBox_selectRange.Text)
-                || !CheckRangeFormat(textBox_targetRange.Text))
+            if (!WindowUntilTool.CheckRangeFormat(textBox_selectRange.Text)
+                || !WindowUntilTool.CheckRangeFormat(textBox_targetRange.Text))
             {
                 MessageBox.Show("不正确的范围格式");
                 return;
             }
 
             //获取两个Range
-            Range selectRange = GetRangeByRangeString(textBox_selectRange.Text);
-            Range targetRange = GetRangeByRangeString(textBox_targetRange.Text);
+            Range selectRange = Ribbon_Main.GetRangeByRangeString(textBox_selectRange.Text);
+            Range targetRange = Ribbon_Main.GetRangeByRangeString(textBox_targetRange.Text);
 
             MergeData(selectRange, targetRange);
         }
 
+        private void button_reverseExpand_Click(object sender, EventArgs e)
+        {
+            if (!WindowUntilTool.CheckRangeFormat(textBox_selectRange.Text)
+            || !WindowUntilTool.CheckRangeFormat(textBox_targetRange.Text))
+            {
+                MessageBox.Show("不正确的范围格式");
+                return;
+            }
+
+            //获取两个Range
+            Range selectRange = Ribbon_Main.GetRangeByRangeString(textBox_selectRange.Text);
+            Range targetRange = Ribbon_Main.GetRangeByRangeString(textBox_targetRange.Text);
+
+            ReverseExpandData(selectRange, targetRange);
+        }
         private void button_saveData_Click(object sender, EventArgs e)
         {
-            if (!CheckRangeFormat(textBox_selectRange.Text))
+            if (!WindowUntilTool.CheckRangeFormat(textBox_selectRange.Text))
             {
                 MessageBox.Show("不正确的范围格式");
                 return;
             }
 
             //获取Range
-            Range selectRange = GetRangeByRangeString(textBox_selectRange.Text);
-            SaveCalcResult(selectRange);
+            Range selectRange = Ribbon_Main.GetRangeByRangeString(textBox_selectRange.Text);
+            ExcelTool.SaveCalcResult(selectRange);
         }
-
-        bool CheckRangeFormat(string content)
-        {
-            return Regex.IsMatch(content, "^([\\s\\S]*)![A-Z]+[0-9]+:[A-Z]+[0-9]+$");
-        }
-
 
         private void radioButton_SelectRange_CheckedChanged(object sender, EventArgs e)
         {
             if(radioButton_SelectRange.Checked)
             {
                 currentCheck = CheckType.SelectRange;
-                textBox_selectRange.Text = GetRangeString(Ribbon_Main.GetActiveSheet(), Ribbon_Main.GetCurrentSelectRange());
+                textBox_selectRange.Text = ExcelTool.GetRangeString(Ribbon_Main.GetActiveSheet(), Ribbon_Main.GetCurrentSelectRange());
             }
         }
 
@@ -127,7 +137,7 @@ namespace ExcelVstoTool.DialogWindow
             if (radioButton_TargetRange.Checked)
             {
                 currentCheck = CheckType.TargetRange;
-                textBox_targetRange.Text = GetRangeString(Ribbon_Main.GetActiveSheet(), Ribbon_Main.GetCurrentSelectRange());
+                textBox_targetRange.Text = ExcelTool.GetRangeString(Ribbon_Main.GetActiveSheet(), Ribbon_Main.GetCurrentSelectRange());
             }
         }
 
@@ -171,6 +181,8 @@ namespace ExcelVstoTool.DialogWindow
             }
         }
 
+
+
         string GetAimPosString(Pos start,int colOffset, int rowOffset)
         {
             return ExcelTool.Int2ColumnName(start.col + colOffset) + (start.row + rowOffset);
@@ -205,6 +217,37 @@ namespace ExcelVstoTool.DialogWindow
             else
             {
                 return "";
+            }
+        }
+
+        void ReverseExpandData(Range selectRange, Range targetRange)
+        {
+            Pos cPos = new Pos(targetRange);
+
+            //读取范围内的所有数据，并以引用的形式展开到指定位置
+            for (int col = 1; col <= selectRange.Columns.Count; col++)
+            {
+                int maxArrayLength = 0;
+
+                for (int row = 1; row <= selectRange.Rows.Count; row++)
+                {
+                    string content = selectRange[row, col].Text;
+
+                    string[] array = ParseTool.String2StringArray(content);
+
+                    //修改数值
+                    WriteValue(targetRange, array, cPos, row - 1);
+
+                    //修改公式
+                    targetRange.Worksheet.Cells[cPos.row + row - 1, cPos.col].Formula = GenerateArrayFormula(array, cPos, row - 1);
+
+                    if (array.Length > maxArrayLength)
+                    {
+                        maxArrayLength = array.Length;
+                    }
+                }
+
+                cPos.col += maxArrayLength + 1;
             }
         }
 
@@ -243,65 +286,8 @@ namespace ExcelVstoTool.DialogWindow
                 targetSheet.Cells[targetRange.Row + row -1, targetRange.Column].Formula = formuale;
             }
         }
-
-
         #endregion
 
-        #region 转换为计算结果
 
-        void SaveCalcResult(Range selectRange)
-        {
-            Pos sPos = new Pos(selectRange);
-
-            for (int col = 1; col <= selectRange.Columns.Count; col++)
-            {
-                for (int row = 1; row <= selectRange.Rows.Count; row++)
-                {
-                    selectRange[row, col] = selectRange[row, col].Text;
-                }
-            }
-        }
-
-        #endregion
-
-        #region 工具方法
-
-        string GetRangeString(Worksheet sheet, Range range)
-        {
-            return sheet.Name + "!" + ExcelTool.GetRangeString(range);
-        }
-
-        Range GetRangeByRangeString(string rangeString)
-        {
-            string SheetName = rangeString.Split('!')[0];
-            string range = rangeString.Split('!')[1];
-
-            Worksheet worksheet = Ribbon_Main.GetSheet(SheetName, false);
-
-            return worksheet.Range[range];
-        }
-
-
-        #endregion
-
-    }
-
-    enum CheckType
-    {
-        SelectRange,
-        TargetRange,
-        No,
-    }
-
-    struct Pos
-    {
-        public int col;
-        public int row;
-        
-        public Pos(Range range)
-        {
-            col = range.Column;
-            row = range.Row;
-        }
     }
 }

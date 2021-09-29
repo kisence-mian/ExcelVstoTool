@@ -1388,6 +1388,14 @@ namespace ExcelVstoTool
             atw.OnSelectChange(GetActiveSheet(), GetCurrentSelectRange());
         }
 
+        private void button_CompressToolWindow_Click(object sender, RibbonControlEventArgs e)
+        {
+            CompressToolWindow ctw = new CompressToolWindow();
+            ctw.Show();
+            //将当前选中区域传入
+            ctw.OnSelectChange(GetActiveSheet(), GetCurrentSelectRange());
+        }
+
         #endregion
 
         #region 工具方法
@@ -1497,9 +1505,18 @@ namespace ExcelVstoTool
             }
         }
 
+        public static Range GetRangeByRangeString(string rangeString)
+        {
+            string SheetName = rangeString.Split('!')[0];
+            string range = rangeString.Split('!')[1];
 
+            Worksheet worksheet = GetSheet(SheetName, false);
+
+            return worksheet.Range[range];
+        }
 
         #endregion
+
 
     }
 }

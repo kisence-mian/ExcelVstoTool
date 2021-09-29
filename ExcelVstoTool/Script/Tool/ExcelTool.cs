@@ -168,10 +168,37 @@ public class ExcelTool
         return -1;
     }
 
+    public static string GetRangeString(Worksheet sheet, Range range)
+    {
+        return sheet.Name + "!" + GetRangeString(range);
+    }
+
     public static string GetRangeString(Range range)
     {
         return Int2ColumnName(range.Column) + range.Row
             + ":"
             + Int2ColumnName(range.Column + range.Columns.Count-1) + (range.Row + +range.Rows.Count-1);
+    }
+
+    public static void SaveCalcResult(Range selectRange)
+    {
+        Pos sPos = new Pos(selectRange);
+
+        for (int col = 1; col <= selectRange.Columns.Count; col++)
+        {
+            for (int row = 1; row <= selectRange.Rows.Count; row++)
+            {
+                if(selectRange[row, col].HasFormula)
+                {
+                    selectRange[row, col] = selectRange[row, col].Text;
+                }
+            }
+
+            if(col > 10000)
+            {
+                System.Windows.Forms.MessageBox.Show("超过1万行不再处理");
+                break;
+            }
+        }
     }
 }

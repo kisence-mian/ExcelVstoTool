@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelVstoTool", "ExcelVstoTool\ExcelVstoTool.csproj", "{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelDnaLibrary_CustomFormula", "ExcelDnaLibrary_CustomFormula\ExcelDnaLibrary_CustomFormula.csproj", "{2F2BC5CC-81E5-4998-99BF-765368756B09}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F2BC5CC-81E5-4998-99BF-765368756B09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F2BC5CC-81E5-4998-99BF-765368756B09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F2BC5CC-81E5-4998-99BF-765368756B09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F2BC5CC-81E5-4998-99BF-765368756B09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
