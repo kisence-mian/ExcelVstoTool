@@ -13,8 +13,12 @@ namespace ExcelVstoTool
 {
     public partial class Ribbon_Main
     {
+        static Ribbon_Main instance;
+
         private void Ribbon_Main_Load(object sender, RibbonUIEventArgs e)
         {
+            instance = this;
+
             //添加事件监听
             Globals.ThisAddIn.Application.WorkbookActivate += Application_WorkbookActivate; //打开工作簿
             Globals.ThisAddIn.Application.SheetActivate += Application_SheetActivate; //激活页签
@@ -1390,7 +1394,7 @@ namespace ExcelVstoTool
 
         private void button_CompressToolWindow_Click(object sender, RibbonControlEventArgs e)
         {
-            CompressToolWindow ctw = new CompressToolWindow();
+            DataToolWindow ctw = new DataToolWindow();
             ctw.Show();
             //将当前选中区域传入
             ctw.OnSelectChange(GetActiveSheet(), GetCurrentSelectRange());
@@ -1407,9 +1411,9 @@ namespace ExcelVstoTool
         }
 
         //性能开关
-        void PerformanceSwitch(bool enable)
+        public static void PerformanceSwitch(bool enable)
         {
-            if (checkBox_CloseView.Checked)
+            if (instance.checkBox_CloseView.Checked)
             {
                 Globals.ThisAddIn.Application.Visible = !enable;
                 Globals.ThisAddIn.Application.ScreenUpdating = !enable;

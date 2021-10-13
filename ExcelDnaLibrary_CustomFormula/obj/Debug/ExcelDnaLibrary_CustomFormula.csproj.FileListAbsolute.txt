@@ -9,3 +9,4 @@ E:\Project\Tool\ExcelVstoTool\ExcelDnaLibrary_CustomFormula\bin\Debug\ExcelDnaLi
 E:\Project\Tool\ExcelVstoTool\ExcelDnaLibrary_CustomFormula\bin\Debug\ExcelDna.IntelliSense.dll
 E:\Project\Tool\ExcelVstoTool\ExcelDnaLibrary_CustomFormula\obj\Debug\ExcelDnaLibrary_CustomFormula.csproj.CopyComplete
 E:\Project\Tool\ExcelVstoTool\ExcelDnaLibrary_CustomFormula\bin\Debug\ExcelDna.IntelliSense64.xll
+E:\Project\Tool\ExcelVstoTool\ExcelDnaLibrary_CustomFormula\bin\Debug\ExcelDna.IntelliSense.xll

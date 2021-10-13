@@ -42,11 +42,26 @@ namespace ExcelDnaLibrary_CustomFormula
             }
         }
 
+        [ExcelFunction(Name = "BatchText", Description = "将字符串复制n份，用分隔符连接，并将{i}替换为序号", Category = "字符串处理")]
+        public static string BatchText(
+            [ExcelArgument(Name = "Content", Description = "要复制的文本")]string content,
+            [ExcelArgument(Name = "Count", Description = "复制次数")]int count,
+            [ExcelArgument(Name = "StartIndex", Description = "初始序号")]int startIndex ,
+            [ExcelArgument(Name = "LinkChar", Description = "连接符")]string linkChar)
+        {
+            string result = "";
 
-        //[ExcelFunction(Name = "test")]
-        //public static string Test([ExcelArgument(Name = "Content")]string content)
-        //{
-        //    return "im test->" + content;
-        //}
+            for (int i = 0; i < count; i++)
+            {
+                result += content.Replace("{i}",(i + startIndex) +"");
+
+                if(i != count -1)
+                {
+                    result += linkChar;
+                }
+            }
+
+            return result;
+        }
     }
 }

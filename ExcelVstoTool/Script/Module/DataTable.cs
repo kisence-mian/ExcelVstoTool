@@ -623,6 +623,12 @@ using System.Text;
             if (data.ContainsKey(TableKeys[0]))
             {
                 data.m_SingleDataKey = data[TableKeys[0]];
+
+                if(ContainsKey(data[TableKeys[0]]))
+                {
+                    throw new Exception("repeat Key ! ->" + data[TableKeys[0]] + "<-");
+                }
+
                 Add(data[TableKeys[0]], data);
                 TableIDs.Add(data[TableKeys[0]]);
             }

@@ -22,7 +22,7 @@ namespace ExcelVstoTool.DialogWindow
 
             helpProvider_tool.SetHelpString(button_merge, "把选中范围的数据合并成竖线分割的格式，并输出到选中区域");
             helpProvider_tool.SetHelpString(button_Expand, "把选中读取范围内的所有数组数据展开到选中区域");
-            helpProvider_tool.SetHelpString(button_reverseExpand, "读取范围内的所有数据，并以引用的形式展开到指定位置");
+            helpProvider_tool.SetHelpString(button_reverseExpand, "读取范围内的所有数据，并以引用的形式展开到指定位置(需要安装拓展公式)");
             helpProvider_tool.SetHelpString(button_saveData, "把选中读取范围内的的公式计算结果保存下来");
         }
 
@@ -222,7 +222,15 @@ namespace ExcelVstoTool.DialogWindow
 
         void ReverseExpandData(Range selectRange, Range targetRange)
         {
+            Pos sPos = new Pos(selectRange);
             Pos cPos = new Pos(targetRange);
+
+            string sheetName = "";
+
+            if(selectRange.Worksheet != targetRange.Worksheet)
+            {
+                sheetName = selectRange.Worksheet.Name + "!";
+            }
 
             //读取范围内的所有数据，并以引用的形式展开到指定位置
             for (int col = 1; col <= selectRange.Columns.Count; col++)
@@ -232,22 +240,25 @@ namespace ExcelVstoTool.DialogWindow
                 for (int row = 1; row <= selectRange.Rows.Count; row++)
                 {
                     string content = selectRange[row, col].Text;
-
+                    string posString = sheetName +"" + ExcelTool.Int2ColumnName(sPos.col + col -1 ) + (sPos.row + row -1);
                     string[] array = ParseTool.String2StringArray(content);
 
                     //修改数值
-                    WriteValue(targetRange, array, cPos, row - 1);
-
-                    //修改公式
-                    targetRange.Worksheet.Cells[cPos.row + row - 1, cPos.col].Formula = GenerateArrayFormula(array, cPos, row - 1);
-
-                    if (array.Length > maxArrayLength)
-                    {
-                        maxArrayLength = array.Length;
-                    }
+                    WriteReverseExpandValue(targetRange, posString, array, cPos, row - 1);
                 }
 
                 cPos.col += maxArrayLength + 1;
+            }
+        }
+
+        void WriteReverseExpandValue(Range targetRange, string posString,string[] array, Pos cPos, int rowOffset)
+        {
+            Worksheet sheet = targetRange.Worksheet;
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                string formula = "=TextSplit(" + posString + ",\"|\"," + i + ")";
+                sheet.Cells[cPos.row + rowOffset, cPos.col + i].Formula = formula;
             }
         }
 

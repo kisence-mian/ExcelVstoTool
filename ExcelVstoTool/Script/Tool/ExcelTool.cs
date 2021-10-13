@@ -180,6 +180,22 @@ public class ExcelTool
             + Int2ColumnName(range.Column + range.Columns.Count-1) + (range.Row + +range.Rows.Count-1);
     }
 
+    public static bool IsRepeat(Range range, string value)
+    {
+        for (int col = 1; col <= range.Columns.Count; col++)
+        {
+            for (int row = 1; row <= range.Rows.Count; row++)
+            {
+                string content = range[row, col].Text;
+                if (content == value)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public static void SaveCalcResult(Range selectRange)
     {
         Pos sPos = new Pos(selectRange);

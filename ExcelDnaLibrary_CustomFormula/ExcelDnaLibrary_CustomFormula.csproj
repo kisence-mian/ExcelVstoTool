@@ -52,6 +52,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ExcelDna.IntelliSense.xll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="ExcelDna.IntelliSense64.xll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

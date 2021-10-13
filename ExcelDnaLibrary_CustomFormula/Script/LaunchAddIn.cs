@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace ExcelDnaLibrary_CustomFormula
 {
-    public class LaunchAddIn : IExcelAddIn
-    {
-        public void AutoClose()
-        {
-            //IntelliSenseServer.Install();
-        }
+    //public class LaunchAddIn : IExcelAddIn
+    //{
+    //    public void AutoClose()
+    //    {
+    //        //IntelliSenseServer.Install();
+    //    }
 
-        public void AutoOpen()
-        {
-            //IntelliSenseServer.Uninstall();
-        }
-    }
+    //    public void AutoOpen()
+    //    {
+    //        //IntelliSenseServer.Uninstall();
+    //    }
+    //}
 }

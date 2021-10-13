@@ -33,7 +33,7 @@
     <PublishUrl>Z:\Tool\ExcelVstoTool\</PublishUrl>
     <InstallUrl />
     <TargetCulture>zh-chs</TargetCulture>
-    <ApplicationVersion>1.0.0.32</ApplicationVersion>
+    <ApplicationVersion>1.0.0.33</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
@@ -189,11 +189,11 @@
     <Compile Include="DialogWindow\ArrayToolWindow.Designer.cs">
       <DependentUpon>ArrayToolWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="DialogWindow\CompressToolWindow.cs">
+    <Compile Include="DialogWindow\DataToolWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DialogWindow\CompressToolWindow.Designer.cs">
-      <DependentUpon>CompressToolWindow.cs</DependentUpon>
+    <Compile Include="DialogWindow\DataToolWindow.Designer.cs">
+      <DependentUpon>DataToolWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="DialogWindow\Define\CkeckType.cs" />
     <Compile Include="DialogWindow\Define\Pos.cs" />
@@ -204,8 +204,8 @@
     <EmbeddedResource Include="DialogWindow\ArrayToolWindow.resx">
       <DependentUpon>ArrayToolWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DialogWindow\CompressToolWindow.resx">
-      <DependentUpon>CompressToolWindow.cs</DependentUpon>
+    <EmbeddedResource Include="DialogWindow\DataToolWindow.resx">
+      <DependentUpon>DataToolWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

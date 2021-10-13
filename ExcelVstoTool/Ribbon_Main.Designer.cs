@@ -109,7 +109,7 @@
             // checkBox_CloseView
             // 
             this.checkBox_CloseView.Checked = true;
-            this.checkBox_CloseView.Label = "导入时隐藏窗口以提高效率";
+            this.checkBox_CloseView.Label = "隐藏窗口以提高效率";
             this.checkBox_CloseView.Name = "checkBox_CloseView";
             // 
             // checkBox_exportCheck
@@ -407,7 +407,7 @@
             // button_ArraryToolWindow
             // 
             this.button_ArraryToolWindow.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button_ArraryToolWindow.Label = "数组拆分合并";
+            this.button_ArraryToolWindow.Label = "数组操作";
             this.button_ArraryToolWindow.Name = "button_ArraryToolWindow";
             this.button_ArraryToolWindow.OfficeImageId = "OutlineGroup";
             this.button_ArraryToolWindow.ShowImage = true;
@@ -416,7 +416,7 @@
             // button_CompressToolWindow
             // 
             this.button_CompressToolWindow.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button_CompressToolWindow.Label = "数据压缩提取";
+            this.button_CompressToolWindow.Label = "数据操作";
             this.button_CompressToolWindow.Name = "button_CompressToolWindow";
             this.button_CompressToolWindow.OfficeImageId = "Consolidate";
             this.button_CompressToolWindow.ShowImage = true;
