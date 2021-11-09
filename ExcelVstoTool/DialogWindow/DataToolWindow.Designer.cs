@@ -64,6 +64,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.textBox_CompressCondition = new System.Windows.Forms.TextBox();
             this.button_CompressByCondition = new System.Windows.Forms.Button();
+            this.button_RemoveRepeatExtract = new System.Windows.Forms.Button();
             this.tabControl_main.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -134,7 +135,7 @@
             this.button_CompressAndExtract.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button_CompressAndExtract.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button_CompressAndExtract.Location = new System.Drawing.Point(7, 273);
+            this.button_CompressAndExtract.Location = new System.Drawing.Point(9, 244);
             this.button_CompressAndExtract.Name = "button_CompressAndExtract";
             this.button_CompressAndExtract.Size = new System.Drawing.Size(303, 23);
             this.button_CompressAndExtract.TabIndex = 14;
@@ -147,7 +148,7 @@
             this.button_Compress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button_Compress.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button_Compress.Location = new System.Drawing.Point(7, 302);
+            this.button_Compress.Location = new System.Drawing.Point(9, 273);
             this.button_Compress.Name = "button_Compress";
             this.button_Compress.Size = new System.Drawing.Size(303, 23);
             this.button_Compress.TabIndex = 15;
@@ -391,6 +392,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.button_RemoveRepeatExtract);
             this.tabPage2.Controls.Add(this.button_CompressAndExtractByCondition);
             this.tabPage2.Controls.Add(this.radioButton_CompressCondition);
             this.tabPage2.Controls.Add(this.label7);
@@ -418,7 +420,7 @@
             this.button_CompressAndExtractByCondition.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button_CompressAndExtractByCondition.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button_CompressAndExtractByCondition.Location = new System.Drawing.Point(7, 331);
+            this.button_CompressAndExtractByCondition.Location = new System.Drawing.Point(9, 302);
             this.button_CompressAndExtractByCondition.Name = "button_CompressAndExtractByCondition";
             this.button_CompressAndExtractByCondition.Size = new System.Drawing.Size(303, 23);
             this.button_CompressAndExtractByCondition.TabIndex = 21;
@@ -460,13 +462,26 @@
             this.button_CompressByCondition.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button_CompressByCondition.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button_CompressByCondition.Location = new System.Drawing.Point(7, 360);
+            this.button_CompressByCondition.Location = new System.Drawing.Point(9, 331);
             this.button_CompressByCondition.Name = "button_CompressByCondition";
             this.button_CompressByCondition.Size = new System.Drawing.Size(303, 23);
             this.button_CompressByCondition.TabIndex = 17;
             this.button_CompressByCondition.Text = "基于条件区域压缩";
             this.button_CompressByCondition.UseVisualStyleBackColor = true;
             this.button_CompressByCondition.Click += new System.EventHandler(this.button_CompressByCondition_Click);
+            // 
+            // button_RemoveRepeatExtract
+            // 
+            this.button_RemoveRepeatExtract.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_RemoveRepeatExtract.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.button_RemoveRepeatExtract.Location = new System.Drawing.Point(8, 360);
+            this.button_RemoveRepeatExtract.Name = "button_RemoveRepeatExtract";
+            this.button_RemoveRepeatExtract.Size = new System.Drawing.Size(303, 23);
+            this.button_RemoveRepeatExtract.TabIndex = 22;
+            this.button_RemoveRepeatExtract.Text = "去重提取";
+            this.button_RemoveRepeatExtract.UseVisualStyleBackColor = true;
+            this.button_RemoveRepeatExtract.Click += new System.EventHandler(this.button_RemoveRepeatExtract_Click);
             // 
             // DataToolWindow
             // 
@@ -529,5 +544,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBox_CompressCondition;
         private System.Windows.Forms.Button button_CompressAndExtractByCondition;
+        private System.Windows.Forms.Button button_RemoveRepeatExtract;
     }
 }

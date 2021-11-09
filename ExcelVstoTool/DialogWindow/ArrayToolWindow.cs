@@ -283,13 +283,22 @@ namespace ExcelVstoTool.DialogWindow
             {
                 Pos sPos = new Pos(selectRange);
                 string formuale = "=";
+                bool isAdd = false;
                 for (int col = 1; col <= selectRange.Columns.Count; col++)
                 {
-                    formuale += sheetName + ExcelTool.Int2ColumnName(selectRange.Column + col - 1) + (selectRange.Row + row-1);
-
-                    if(col != selectRange.Columns.Count)
+                    string content = setlectSheet.Cells[selectRange.Row + row - 1, selectRange.Column + col - 1].Text;
+                    if (!string.IsNullOrEmpty(content))
                     {
-                        formuale += "&\"|\"&";
+                        if (isAdd)
+                        {
+                            formuale += "&\"|\"&";
+                        }
+                        else
+                        {
+                            isAdd = true;
+                        }
+
+                        formuale += sheetName + ExcelTool.Int2ColumnName(selectRange.Column + col - 1) + (selectRange.Row + row - 1);
                     }
                 }
 

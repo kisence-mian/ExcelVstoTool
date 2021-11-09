@@ -48,8 +48,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Script\CustomFormula.cs" />
+    <Compile Include="Script\ExcelFormula.cs" />
+    <Compile Include="Script\FindFormula.cs" />
+    <Compile Include="Script\FitCurveFormula.cs" />
     <Compile Include="Script\LaunchAddIn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Script\TextFormula.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ExcelDna.IntelliSense.xll">

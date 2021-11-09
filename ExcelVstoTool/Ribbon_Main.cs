@@ -1400,6 +1400,12 @@ namespace ExcelVstoTool
             ctw.OnSelectChange(GetActiveSheet(), GetCurrentSelectRange());
         }
 
+        private void button_FileTool_Click(object sender, RibbonControlEventArgs e)
+        {
+            FileToolWindow ctw = new FileToolWindow();
+            ctw.Show();
+        }
+
         #endregion
 
         #region 工具方法
@@ -1518,6 +1524,7 @@ namespace ExcelVstoTool
 
             return worksheet.Range[range];
         }
+
 
         #endregion
 

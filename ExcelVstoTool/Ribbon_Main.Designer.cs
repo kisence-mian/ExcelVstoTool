@@ -37,13 +37,27 @@
             Microsoft.Office.Tools.Ribbon.RibbonDialogLauncher ribbonDialogLauncherImpl1 = this.Factory.CreateRibbonDialogLauncher();
             this.tab_main = this.Factory.CreateRibbonTab();
             this.group_main = this.Factory.CreateRibbonGroup();
+            this.button_initConfig = this.Factory.CreateRibbonButton();
+            this.button_refreshData = this.Factory.CreateRibbonButton();
             this.checkBox_CloseView = this.Factory.CreateRibbonCheckBox();
             this.checkBox_exportCheck = this.Factory.CreateRibbonCheckBox();
             this.group_file = this.Factory.CreateRibbonGroup();
             this.box_file = this.Factory.CreateRibbonBox();
             this.dropDown_fileList = this.Factory.CreateRibbonDropDown();
+            this.button_openFile = this.Factory.CreateRibbonButton();
+            this.button_closeFile = this.Factory.CreateRibbonButton();
             this.group_InOut = this.Factory.CreateRibbonGroup();
+            this.button_createNewTable = this.Factory.CreateRibbonButton();
+            this.button_deleteTable = this.Factory.CreateRibbonButton();
+            this.button_ToExcel = this.Factory.CreateRibbonButton();
+            this.button_toTxt = this.Factory.CreateRibbonButton();
+            this.button_importSingleTable = this.Factory.CreateRibbonButton();
+            this.button_exportSingleTable = this.Factory.CreateRibbonButton();
             this.group_Data = this.Factory.CreateRibbonGroup();
+            this.button_check = this.Factory.CreateRibbonButton();
+            this.button_CreateDataDropDownList = this.Factory.CreateRibbonButton();
+            this.button_ClearDropDownList = this.Factory.CreateRibbonButton();
+            this.button_generateDataClass = this.Factory.CreateRibbonButton();
             this.dropDown_dataType = this.Factory.CreateRibbonDropDown();
             this.dropDown_assetsType = this.Factory.CreateRibbonDropDown();
             this.dropDown_secType = this.Factory.CreateRibbonDropDown();
@@ -51,29 +65,16 @@
             this.comboBox_currentLanguage = this.Factory.CreateRibbonComboBox();
             this.box_languageFile = this.Factory.CreateRibbonBox();
             this.dropDown_languageFileList = this.Factory.CreateRibbonDropDown();
-            this.group_DataTool = this.Factory.CreateRibbonGroup();
-            this.button_initConfig = this.Factory.CreateRibbonButton();
-            this.button_refreshData = this.Factory.CreateRibbonButton();
-            this.button_openFile = this.Factory.CreateRibbonButton();
-            this.button_closeFile = this.Factory.CreateRibbonButton();
-            this.button_createNewTable = this.Factory.CreateRibbonButton();
-            this.button_deleteTable = this.Factory.CreateRibbonButton();
-            this.button_ToExcel = this.Factory.CreateRibbonButton();
-            this.button_toTxt = this.Factory.CreateRibbonButton();
-            this.button_importSingleTable = this.Factory.CreateRibbonButton();
-            this.button_exportSingleTable = this.Factory.CreateRibbonButton();
-            this.button_check = this.Factory.CreateRibbonButton();
-            this.button_CreateDataDropDownList = this.Factory.CreateRibbonButton();
-            this.button_ClearDropDownList = this.Factory.CreateRibbonButton();
-            this.button_generateDataClass = this.Factory.CreateRibbonButton();
             this.button_openLanguageFile = this.Factory.CreateRibbonButton();
             this.button_LanguageComment = this.Factory.CreateRibbonButton();
             this.button_deleteLanguageComment = this.Factory.CreateRibbonButton();
             this.button_openLanguageSheet = this.Factory.CreateRibbonButton();
             this.button_changeLanguageColumn = this.Factory.CreateRibbonButton();
             this.button_LanguageInfo = this.Factory.CreateRibbonButton();
+            this.group_DataTool = this.Factory.CreateRibbonGroup();
             this.button_ArraryToolWindow = this.Factory.CreateRibbonButton();
             this.button_CompressToolWindow = this.Factory.CreateRibbonButton();
+            this.button_FileTool = this.Factory.CreateRibbonButton();
             this.tab_main.SuspendLayout();
             this.group_main.SuspendLayout();
             this.group_file.SuspendLayout();
@@ -106,6 +107,24 @@
             this.group_main.Label = "设置";
             this.group_main.Name = "group_main";
             // 
+            // button_initConfig
+            // 
+            this.button_initConfig.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.button_initConfig.Label = "设置初始化";
+            this.button_initConfig.Name = "button_initConfig";
+            this.button_initConfig.OfficeImageId = "TableSharePointListsModifyColumnsAndSettings";
+            this.button_initConfig.ShowImage = true;
+            this.button_initConfig.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_initData_Click);
+            // 
+            // button_refreshData
+            // 
+            this.button_refreshData.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.button_refreshData.Label = "刷新数据";
+            this.button_refreshData.Name = "button_refreshData";
+            this.button_refreshData.OfficeImageId = "Refresh";
+            this.button_refreshData.ShowImage = true;
+            this.button_refreshData.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_dataInit_Click);
+            // 
             // checkBox_CloseView
             // 
             this.checkBox_CloseView.Checked = true;
@@ -136,108 +155,6 @@
             this.dropDown_fileList.Label = "表名";
             this.dropDown_fileList.Name = "dropDown_fileList";
             // 
-            // group_InOut
-            // 
-            this.group_InOut.Items.Add(this.button_createNewTable);
-            this.group_InOut.Items.Add(this.button_deleteTable);
-            this.group_InOut.Items.Add(this.button_ToExcel);
-            this.group_InOut.Items.Add(this.button_toTxt);
-            this.group_InOut.Items.Add(this.button_importSingleTable);
-            this.group_InOut.Items.Add(this.button_exportSingleTable);
-            this.group_InOut.Label = "导入导出";
-            this.group_InOut.Name = "group_InOut";
-            // 
-            // group_Data
-            // 
-            this.group_Data.Items.Add(this.button_check);
-            this.group_Data.Items.Add(this.button_CreateDataDropDownList);
-            this.group_Data.Items.Add(this.button_ClearDropDownList);
-            this.group_Data.Items.Add(this.button_generateDataClass);
-            this.group_Data.Items.Add(this.dropDown_dataType);
-            this.group_Data.Items.Add(this.dropDown_assetsType);
-            this.group_Data.Items.Add(this.dropDown_secType);
-            this.group_Data.Label = "数据";
-            this.group_Data.Name = "group_Data";
-            // 
-            // dropDown_dataType
-            // 
-            this.dropDown_dataType.Enabled = false;
-            this.dropDown_dataType.Label = "数据类型";
-            this.dropDown_dataType.Name = "dropDown_dataType";
-            this.dropDown_dataType.SelectionChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.dropDown_dataType_SelectionChanged);
-            // 
-            // dropDown_assetsType
-            // 
-            this.dropDown_assetsType.Enabled = false;
-            this.dropDown_assetsType.Label = "数据用途";
-            this.dropDown_assetsType.Name = "dropDown_assetsType";
-            this.dropDown_assetsType.SelectionChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.dropDown_assetsType_SelectionChanged);
-            // 
-            // dropDown_secType
-            // 
-            this.dropDown_secType.Enabled = false;
-            this.dropDown_secType.Label = "次级类型";
-            this.dropDown_secType.Name = "dropDown_secType";
-            this.dropDown_secType.SelectionChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.dropDown_secType_SelectionChanged);
-            // 
-            // group_language
-            // 
-            this.group_language.Items.Add(this.comboBox_currentLanguage);
-            this.group_language.Items.Add(this.box_languageFile);
-            this.group_language.Items.Add(this.button_LanguageComment);
-            this.group_language.Items.Add(this.button_deleteLanguageComment);
-            this.group_language.Items.Add(this.button_openLanguageSheet);
-            this.group_language.Items.Add(this.button_changeLanguageColumn);
-            this.group_language.Items.Add(this.button_LanguageInfo);
-            this.group_language.Label = "多语言";
-            this.group_language.Name = "group_language";
-            // 
-            // comboBox_currentLanguage
-            // 
-            this.comboBox_currentLanguage.Enabled = false;
-            this.comboBox_currentLanguage.Label = "当前语言";
-            this.comboBox_currentLanguage.Name = "comboBox_currentLanguage";
-            this.comboBox_currentLanguage.ShowItemImage = false;
-            this.comboBox_currentLanguage.Text = null;
-            this.comboBox_currentLanguage.TextChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.comboBox_currentLanguage_TextChanged);
-            // 
-            // box_languageFile
-            // 
-            this.box_languageFile.Items.Add(this.dropDown_languageFileList);
-            this.box_languageFile.Items.Add(this.button_openLanguageFile);
-            this.box_languageFile.Name = "box_languageFile";
-            // 
-            // dropDown_languageFileList
-            // 
-            this.dropDown_languageFileList.Label = "多语言名";
-            this.dropDown_languageFileList.Name = "dropDown_languageFileList";
-            // 
-            // group_DataTool
-            // 
-            this.group_DataTool.DialogLauncher = ribbonDialogLauncherImpl1;
-            this.group_DataTool.Items.Add(this.button_ArraryToolWindow);
-            this.group_DataTool.Items.Add(this.button_CompressToolWindow);
-            this.group_DataTool.Label = "工具";
-            this.group_DataTool.Name = "group_DataTool";
-            // 
-            // button_initConfig
-            // 
-            this.button_initConfig.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button_initConfig.Label = "设置初始化";
-            this.button_initConfig.Name = "button_initConfig";
-            this.button_initConfig.OfficeImageId = "TableSharePointListsModifyColumnsAndSettings";
-            this.button_initConfig.ShowImage = true;
-            this.button_initConfig.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_initData_Click);
-            // 
-            // button_refreshData
-            // 
-            this.button_refreshData.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button_refreshData.Label = "刷新数据";
-            this.button_refreshData.Name = "button_refreshData";
-            this.button_refreshData.OfficeImageId = "Refresh";
-            this.button_refreshData.ShowImage = true;
-            this.button_refreshData.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_dataInit_Click);
-            // 
             // button_openFile
             // 
             this.button_openFile.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -255,6 +172,17 @@
             this.button_closeFile.OfficeImageId = "FileClose";
             this.button_closeFile.ShowImage = true;
             this.button_closeFile.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_closeFile_Click);
+            // 
+            // group_InOut
+            // 
+            this.group_InOut.Items.Add(this.button_createNewTable);
+            this.group_InOut.Items.Add(this.button_deleteTable);
+            this.group_InOut.Items.Add(this.button_ToExcel);
+            this.group_InOut.Items.Add(this.button_toTxt);
+            this.group_InOut.Items.Add(this.button_importSingleTable);
+            this.group_InOut.Items.Add(this.button_exportSingleTable);
+            this.group_InOut.Label = "导入导出";
+            this.group_InOut.Name = "group_InOut";
             // 
             // button_createNewTable
             // 
@@ -310,6 +238,18 @@
             this.button_exportSingleTable.ShowImage = true;
             this.button_exportSingleTable.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_exportSingleTable_Click);
             // 
+            // group_Data
+            // 
+            this.group_Data.Items.Add(this.button_check);
+            this.group_Data.Items.Add(this.button_CreateDataDropDownList);
+            this.group_Data.Items.Add(this.button_ClearDropDownList);
+            this.group_Data.Items.Add(this.button_generateDataClass);
+            this.group_Data.Items.Add(this.dropDown_dataType);
+            this.group_Data.Items.Add(this.dropDown_assetsType);
+            this.group_Data.Items.Add(this.dropDown_secType);
+            this.group_Data.Label = "数据";
+            this.group_Data.Name = "group_Data";
+            // 
             // button_check
             // 
             this.button_check.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -345,6 +285,59 @@
             this.button_generateDataClass.OfficeImageId = "CreateClassModule";
             this.button_generateDataClass.ShowImage = true;
             this.button_generateDataClass.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_generateDataClass_Click);
+            // 
+            // dropDown_dataType
+            // 
+            this.dropDown_dataType.Enabled = false;
+            this.dropDown_dataType.Label = "数据类型";
+            this.dropDown_dataType.Name = "dropDown_dataType";
+            this.dropDown_dataType.SelectionChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.dropDown_dataType_SelectionChanged);
+            // 
+            // dropDown_assetsType
+            // 
+            this.dropDown_assetsType.Enabled = false;
+            this.dropDown_assetsType.Label = "数据用途";
+            this.dropDown_assetsType.Name = "dropDown_assetsType";
+            this.dropDown_assetsType.SelectionChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.dropDown_assetsType_SelectionChanged);
+            // 
+            // dropDown_secType
+            // 
+            this.dropDown_secType.Enabled = false;
+            this.dropDown_secType.Label = "次级类型";
+            this.dropDown_secType.Name = "dropDown_secType";
+            this.dropDown_secType.SelectionChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.dropDown_secType_SelectionChanged);
+            // 
+            // group_language
+            // 
+            this.group_language.Items.Add(this.comboBox_currentLanguage);
+            this.group_language.Items.Add(this.box_languageFile);
+            this.group_language.Items.Add(this.button_LanguageComment);
+            this.group_language.Items.Add(this.button_deleteLanguageComment);
+            this.group_language.Items.Add(this.button_openLanguageSheet);
+            this.group_language.Items.Add(this.button_changeLanguageColumn);
+            this.group_language.Items.Add(this.button_LanguageInfo);
+            this.group_language.Label = "多语言";
+            this.group_language.Name = "group_language";
+            // 
+            // comboBox_currentLanguage
+            // 
+            this.comboBox_currentLanguage.Enabled = false;
+            this.comboBox_currentLanguage.Label = "当前语言";
+            this.comboBox_currentLanguage.Name = "comboBox_currentLanguage";
+            this.comboBox_currentLanguage.ShowItemImage = false;
+            this.comboBox_currentLanguage.Text = null;
+            this.comboBox_currentLanguage.TextChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.comboBox_currentLanguage_TextChanged);
+            // 
+            // box_languageFile
+            // 
+            this.box_languageFile.Items.Add(this.dropDown_languageFileList);
+            this.box_languageFile.Items.Add(this.button_openLanguageFile);
+            this.box_languageFile.Name = "box_languageFile";
+            // 
+            // dropDown_languageFileList
+            // 
+            this.dropDown_languageFileList.Label = "多语言名";
+            this.dropDown_languageFileList.Name = "dropDown_languageFileList";
             // 
             // button_openLanguageFile
             // 
@@ -404,6 +397,15 @@
             this.button_LanguageInfo.ShowLabel = false;
             this.button_LanguageInfo.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_LanguageInfo_Click);
             // 
+            // group_DataTool
+            // 
+            this.group_DataTool.DialogLauncher = ribbonDialogLauncherImpl1;
+            this.group_DataTool.Items.Add(this.button_ArraryToolWindow);
+            this.group_DataTool.Items.Add(this.button_CompressToolWindow);
+            this.group_DataTool.Items.Add(this.button_FileTool);
+            this.group_DataTool.Label = "工具";
+            this.group_DataTool.Name = "group_DataTool";
+            // 
             // button_ArraryToolWindow
             // 
             this.button_ArraryToolWindow.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -421,6 +423,15 @@
             this.button_CompressToolWindow.OfficeImageId = "Consolidate";
             this.button_CompressToolWindow.ShowImage = true;
             this.button_CompressToolWindow.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_CompressToolWindow_Click);
+            // 
+            // button_FileTool
+            // 
+            this.button_FileTool.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.button_FileTool.Label = "文件操作";
+            this.button_FileTool.Name = "button_FileTool";
+            this.button_FileTool.OfficeImageId = "FileManageMenu";
+            this.button_FileTool.ShowImage = true;
+            this.button_FileTool.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_FileTool_Click);
             // 
             // Ribbon_Main
             // 
@@ -491,6 +502,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group_DataTool;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_ArraryToolWindow;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_CompressToolWindow;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button_FileTool;
     }
 
     partial class ThisRibbonCollection

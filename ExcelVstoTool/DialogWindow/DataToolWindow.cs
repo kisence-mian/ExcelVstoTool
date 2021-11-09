@@ -22,9 +22,10 @@ namespace ExcelVstoTool.DialogWindow
             helpProvider_tool.SetHelpString(button_CompressAndExtractByCondition, "从上而下遍历选中区域，将对应位置条件区域中相同的项改为对第一个项的引用,并将结果输出到目标区域");
             helpProvider_tool.SetHelpString(button_CompressByCondition, "从上而下遍历选中区域，将对应位置条件区域中相同的项改为对第一个项的引用");
             helpProvider_tool.SetHelpString(button_saveData, "把选中读取范围内的的公式计算结果保存下来");
+            helpProvider_tool.SetHelpString(button_RemoveRepeatExtract, "把选中读取范围内的值无重复地提取到目标位置");
 
-            helpProvider_tool.SetHelpString(button_DataAugment, "把扩增区域中的数据增加连接符和序号ID，每个重复n次(读取扩增数目区域)，输出到目标位置");
-            helpProvider_tool.SetHelpString(button_DataAugment, "把扩增区域中的数据整理到原始ID区域，并自动与旧数据进行去重");
+            helpProvider_tool.SetHelpString(button_DataAugment, "把扩增区域中的数据增加连接符和序号ID，每个重复n次(读取扩增数目区域)，输出到导出位置");
+            helpProvider_tool.SetHelpString(button_Neaten, "把扩增区域中的数据整理到原始ID区域，并自动与旧数据进行去重");
         }
 
         #region 生命周期
@@ -162,6 +163,21 @@ namespace ExcelVstoTool.DialogWindow
             Range selectRange = Ribbon_Main.GetRangeByRangeString(textBox_selectRange.Text);
             Range conditionRange = Ribbon_Main.GetRangeByRangeString(textBox_CompressCondition.Text);
             CompressDataByCondition(selectRange, conditionRange);
+        }
+
+        private void button_RemoveRepeatExtract_Click(object sender, EventArgs e)
+        {
+            if (!WindowUntilTool.CheckRangeFormat(textBox_selectRange.Text)
+            || !WindowUntilTool.CheckRangeFormat(textBox_targetRange.Text))
+            {
+                MessageBox.Show("不正确的范围格式");
+                return;
+            }
+
+            //获取Range
+            Range selectRange = Ribbon_Main.GetRangeByRangeString(textBox_selectRange.Text);
+            Range targetRange = Ribbon_Main.GetRangeByRangeString(textBox_targetRange.Text);
+            RemoveRepeatExtract(selectRange, targetRange);
         }
 
         private void radioButton_SelectRange_CheckedChanged(object sender, EventArgs e)
@@ -425,8 +441,31 @@ namespace ExcelVstoTool.DialogWindow
             }
         }
 
+        void RemoveRepeatExtract(Range selectRange, Range targetRange)
+        {
+            Pos pos = new Pos(targetRange);
+            Worksheet worksheet = targetRange.Worksheet;
+            List<string> contents = new List<string>();
 
+            for (int col = 1; col <= selectRange.Columns.Count; col++)
+            {
+                for (int row = 1; row <= selectRange.Rows.Count; row++)
+                {
+                    string content = selectRange[row, col].Text;
 
+                    //不重复地进行收集
+                    if(!contents.Contains(content))
+                    {
+                        contents.Add(content);
+                    }
+                }
+            }
+
+            for (int i = 0; i < contents.Count; i++)
+            {
+                worksheet.Cells[pos.row + i,pos.col] = contents[i];
+            }
+        }
 
         #endregion
 
@@ -620,6 +659,7 @@ namespace ExcelVstoTool.DialogWindow
                 }
             }
         }
+
 
 
 
