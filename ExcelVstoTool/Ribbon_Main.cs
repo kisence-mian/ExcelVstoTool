@@ -1104,7 +1104,7 @@ namespace ExcelVstoTool
                 {
                     string value = worksheet.Cells[2, index].Value;
                     FieldTypeStruct typeStruct = DataManager.PaseToFieldStructType(value);
-                    if (typeStruct.fieldType == FieldType.String 
+                    if ((typeStruct.fieldType == FieldType.String || typeStruct.fieldType == FieldType.StringArray)
                         && typeStruct.assetType == DataFieldAssetType.LocalizedLanguage)
                     {
                         //查询它们的值并写入批注
@@ -1117,14 +1117,35 @@ namespace ExcelVstoTool
                                 continue;
                             }
 
-                            string languageContent = LanguageManager.GetLanguageContent(LanguageManager.currentLanguage, content);
-
                             if (worksheet.Cells[row, index].Comment != null)
                             {
                                 worksheet.Cells[row, index].Comment.Delete();
                             }
 
-                            worksheet.Cells[row, index].AddComment(languageContent);
+                            //单条多语言
+                            if (typeStruct.fieldType == FieldType.String)
+                            {
+                                string languageContent = LanguageManager.GetLanguageContent(LanguageManager.currentLanguage, content);
+                                worksheet.Cells[row, index].AddComment(languageContent);
+                            }
+
+                            //多语言数组
+                            else
+                            {
+                                string[] keys = content.Split('|');
+                                string comment = "";
+                                for (int i = 0; i < keys.Length; i++)
+                                {
+                                    comment += LanguageManager.GetLanguageContent(LanguageManager.currentLanguage, keys[i]); 
+
+                                    if(i != keys.Length)
+                                    {
+                                        comment += "|";
+                                    }
+                                }
+
+                                worksheet.Cells[row, index].AddComment(comment);
+                            }
                         }
                     }
 
@@ -1148,7 +1169,7 @@ namespace ExcelVstoTool
                 {
                     string value = worksheet.Cells[2, index].Value;
                     FieldTypeStruct typeStruct = DataManager.PaseToFieldStructType(value);
-                    if (typeStruct.fieldType == FieldType.String
+                    if ((typeStruct.fieldType == FieldType.String || typeStruct.fieldType == FieldType.StringArray)
                         && typeStruct.assetType == DataFieldAssetType.LocalizedLanguage)
                     {
                         //查询它们的值并删除批注
@@ -1265,13 +1286,40 @@ namespace ExcelVstoTool
             Dictionary<string, string> languageData = new Dictionary<string, string>();
             while (!string.IsNullOrEmpty( sheet.Cells[row, 1].Text))
             {
-                string key = sheet.Cells[row, 1].Text;
-                string value = sheet.Cells[row, col].Text;
+                if(DataManager.CurrentFieldType== FieldType.String)
+                {
+                    string key = sheet.Cells[row, 1].Text;
+                    string value = sheet.Cells[row, col].Text;
 
-                languageData.Add(key, value);
+                    languageData.Add(key, value);
 
-                //修改现有的表格
-                sheet.Cells[row, col].Value = (fileName + "_" + key).Replace("_", "/");
+                    //修改现有的表格
+                    sheet.Cells[row, col].Value = (fileName + "_").Replace("_", "/") + key;
+
+                }
+                else if(DataManager.CurrentFieldType == FieldType.StringArray)
+                {
+                    string key = sheet.Cells[row, 1].Text;
+                    string content = sheet.Cells[row, col].Text;
+                    string[] values = content.Split('|');
+                    string newValue = "";
+
+                    for (int i = 0; i < values.Length; i++)
+                    {
+                        string k =  key + "_" + i;
+                        newValue += fileName.Replace("_", "/") + "/" + k;
+
+                        languageData.Add(k, values[i]);
+
+                        if(i != values.Length-1)
+                        {
+                            newValue += "|";
+                        }
+                    }
+
+                    //修改现在的表格
+                    sheet.Cells[row, col].Value = newValue;
+                }
 
                 row++;
             }
@@ -1284,7 +1332,6 @@ namespace ExcelVstoTool
             DataManager.CurrentSecType = fileName;
 
             ResetTypeString();
-
 
             MessageBox.Show("转换完毕");
         }
@@ -1340,11 +1387,11 @@ namespace ExcelVstoTool
                 button_LanguageComment.Enabled = IsConfigWorkSheet();
                 button_deleteLanguageComment.Enabled = IsConfigWorkSheet();
 
-
                 bool isCanChangeLanguage = false;
                 bool isCanOpenLanguage = false;
 
-                if (DataManager.CurrentFieldType == FieldType.String
+                if ((DataManager.CurrentFieldType == FieldType.String
+                    || DataManager.CurrentFieldType == FieldType.StringArray)
                     && IsConfigWorkSheet()
                     && DataManager.isWorkRange)
                 {

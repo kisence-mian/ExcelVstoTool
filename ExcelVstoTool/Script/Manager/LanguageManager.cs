@@ -121,6 +121,13 @@ public static class LanguageManager
     public static string GetFileName(string value)
     {
         string fileName = "";
+
+        //选择数组中的第一个打开
+        if(value.Contains("|"))
+        {
+            value = value.Split('|')[0];
+        }
+
         string[] path = value.Split('/');
 
         for (int i = 0; i < path.Length -1; i++)

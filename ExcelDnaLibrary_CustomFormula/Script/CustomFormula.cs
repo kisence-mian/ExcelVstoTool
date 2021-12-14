@@ -65,7 +65,7 @@ namespace ExcelDnaLibrary_CustomFormula
 
         #endregion
 
-        #region 计算
+        #region 数组
 
         [ExcelFunction(Name = "ArrayAdd", Description = "将两个数组的数字相加，并将结果相加，不匹配的长度会被舍弃", Category = "数组")]
         public static string ArrayAdd(
@@ -547,6 +547,43 @@ namespace ExcelDnaLibrary_CustomFormula
             }
         }
 
-        #endregion
-    }
+
+        [ExcelFunction(Name = "ArrayGenerate", Description = "将目标范围的数据用连接符连接起来", Category = "数组")]
+        public static string ArrayGenerate(
+           [ExcelArgument(Name = "Range", Description = "目标范围")]Object[,] range,
+           [ExcelArgument(Name = "SplitChar", Description = "分隔符")]string splitChar)
+        {
+            string result = "";
+
+            try
+            {
+                int mrow = range.GetLength(0);
+                int mcol = range.GetLength(1);
+
+                for (int row = 0; row < mrow; row++)
+                {
+                    for (int col = 0; col < mcol; col++)
+                    {
+                        if (range[row, col].GetType() != typeof(ExcelEmpty))
+                        {
+                            result += range[row, col].ToString();
+                        }
+
+                        if (!(row == mrow - 1 && col == mcol - 1))
+                        {
+                            result += splitChar;
+                        }
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                return e.ToString();
+            }
+
+            return result;
+        }
+
+            #endregion
+        }
 }
