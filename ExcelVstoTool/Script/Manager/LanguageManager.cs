@@ -5,6 +5,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -240,12 +241,28 @@ public static class LanguageManager
 
     public static string GetLanguageContent(SystemLanguage language, string languageKey)
     {
+        string pattern = "{#[0-9a-zA-Z/_]+}";
+
         string fileName = GetFileName(languageKey);
         string key = GetLanguageKey(languageKey); ;
         try
         {
             SingleData sData = languageCache[language][fileName][key];
-            return sData.GetString("value");
+            string value = sData.GetString("value");
+
+            //查找是否有嵌套Key
+            if(Regex.IsMatch(value, pattern))
+            {
+                var matachs = Regex.Matches(value, pattern);
+
+                for (int i = 0; i < matachs.Count; i++)
+                {
+                    string subKey = matachs[i].Value.Replace("{#", "").Replace("}","");
+                    value = value.Replace(matachs[i].Value, GetLanguageContent(language, subKey));
+                }
+            }
+
+            return value;
         }
         catch (Exception e)
         {

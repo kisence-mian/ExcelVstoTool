@@ -18,8 +18,12 @@ public class CheckTool
             //表头校验
             CheckTitle(workSheet, config);
 
-            //类型校验
             data = DataTool.Excel2Table(workSheet, config);
+
+            //ID校验
+            CheckID(workSheet, data, config);
+
+            //类型校验
             CheckType(workSheet, data, config);
 
             //格式校验
@@ -62,6 +66,22 @@ public class CheckTool
         }
 
         return result;
+    }
+
+    static bool CheckID(Worksheet workSheet, DataTable data, DataConfig config)
+    {
+        for (int i = 0; i < data.TableIDs.Count; i++)
+        {
+            string id = data.TableIDs[i];
+
+            //检查ID中的空格
+            if (id.Contains(" "))
+            {
+                throw new Exception("ID 含有空格 >" + id + "<\n  第 " + (i + 5) + " 行 ");
+            }
+        }
+
+        return true;
     }
 
     static bool CheckType(Worksheet workSheet, DataTable data, DataConfig config)
