@@ -122,12 +122,20 @@ namespace ExcelDnaLibrary_CustomFormula.Script
             return Regex.Replace(input, pattern, replacement);
         }
 
-        [ExcelFunction(Name = "TextRegexMatch", Description = "使用正则表达式进行匹配，返回是或者否", Category = "字符串处理")]
-        public static bool RegexMatch(
+        [ExcelFunction(Name = "TextRegexIsMatch", Description = "使用正则表达式进行匹配，返回是或者否", Category = "字符串处理")]
+        public static bool RegexIsMatch(
         [ExcelArgument(Name = "Input", Description = "原始文本")]string input,
         [ExcelArgument(Name = "Pattern", Description = "正则公式")]string pattern)
         {
             return Regex.IsMatch(input, pattern);
+        }
+
+        [ExcelFunction(Name = "TextRegexMatch", Description = "使用正则表达式进行匹配，返回匹配结果", Category = "字符串处理")]
+        public static string RegexMatch(
+        [ExcelArgument(Name = "Input", Description = "原始文本")]string input,
+        [ExcelArgument(Name = "Pattern", Description = "正则公式")]string pattern)
+        {
+            return Regex.Match(input, pattern).Value;
         }
 
         #endregion
