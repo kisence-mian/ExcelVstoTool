@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 public class LanguageConfig
 {
-    public SystemLanguage defaultLanguage;
+    //public SystemLanguage defaultLanguage;
     public List<SystemLanguage> gameExistLanguages;
-    public bool useSystemLanguage;
+    //public bool useSystemLanguage;
 }

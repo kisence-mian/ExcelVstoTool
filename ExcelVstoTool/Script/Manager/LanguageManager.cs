@@ -44,7 +44,7 @@ public static class LanguageManager
             string configJson = FileTool.ReadStringByFile(configPath);
             LanguageConfig config = JsonConvert.DeserializeObject<LanguageConfig>(configJson);
 
-            currentLanguage = config.defaultLanguage;
+            currentLanguage = config.gameExistLanguages[0];
             allLanuage = config.gameExistLanguages;
 
             //清空缓存
@@ -116,6 +116,34 @@ public static class LanguageManager
             }
 
             MessageBox.Show(info);
+        }
+    }
+
+    /// <summary>
+    /// 判断一个字符串是不是多语言Key
+    /// </summary>
+    /// <returns></returns>
+    public static bool GetIsLanguageKey(string value)
+    {
+        //目前的判断条件是：
+        //含有字符 ‘/’
+        //且文件名与字段名都不为空
+
+        if(value.Contains('/'))
+        {
+            if( !string.IsNullOrEmpty(GetFileName(value))
+                &&!string.IsNullOrEmpty(GetLanguageKey(value)))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
         }
     }
 
@@ -194,6 +222,9 @@ public static class LanguageManager
 
             case SystemLanguage.Russian:
                 return "ru";
+
+            case SystemLanguage.Portuguese:
+                return "pt";
         }
 
 

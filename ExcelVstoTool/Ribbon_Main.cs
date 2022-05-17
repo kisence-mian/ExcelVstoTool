@@ -1130,7 +1130,7 @@ namespace ExcelVstoTool
                             }
 
                             //多语言数组
-                            else
+                            else if(typeStruct.fieldType == FieldType.StringArray)
                             {
                                 string[] keys = content.Split('|');
                                 string comment = "";
@@ -1145,6 +1145,10 @@ namespace ExcelVstoTool
                                 }
 
                                 worksheet.Cells[row, index].AddComment(comment);
+                            }
+                            else
+                            {
+                                MessageBox.Show("不支持的字段类型 " + typeStruct.fieldType);
                             }
                         }
                     }
@@ -1291,11 +1295,14 @@ namespace ExcelVstoTool
                     string key = sheet.Cells[row, 1].Text;
                     string value = sheet.Cells[row, col].Text;
 
-                    languageData.Add(key, value);
+                    //只有非空字段作此处理
+                    if(!string.IsNullOrEmpty(value))
+                    {
+                        languageData.Add(key, value);
 
-                    //修改现有的表格
-                    sheet.Cells[row, col].Value = (fileName + "_").Replace("_", "/") + key;
-
+                        //修改现有的表格
+                        sheet.Cells[row, col].Value = (fileName + "_").Replace("_", "/") + key;
+                    }
                 }
                 else if(DataManager.CurrentFieldType == FieldType.StringArray)
                 {

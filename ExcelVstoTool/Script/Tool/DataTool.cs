@@ -480,6 +480,7 @@ public class DataTool
             case FieldType.Vector3Array:
                 arrayFun = "Vector3" + arrayFun;
                 break;
+            case FieldType.EnumArray: return "GetArray<"+ enumType +">"+ arrayFun;
 
         }
         arrayFun = "GetArray<" + arrayFun + ">";
@@ -510,6 +511,8 @@ public class DataTool
             case FieldType.BoolArray: return "bool[]" + arrayFun;
             case FieldType.Vector2Array: return "Vector2[]" + arrayFun;
             case FieldType.Vector3Array: return "Vector3[]" + arrayFun;
+            case FieldType.EnumArray: return enumType+"[]" + arrayFun;
+
             default: return "";
         }
     }
