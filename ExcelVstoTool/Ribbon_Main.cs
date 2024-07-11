@@ -25,8 +25,9 @@ namespace ExcelVstoTool
             Globals.ThisAddIn.Application.SheetSelectionChange += Application_SheetSelectionChange;//选中区域
 
             Globals.ThisAddIn.Application.WorkbookBeforeClose += Application_WorkbookBeforeClose; //工作簿关闭
-        }
 
+
+        }
 
         #region 生命周期派发
 
@@ -699,14 +700,60 @@ namespace ExcelVstoTool
             }
         }
 
+        private void button_ClearData_Click(object sender, RibbonControlEventArgs e)
+        {
+            //确认弹窗
+            MessageBoxButtons mess = MessageBoxButtons.OKCancel;
+            DialogResult dr = MessageBox.Show("清理与默认值重复的数据有可能会造成数据丢失，特别在反复调整默认值的情况下，是否要继续？", "提示", mess);
+
+            if (dr == DialogResult.Cancel)
+            {
+                return;
+            }
+
+
+            DateTime now = System.DateTime.Now;
+
+            PerformanceSwitch(true);
+
+            //只影响当前页面
+            //判断当前页面是否是工作页面
+            if (IsConfigWorkSheet())
+            {
+                Worksheet worksheet = Globals.ThisAddIn.Application.ActiveSheet;
+
+                //遍历每一列
+                //判断是否与默认值相同
+                int index = 2;
+                while (!string.IsNullOrEmpty(worksheet.Cells[4, index].Text))
+                {
+                    //默认值
+                    string defaultValue = worksheet.Cells[4, index].Text;
+
+                    //查询它们的值并写入批注
+                    for (int row = 5; row <= worksheet.UsedRange.Rows.Count; row++)
+                    {
+                        string value =   worksheet.Cells[row, index].Text;
+
+                        if(defaultValue == value)
+                        {
+                            worksheet.Cells[row, index].Value = null;
+                        }
+                    }
+
+                    index++;
+                }
+            }
+
+            PerformanceSwitch(false);
+
+            MessageBox.Show("清理完成\n用时：" + (DateTime.Now - now).TotalSeconds + "s");
+        }
+
+
         private void button_ClearDropDownList_Click(object sender, RibbonControlEventArgs e)
         {
             GetActiveSheet().UsedRange.Validation.Delete();
-        }
-
-        private void button_dataInfo_Click(object sender, RibbonControlEventArgs e)
-        {
-            MessageBox.Show("初始化后可以使用对外部表格和多语言Key的校验");
         }
 
         private void dropDown_dataType_SelectionChanged(object sender, RibbonControlEventArgs e)
@@ -1126,6 +1173,7 @@ namespace ExcelVstoTool
                             if (typeStruct.fieldType == FieldType.String)
                             {
                                 string languageContent = LanguageManager.GetLanguageContent(LanguageManager.currentLanguage, content);
+
                                 worksheet.Cells[row, index].AddComment(languageContent);
                             }
 
@@ -1270,7 +1318,6 @@ namespace ExcelVstoTool
             int row = 5;
 
             //进行重名判断
-
             if(LanguageManager.CheckLanguageFileNameExist(LanguageManager.currentLanguage, fileName))
             {
                 MessageBox.Show(fileName + " 文件名已存在");
@@ -1342,6 +1389,68 @@ namespace ExcelVstoTool
 
             MessageBox.Show("转换完毕");
         }
+
+        private void button_Replenish_Click(object sender, RibbonControlEventArgs e)
+        {
+            //遍历当前列，将缺失的key补充到目标多语言列中
+            //只有在目标多语言打开的情况下才能生效
+
+
+            Worksheet sheet = GetActiveSheet();
+            DataConfig config = GetActiveDataConfig();
+
+            string fileName = config.m_txtName + "_" + GetCurrentKeyName();
+            int col = GetCurrentSelectRange().Column;
+            int row = 5;
+
+
+            //构造语言数据
+            Dictionary<string, string> languageData = new Dictionary<string, string>();
+            while (!string.IsNullOrEmpty(sheet.Cells[row, 1].Text))
+            {
+                if (DataManager.CurrentFieldType == FieldType.String)
+                {
+                    string key = sheet.Cells[row, 1].Text;
+                    string value = sheet.Cells[row, col].Text;
+
+                    //只有非空字段作此处理
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        languageData.Add(key, value);
+
+                        //修改现有的表格
+                        sheet.Cells[row, col].Value = (fileName + "_").Replace("_", "/") + key;
+                    }
+                }
+                else if (DataManager.CurrentFieldType == FieldType.StringArray)
+                {
+                    string key = sheet.Cells[row, 1].Text;
+                    string content = sheet.Cells[row, col].Text;
+                    string[] values = content.Split('|');
+                    string newValue = "";
+
+                    for (int i = 0; i < values.Length; i++)
+                    {
+                        string k = key + "_" + i;
+                        newValue += fileName.Replace("_", "/") + "/" + k;
+
+                        languageData.Add(k, values[i]);
+
+                        if (i != values.Length - 1)
+                        {
+                            newValue += "|";
+                        }
+                    }
+
+                    //修改现在的表格
+                    sheet.Cells[row, col].Value = newValue;
+                }
+
+                row++;
+            }
+
+        }
+
 
         private void button_LanguageInfo_Click(object sender, RibbonControlEventArgs e)
         {
@@ -1578,6 +1687,9 @@ namespace ExcelVstoTool
 
             return worksheet.Range[range];
         }
+
+
+
 
 
         #endregion

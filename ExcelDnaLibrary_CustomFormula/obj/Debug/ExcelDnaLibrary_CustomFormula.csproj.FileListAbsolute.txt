@@ -10,3 +10,15 @@ E:\Project\Tool\ExcelVstoTool\ExcelDnaLibrary_CustomFormula\bin\Debug\ExcelDna.I
 E:\Project\Tool\ExcelVstoTool\ExcelDnaLibrary_CustomFormula\obj\Debug\ExcelDnaLibrary_CustomFormula.csproj.CopyComplete
 E:\Project\Tool\ExcelVstoTool\ExcelDnaLibrary_CustomFormula\bin\Debug\ExcelDna.IntelliSense64.xll
 E:\Project\Tool\ExcelVstoTool\ExcelDnaLibrary_CustomFormula\bin\Debug\ExcelDna.IntelliSense.xll
+J:\Tool\ExcelVstoTool\ExcelDnaLibrary_CustomFormula\bin\Debug\ExcelDna.IntelliSense.xll
+J:\Tool\ExcelVstoTool\ExcelDnaLibrary_CustomFormula\bin\Debug\ExcelDna.IntelliSense64.xll
+J:\Tool\ExcelVstoTool\ExcelDnaLibrary_CustomFormula\bin\Debug\ExcelDnaLibrary_CustomFormula.dna
+J:\Tool\ExcelVstoTool\ExcelDnaLibrary_CustomFormula\bin\Debug\ExcelDnaLibrary_CustomFormula.xll
+J:\Tool\ExcelVstoTool\ExcelDnaLibrary_CustomFormula\bin\Debug\ExcelDnaLibrary_CustomFormula.dll
+J:\Tool\ExcelVstoTool\ExcelDnaLibrary_CustomFormula\bin\Debug\ExcelDnaLibrary_CustomFormula.pdb
+J:\Tool\ExcelVstoTool\ExcelDnaLibrary_CustomFormula\bin\Debug\ExcelDna.IntelliSense.dll
+J:\Tool\ExcelVstoTool\ExcelDnaLibrary_CustomFormula\obj\Debug\ExcelDnaLibrary_CustomFormula.csproj.AssemblyReference.cache
+J:\Tool\ExcelVstoTool\ExcelDnaLibrary_CustomFormula\obj\Debug\ExcelDnaLibrary_CustomFormula.csproj.CoreCompileInputs.cache
+J:\Tool\ExcelVstoTool\ExcelDnaLibrary_CustomFormula\obj\Debug\ExcelDnaLibrary_CustomFormula.csproj.CopyComplete
+J:\Tool\ExcelVstoTool\ExcelDnaLibrary_CustomFormula\obj\Debug\ExcelDnaLibrary_CustomFormula.dll
+J:\Tool\ExcelVstoTool\ExcelDnaLibrary_CustomFormula\obj\Debug\ExcelDnaLibrary_CustomFormula.pdb

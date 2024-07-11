@@ -91,9 +91,9 @@ public static class LanguageManager
 
                     dict.Add(simpleKey, data);
                 }
-                catch (Exception) 
+                catch (Exception e) 
                 {
-                    errorFile.Add(key);
+                    errorFile.Add(key +" :" + e);
                 }
             }
 
@@ -225,6 +225,9 @@ public static class LanguageManager
 
             case SystemLanguage.Portuguese:
                 return "pt";
+
+            case SystemLanguage.French:
+                return "fr";
         }
 
 
@@ -297,7 +300,7 @@ public static class LanguageManager
         }
         catch (Exception e)
         {
-            return "" + e.Message;
+            return "Error:" + e.Message;
         }
     }
 

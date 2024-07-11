@@ -70,11 +70,13 @@
             this.button_deleteLanguageComment = this.Factory.CreateRibbonButton();
             this.button_openLanguageSheet = this.Factory.CreateRibbonButton();
             this.button_changeLanguageColumn = this.Factory.CreateRibbonButton();
+            this.button_Replenish = this.Factory.CreateRibbonButton();
             this.button_LanguageInfo = this.Factory.CreateRibbonButton();
             this.group_DataTool = this.Factory.CreateRibbonGroup();
             this.button_ArraryToolWindow = this.Factory.CreateRibbonButton();
             this.button_CompressToolWindow = this.Factory.CreateRibbonButton();
             this.button_FileTool = this.Factory.CreateRibbonButton();
+            this.button_ClearData = this.Factory.CreateRibbonButton();
             this.tab_main.SuspendLayout();
             this.group_main.SuspendLayout();
             this.group_file.SuspendLayout();
@@ -315,6 +317,7 @@
             this.group_language.Items.Add(this.button_deleteLanguageComment);
             this.group_language.Items.Add(this.button_openLanguageSheet);
             this.group_language.Items.Add(this.button_changeLanguageColumn);
+            this.group_language.Items.Add(this.button_Replenish);
             this.group_language.Items.Add(this.button_LanguageInfo);
             this.group_language.Label = "多语言";
             this.group_language.Name = "group_language";
@@ -388,6 +391,14 @@
             this.button_changeLanguageColumn.ShowImage = true;
             this.button_changeLanguageColumn.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_changeLanguageColumn_Click);
             // 
+            // button_Replenish
+            // 
+            this.button_Replenish.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.button_Replenish.Label = "补充多语言";
+            this.button_Replenish.Name = "button_Replenish";
+            this.button_Replenish.ShowImage = true;
+            this.button_Replenish.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_Replenish_Click);
+            // 
             // button_LanguageInfo
             // 
             this.button_LanguageInfo.Label = "帮助";
@@ -403,6 +414,7 @@
             this.group_DataTool.Items.Add(this.button_ArraryToolWindow);
             this.group_DataTool.Items.Add(this.button_CompressToolWindow);
             this.group_DataTool.Items.Add(this.button_FileTool);
+            this.group_DataTool.Items.Add(this.button_ClearData);
             this.group_DataTool.Label = "工具";
             this.group_DataTool.Name = "group_DataTool";
             // 
@@ -432,6 +444,15 @@
             this.button_FileTool.OfficeImageId = "FileManageMenu";
             this.button_FileTool.ShowImage = true;
             this.button_FileTool.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_FileTool_Click);
+            // 
+            // button_ClearData
+            // 
+            this.button_ClearData.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.button_ClearData.Label = "清理数据";
+            this.button_ClearData.Name = "button_ClearData";
+            this.button_ClearData.OfficeImageId = "TableStyleClear";
+            this.button_ClearData.ShowImage = true;
+            this.button_ClearData.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button_ClearData_Click);
             // 
             // Ribbon_Main
             // 
@@ -503,6 +524,8 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_ArraryToolWindow;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_CompressToolWindow;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button_FileTool;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button_ClearData;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button_Replenish;
     }
 
     partial class ThisRibbonCollection

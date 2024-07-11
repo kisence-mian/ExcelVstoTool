@@ -529,6 +529,176 @@ namespace ExcelDnaLibrary_CustomFormula.Script
             return -1;
         }
 
+
+        [ExcelFunction(Name = "FindRangeNotNullDataByRow", Description = "返回范围内第N个不为空的数据,行优先", Category = "查找")]
+        public static object FindRangeNotNullDataByaRow(
+            [ExcelArgument(Name = "Range", Description = "要查询的范围")] Object[,] range,
+            [ExcelArgument(Name = "Index", Description = "数目")] int index = 1)
+        {
+
+            int mrow = range.GetLength(0);
+            int mcol = range.GetLength(1);
+
+            int temp = 0;
+
+            for (int col = 0; col < mcol; col++)
+            {
+                for (int row = 0; row < mrow; row++)
+                { 
+                    if (range[row, col].GetType() != typeof(ExcelEmpty))
+                    {
+                        temp++;
+                    }
+                    if (temp == index)
+                    {
+                        return range[row, col];
+                    }
+                }
+            }
+
+            return "Dont Find by " + index;
+        }
+
+        [ExcelFunction(Name = "FindRangeNotNullDataByRow_RowIndex", Description = "返回范围内第N个不为空的数据的行号,行优先", Category = "查找")]
+        public static object FindRangeNotNullDataByaRow_RowIndex(
+            [ExcelArgument(Name = "Range", Description = "要查询的范围")] Object[,] range,
+            [ExcelArgument(Name = "Index", Description = "数目")] int index = 1)
+        {
+
+            int mrow = range.GetLength(0);
+            int mcol = range.GetLength(1);
+
+            int temp = 0;
+
+            for (int col = 0; col < mcol; col++)
+            {
+                for (int row = 0; row < mrow; row++)
+                {
+                    if (range[row, col].GetType() != typeof(ExcelEmpty))
+                    {
+                        temp++;
+                    }
+                    if (temp == index)
+                    {
+                        return row;
+                    }
+                }
+            }
+
+            return -1;
+        }
+
+        [ExcelFunction(Name = "FindRangeNotNullDataByRow_ColIndex", Description = "返回范围内第N个不为空的数据的列号,行优先", Category = "查找")]
+        public static object FindRangeNotNullDataByaRow_ColIndex(
+            [ExcelArgument(Name = "Range", Description = "要查询的范围")] Object[,] range,
+            [ExcelArgument(Name = "Index", Description = "数目")] int index = 1)
+        {
+
+            int mrow = range.GetLength(0);
+            int mcol = range.GetLength(1);
+
+            int temp = 0;
+
+            for (int col = 0; col < mcol; col++)
+            {
+                for (int row = 0; row < mrow; row++)
+                {
+                    if (range[row, col].GetType() != typeof(ExcelEmpty))
+                    {
+                        temp++;
+                    }
+                    if (temp == index)
+                    {
+                        return col;
+                    }
+                }
+            }
+
+            return -1;
+        }
+
+        [ExcelFunction(Name = "FindRangeNotNullDataByCol", Description = "返回范围内第N个不为空的数据,列优先", Category = "查找")]
+        public static object FindRangeNotNullDataByaCol(
+           [ExcelArgument(Name = "Range", Description = "要查询的范围")] Object[,] range,
+           [ExcelArgument(Name = "Index", Description = "数目")] int index = 1)
+        {
+            int mrow = range.GetLength(0);
+            int mcol = range.GetLength(1);
+
+            int temp = 0;
+            for (int row = 0; row < mrow; row++)
+            {
+                for (int col = 0; col < mcol; col++)
+                {
+                    if (range[row, col].GetType() != typeof(ExcelEmpty))
+                    {
+                        temp++;
+                    }
+                    if (temp == index)
+                    {
+                        return range[row, col];
+                    }
+                }
+            }
+
+            return "Dont Find by " + index;
+        }
+
+        [ExcelFunction(Name = "FindRangeNotNullDataByCol_RowIndex", Description = "返回范围内第N个不为空的数据的行号,列优先", Category = "查找")]
+        public static object FindRangeNotNullDataByCol_RowIndex(
+           [ExcelArgument(Name = "Range", Description = "要查询的范围")] Object[,] range,
+           [ExcelArgument(Name = "Index", Description = "数目")] int index = 1)
+        {
+            int mrow = range.GetLength(0);
+            int mcol = range.GetLength(1);
+
+            int temp = 0;
+            for (int row = 0; row < mrow; row++)
+            {
+                for (int col = 0; col < mcol; col++)
+                {
+                    if (range[row, col].GetType() != typeof(ExcelEmpty))
+                    {
+                        temp++;
+                    }
+                    if (temp == index)
+                    {
+                        return row;
+                    }
+                }
+            }
+
+            return -1;
+        }
+
+        [ExcelFunction(Name = "FindRangeNotNullDataByCol_ColIndex", Description = "返回范围内第N个不为空的数据的列号,列优先", Category = "查找")]
+        public static object FindRangeNotNullDataByCol_Colndex(
+           [ExcelArgument(Name = "Range", Description = "要查询的范围")] Object[,] range,
+           [ExcelArgument(Name = "Index", Description = "数目")] int index = 1)
+        {
+            int mrow = range.GetLength(0);
+            int mcol = range.GetLength(1);
+
+            int temp = 0;
+            for (int row = 0; row < mrow; row++)
+            {
+                for (int col = 0; col < mcol; col++)
+                {
+                    if (range[row, col].GetType() != typeof(ExcelEmpty))
+                    {
+                        temp++;
+                    }
+                    if (temp == index)
+                    {
+                        return col;
+                    }
+                }
+            }
+
+            return -1;
+        }
+
+
         static string ObjectToString(object obj)
         {
             if (obj == null)

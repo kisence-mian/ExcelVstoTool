@@ -47,7 +47,16 @@ namespace ExcelDnaLibrary_CustomFormula.Script
             return result;
         }
 
+        [ExcelFunction(Name = "Excel_ColumnNameChange", Description = "将英文字母通过数字修改", Category = "Excel")]
+        public static string ColumnIndexChange(
+          [ExcelArgument(Name = "ColumnName", Description = "列的英文字母")] string name,
+          [ExcelArgument(Name = "Number", Description = "改变的数字")] int number)
+        {
+            int tmp  = GetColumnIndex(name);
+            tmp += number;
 
+            return GetColumnName(tmp);
+        }
 
         #endregion
     }
