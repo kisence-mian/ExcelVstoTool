@@ -1,0 +1,53 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\Tool\\ExcelVstoTool\\ExcelDnaLibrary_CustomFormula\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{37CC0B59-EFB4-4622-8242-B198D055154F}|Excel-DNA-Custom.csproj|f:\\tool\\excelvstotool\\exceldnalibrary_customformula\\excel-dna-custom.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{37CC0B59-EFB4-4622-8242-B198D055154F}|Excel-DNA-Custom.csproj|solutionrelative:excel-dna-custom.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{37CC0B59-EFB4-4622-8242-B198D055154F}|Excel-DNA-Custom.csproj|f:\\tool\\excelvstotool\\exceldnalibrary_customformula\\excel-dna-custom.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{37CC0B59-EFB4-4622-8242-B198D055154F}|Excel-DNA-Custom.csproj|solutionrelative:excel-dna-custom.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Excel-DNA-Custom.csproj",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelDnaLibrary_CustomFormula\\Excel-DNA-Custom.csproj",
+              "RelativeDocumentMoniker": "Excel-DNA-Custom.csproj",
+              "ToolTip": "F:\\Tool\\ExcelVstoTool\\ExcelDnaLibrary_CustomFormula\\Excel-DNA-Custom.csproj",
+              "RelativeToolTip": "Excel-DNA-Custom.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-11-05T03:33:34.424Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Excel-DNA-Custom",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelDnaLibrary_CustomFormula\\Excel-DNA-Custom.csproj",
+              "RelativeDocumentMoniker": "Excel-DNA-Custom.csproj",
+              "ToolTip": "F:\\Tool\\ExcelVstoTool\\ExcelDnaLibrary_CustomFormula\\Excel-DNA-Custom.csproj",
+              "RelativeToolTip": "Excel-DNA-Custom.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-11-05T03:33:36.405Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

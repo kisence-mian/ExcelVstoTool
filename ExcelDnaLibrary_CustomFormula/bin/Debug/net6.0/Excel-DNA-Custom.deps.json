@@ -1,0 +1,72 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Excel-DNA-Custom/1.0.0": {
+        "dependencies": {
+          "ExcelDna.AddIn": "1.9.0-alpha2",
+          "ExcelDna.IntelliSense": "1.9.0-alpha2"
+        },
+        "runtime": {
+          "Excel-DNA-Custom.dll": {}
+        }
+      },
+      "ExcelDna.AddIn/1.9.0-alpha2": {
+        "dependencies": {
+          "ExcelDna.Integration": "1.9.0-alpha2"
+        }
+      },
+      "ExcelDna.Integration/1.9.0-alpha2": {
+        "runtime": {
+          "lib/net452/ExcelDna.Integration.dll": {
+            "assemblyVersion": "1.1.0.0",
+            "fileVersion": "1.9.0.2"
+          }
+        }
+      },
+      "ExcelDna.IntelliSense/1.9.0-alpha2": {
+        "dependencies": {
+          "ExcelDna.Integration": "1.9.0-alpha2"
+        },
+        "runtime": {
+          "lib/net452/ExcelDna.IntelliSense.dll": {
+            "assemblyVersion": "1.1.0.0",
+            "fileVersion": "1.9.0.2"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Excel-DNA-Custom/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ExcelDna.AddIn/1.9.0-alpha2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Ie7/8OwMT5J8QfoqYlQwd6PupzuGlAv60B6b1LedbnvneLscS3/Wc17PQnNwjQ4XPvXZIVIdYM5Kn/sDwwZkKw==",
+      "path": "exceldna.addin/1.9.0-alpha2",
+      "hashPath": "exceldna.addin.1.9.0-alpha2.nupkg.sha512"
+    },
+    "ExcelDna.Integration/1.9.0-alpha2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-V/jDmKZPF/UlX2db3nWxdocQtCcdmi4tWLdrr/czTllz1PW2uD6xWd8/DuGeRdBRpG9fDXQCstbTBbY8NUdx+g==",
+      "path": "exceldna.integration/1.9.0-alpha2",
+      "hashPath": "exceldna.integration.1.9.0-alpha2.nupkg.sha512"
+    },
+    "ExcelDna.IntelliSense/1.9.0-alpha2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ACGr7dWcY7q1bB5bvQ45jUQB7HXEEthuJyjmGx50bbuCEHfr7GVCHvYTjOQyol8sw4DjV1eIMkD3EOL651zBFw==",
+      "path": "exceldna.intellisense/1.9.0-alpha2",
+      "hashPath": "exceldna.intellisense.1.9.0-alpha2.nupkg.sha512"
+    }
+  }
+}

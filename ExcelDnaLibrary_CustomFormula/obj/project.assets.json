@@ -1,0 +1,208 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0-windows10.0.17763": {
+      "ExcelDna.AddIn/1.7.0": {
+        "type": "package",
+        "dependencies": {
+          "ExcelDna.Integration": "[1.7.0]"
+        },
+        "build": {
+          "build/ExcelDna.AddIn.props": {},
+          "build/ExcelDna.AddIn.targets": {}
+        }
+      },
+      "ExcelDna.Integration/1.7.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0-windows7.0/ExcelDna.Integration.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/ExcelDna.Integration.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "ExcelDna.IntelliSense/1.7.0": {
+        "type": "package",
+        "dependencies": {
+          "ExcelDna.Integration": "[1.7.0]"
+        },
+        "compile": {
+          "lib/net6.0-windows7.0/ExcelDna.IntelliSense.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/ExcelDna.IntelliSense.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ExcelDna.AddIn/1.7.0": {
+      "sha512": "P4dkw3kKCvjppisk+O9ixBtNRSQafGuY0n7KiOdRFU+Ib2uK3EzL+U6d1nnPBhv1V6NyHSatgjIPIStG5ekEVg==",
+      "type": "package",
+      "path": "exceldna.addin/1.7.0",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/ExcelDna.AddIn.props",
+        "build/ExcelDna.AddIn.targets",
+        "content/ExcelDna-Template.dna",
+        "content/Properties/ExcelDna.Build.props",
+        "exceldna.addin.1.7.0.nupkg.sha512",
+        "exceldna.addin.nuspec",
+        "images/ExcelDna-nu.png",
+        "readme.txt",
+        "tools/net452/EnvDTE.dll",
+        "tools/net452/ExcelDna.AddIn.Tasks.dll",
+        "tools/net452/ExcelDna.Integration.dll",
+        "tools/net452/ExcelDna.xll",
+        "tools/net452/ExcelDna64.xll",
+        "tools/net452/Microsoft.Extensions.DependencyModel.dll",
+        "tools/net452/Newtonsoft.Json.dll",
+        "tools/net452/install.ps1",
+        "tools/net452/uninstall.ps1",
+        "tools/net6.0-windows7.0/AsmResolver.PE.File.dll",
+        "tools/net6.0-windows7.0/AsmResolver.PE.dll",
+        "tools/net6.0-windows7.0/AsmResolver.dll",
+        "tools/net6.0-windows7.0/ExcelDna.AddIn.Tasks.dll",
+        "tools/net6.0-windows7.0/ExcelDna.Integration.dll",
+        "tools/net6.0-windows7.0/ExcelDna.xll",
+        "tools/net6.0-windows7.0/ExcelDna64.xll"
+      ]
+    },
+    "ExcelDna.Integration/1.7.0": {
+      "sha512": "foruOl8aMslv4396rRDZDSNAvJMQe0ftjwJ/Ubvc4vZNPChsenFNeM5JrTk3og/BNNckgLJ1FwEkk7Np2X2veg==",
+      "type": "package",
+      "path": "exceldna.integration/1.7.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "exceldna.integration.1.7.0.nupkg.sha512",
+        "exceldna.integration.nuspec",
+        "images/ExcelDna-nu.png",
+        "lib/net452/ExcelDna.Integration.dll",
+        "lib/net452/ExcelDna.Integration.xml",
+        "lib/net6.0-windows7.0/ExcelDna.Integration.dll",
+        "lib/net6.0-windows7.0/ExcelDna.Integration.xml"
+      ]
+    },
+    "ExcelDna.IntelliSense/1.7.0": {
+      "sha512": "pXVzSTtC3o6VfT9r8j9MtII/E7GimMEFrmeslfN188GKZ7QkRFM7HGyyOxrl/BFWQFlFI00vGDd4c2yVT2GmbA==",
+      "type": "package",
+      "path": "exceldna.intellisense/1.7.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "exceldna.intellisense.1.7.0.nupkg.sha512",
+        "exceldna.intellisense.nuspec",
+        "images/ExcelDna-nu.png",
+        "lib/net452/ExcelDna.IntelliSense.dll",
+        "lib/net6.0-windows7.0/ExcelDna.IntelliSense.dll"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0-windows10.0.17763": [
+      "ExcelDna.Addin >= 1.7.0",
+      "ExcelDna.IntelliSense >= 1.7.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\kisence\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "F:\\Tool\\ExcelVstoTool\\ExcelDnaLibrary_CustomFormula\\Excel-DNA-Custom.csproj",
+      "projectName": "Excel-DNA-Custom",
+      "projectPath": "F:\\Tool\\ExcelVstoTool\\ExcelDnaLibrary_CustomFormula\\Excel-DNA-Custom.csproj",
+      "packagesPath": "C:\\Users\\kisence\\.nuget\\packages\\",
+      "outputPath": "F:\\Tool\\ExcelVstoTool\\ExcelDnaLibrary_CustomFormula\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\kisence\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0-windows10.0.17763.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0-windows10.0.17763": {
+          "targetAlias": "net6.0-windows10.0.17763.0",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      }
+    },
+    "frameworks": {
+      "net6.0-windows10.0.17763": {
+        "targetAlias": "net6.0-windows10.0.17763.0",
+        "dependencies": {
+          "ExcelDna.Addin": {
+            "target": "Package",
+            "version": "[1.7.0, )"
+          },
+          "ExcelDna.IntelliSense": {
+            "target": "Package",
+            "version": "[1.7.0, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[6.0.33, 6.0.33]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[6.0.33, 6.0.33]"
+          },
+          {
+            "name": "Microsoft.Windows.SDK.NET.Ref",
+            "version": "[10.0.17763.34, 10.0.17763.34]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[6.0.33, 6.0.33]"
+          }
+        ],
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.Windows.SDK.NET.Ref": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.304\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

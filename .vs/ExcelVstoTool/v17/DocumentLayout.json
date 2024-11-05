@@ -1,0 +1,402 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\Tool\\ExcelVstoTool\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|ExcelDnaLibrary_CustomFormula||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F2BC5CC-81E5-4998-99BF-765368756B09}|ExcelDnaLibrary_CustomFormula\\ExcelDnaLibrary_CustomFormula.csproj|F:\\Tool\\ExcelVstoTool\\exceldnalibrary_customformula\\packages.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{2F2BC5CC-81E5-4998-99BF-765368756B09}|ExcelDnaLibrary_CustomFormula\\ExcelDnaLibrary_CustomFormula.csproj|solutionrelative:exceldnalibrary_customformula\\packages.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F2BC5CC-81E5-4998-99BF-765368756B09}|ExcelDnaLibrary_CustomFormula\\ExcelDnaLibrary_CustomFormula.csproj|f:\\tool\\excelvstotool\\exceldnalibrary_customformula\\script\\launchaddin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F2BC5CC-81E5-4998-99BF-765368756B09}|ExcelDnaLibrary_CustomFormula\\ExcelDnaLibrary_CustomFormula.csproj|solutionrelative:exceldnalibrary_customformula\\script\\launchaddin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F2BC5CC-81E5-4998-99BF-765368756B09}|ExcelDnaLibrary_CustomFormula\\ExcelDnaLibrary_CustomFormula.csproj|F:\\Tool\\ExcelVstoTool\\exceldnalibrary_customformula\\script\\findformula.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F2BC5CC-81E5-4998-99BF-765368756B09}|ExcelDnaLibrary_CustomFormula\\ExcelDnaLibrary_CustomFormula.csproj|solutionrelative:exceldnalibrary_customformula\\script\\findformula.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F2BC5CC-81E5-4998-99BF-765368756B09}|ExcelDnaLibrary_CustomFormula\\ExcelDnaLibrary_CustomFormula.csproj|F:\\Tool\\ExcelVstoTool\\exceldnalibrary_customformula\\script\\convertformula.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F2BC5CC-81E5-4998-99BF-765368756B09}|ExcelDnaLibrary_CustomFormula\\ExcelDnaLibrary_CustomFormula.csproj|solutionrelative:exceldnalibrary_customformula\\script\\convertformula.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F2BC5CC-81E5-4998-99BF-765368756B09}|ExcelDnaLibrary_CustomFormula\\ExcelDnaLibrary_CustomFormula.csproj|F:\\Tool\\ExcelVstoTool\\exceldnalibrary_customformula\\script\\excelformula.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F2BC5CC-81E5-4998-99BF-765368756B09}|ExcelDnaLibrary_CustomFormula\\ExcelDnaLibrary_CustomFormula.csproj|solutionrelative:exceldnalibrary_customformula\\script\\excelformula.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|F:\\Tool\\ExcelVstoTool\\excelvstotool\\dialogwindow\\arraytoolwindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|solutionrelative:excelvstotool\\dialogwindow\\arraytoolwindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F2BC5CC-81E5-4998-99BF-765368756B09}|ExcelDnaLibrary_CustomFormula\\ExcelDnaLibrary_CustomFormula.csproj|F:\\Tool\\ExcelVstoTool\\exceldnalibrary_customformula\\script\\textformula.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F2BC5CC-81E5-4998-99BF-765368756B09}|ExcelDnaLibrary_CustomFormula\\ExcelDnaLibrary_CustomFormula.csproj|solutionrelative:exceldnalibrary_customformula\\script\\textformula.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|F:\\Tool\\ExcelVstoTool\\excelvstotool\\dialogwindow\\datatoolwindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|solutionrelative:excelvstotool\\dialogwindow\\datatoolwindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|F:\\Tool\\ExcelVstoTool\\excelvstotool\\dialogwindow\\datatoolwindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|solutionrelative:excelvstotool\\dialogwindow\\datatoolwindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|F:\\Tool\\ExcelVstoTool\\excelvstotool\\dialogwindow\\datatoolwindow.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|solutionrelative:excelvstotool\\dialogwindow\\datatoolwindow.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|F:\\Tool\\ExcelVstoTool\\excelvstotool\\dialogwindow\\arraytoolwindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|solutionrelative:excelvstotool\\dialogwindow\\arraytoolwindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|F:\\Tool\\ExcelVstoTool\\excelvstotool\\dialogwindow\\arraytoolwindow.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|solutionrelative:excelvstotool\\dialogwindow\\arraytoolwindow.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|F:\\Tool\\ExcelVstoTool\\excelvstotool\\script\\module\\pathdefine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|solutionrelative:excelvstotool\\script\\module\\pathdefine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|F:\\Tool\\ExcelVstoTool\\excelvstotool\\script\\module\\languageconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|solutionrelative:excelvstotool\\script\\module\\languageconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|F:\\Tool\\ExcelVstoTool\\excelvstotool\\script\\tool\\parsetool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|solutionrelative:excelvstotool\\script\\tool\\parsetool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|F:\\Tool\\ExcelVstoTool\\excelvstotool\\script\\tool\\checktool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|solutionrelative:excelvstotool\\script\\tool\\checktool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|F:\\Tool\\ExcelVstoTool\\excelvstotool\\dialogwindow\\filetoolwindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|solutionrelative:excelvstotool\\dialogwindow\\filetoolwindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|F:\\Tool\\ExcelVstoTool\\excelvstotool\\script\\manager\\languagemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|solutionrelative:excelvstotool\\script\\manager\\languagemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|F:\\Tool\\ExcelVstoTool\\excelvstotool\\ribbon_main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|solutionrelative:excelvstotool\\ribbon_main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|F:\\Tool\\ExcelVstoTool\\excelvstotool\\script\\tool\\exceltool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|solutionrelative:excelvstotool\\script\\tool\\exceltool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|F:\\Tool\\ExcelVstoTool\\excelvstotool\\script\\tool\\datatool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|solutionrelative:excelvstotool\\script\\tool\\datatool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|F:\\Tool\\ExcelVstoTool\\excelvstotool\\ribbon_main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|solutionrelative:excelvstotool\\ribbon_main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|F:\\Tool\\ExcelVstoTool\\excelvstotool\\ribbon_main.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12ABFCB8-C252-4BBA-8DD2-429A521E77D0}|ExcelVstoTool\\ExcelVstoTool.csproj|solutionrelative:excelvstotool\\ribbon_main.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F2BC5CC-81E5-4998-99BF-765368756B09}|ExcelDnaLibrary_CustomFormula\\ExcelDnaLibrary_CustomFormula.csproj|f:\\tool\\excelvstotool\\exceldnalibrary_customformula\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|5e9a8ac2-4f34-4521-858f-4c248ba31532"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LaunchAddIn.cs",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelDnaLibrary_CustomFormula\\Script\\LaunchAddIn.cs",
+              "RelativeDocumentMoniker": "ExcelDnaLibrary_CustomFormula\\Script\\LaunchAddIn.cs",
+              "ToolTip": "F:\\Tool\\ExcelVstoTool\\ExcelDnaLibrary_CustomFormula\\Script\\LaunchAddIn.cs",
+              "RelativeToolTip": "ExcelDnaLibrary_CustomFormula\\Script\\LaunchAddIn.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAADwvwsAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T02:17:00.428Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FindFormula.cs",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelDnaLibrary_CustomFormula\\Script\\FindFormula.cs",
+              "RelativeDocumentMoniker": "ExcelDnaLibrary_CustomFormula\\Script\\FindFormula.cs",
+              "ToolTip": "F:\\Tool\\ExcelVstoTool\\ExcelDnaLibrary_CustomFormula\\Script\\FindFormula.cs",
+              "RelativeToolTip": "ExcelDnaLibrary_CustomFormula\\Script\\FindFormula.cs",
+              "ViewState": "AQIAAF4AAAAAAAAAAAAmwAwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T02:17:00.394Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "packages.config",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelDnaLibrary_CustomFormula\\packages.config",
+              "RelativeDocumentMoniker": "ExcelDnaLibrary_CustomFormula\\packages.config",
+              "ToolTip": "F:\\Tool\\ExcelVstoTool\\ExcelDnaLibrary_CustomFormula\\packages.config",
+              "RelativeToolTip": "ExcelDnaLibrary_CustomFormula\\packages.config",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAALAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2024-11-05T02:17:00.422Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ExcelFormula.cs",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelDnaLibrary_CustomFormula\\Script\\ExcelFormula.cs",
+              "RelativeDocumentMoniker": "ExcelDnaLibrary_CustomFormula\\Script\\ExcelFormula.cs",
+              "ToolTip": "F:\\Tool\\ExcelVstoTool\\ExcelDnaLibrary_CustomFormula\\Script\\ExcelFormula.cs",
+              "RelativeToolTip": "ExcelDnaLibrary_CustomFormula\\Script\\ExcelFormula.cs",
+              "ViewState": "AQIAABwAAAAAAAAAAAAAwCgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T02:17:00.425Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ConvertFormula.cs",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelDnaLibrary_CustomFormula\\Script\\ConvertFormula.cs",
+              "RelativeDocumentMoniker": "ExcelDnaLibrary_CustomFormula\\Script\\ConvertFormula.cs",
+              "ToolTip": "F:\\Tool\\ExcelVstoTool\\ExcelDnaLibrary_CustomFormula\\Script\\ConvertFormula.cs",
+              "RelativeToolTip": "ExcelDnaLibrary_CustomFormula\\Script\\ConvertFormula.cs",
+              "ViewState": "AQIAABIAAAAAAAAAAAAlwBsAAABIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T02:17:00.427Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ExcelDnaLibrary_CustomFormula",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelDnaLibrary_CustomFormula\\ExcelDnaLibrary_CustomFormula.csproj",
+              "RelativeDocumentMoniker": "ExcelDnaLibrary_CustomFormula\\ExcelDnaLibrary_CustomFormula.csproj",
+              "ToolTip": "F:\\Tool\\ExcelVstoTool\\ExcelDnaLibrary_CustomFormula\\ExcelDnaLibrary_CustomFormula.csproj*",
+              "RelativeToolTip": "ExcelDnaLibrary_CustomFormula\\ExcelDnaLibrary_CustomFormula.csproj*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-11-05T03:01:26.649Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "DataToolWindow.Designer.cs",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\DialogWindow\\DataToolWindow.Designer.cs",
+              "RelativeDocumentMoniker": "ExcelVstoTool\\DialogWindow\\DataToolWindow.Designer.cs",
+              "ToolTip": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\DialogWindow\\DataToolWindow.Designer.cs",
+              "RelativeToolTip": "ExcelVstoTool\\DialogWindow\\DataToolWindow.Designer.cs",
+              "ViewState": "AQIAAP0BAAAAAAAAAAAYwCQCAAABAAAA",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADjSURBVDhPY0AGretv/t9x7tl/KJd0sOfii/\u002Bimfv\u002Bbzv7lGhDGBlid2Eo1pTkZNiSLsVQWVkJFWFgYGdnZygoKGAwNjZmhAphgt0XnsFd8P79\u002B/9Pnz6F47CwsP/R0dH/z549i2IhE5QGg1P3PzMsTtVgsFTiYvj27RtUFAF\u002B//7N0NfXx4BsCIoBIVoMDOaKnFg1wwDIkAkTJkB5oDBAAnFxcf/b29uhPNygsLCQYdWqVWC9KC748eMHlEU8QDGAHDBqABUMQEkHmZmZ/9\u002B\u002BfQvl4QbCwsIM06dPx50niAcMDADfJl5g9BqhpwAAAABJRU5ErkJggg==",
+              "WhenOpened": "2024-11-05T02:17:00.425Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "TextFormula.cs",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelDnaLibrary_CustomFormula\\Script\\TextFormula.cs",
+              "RelativeDocumentMoniker": "ExcelDnaLibrary_CustomFormula\\Script\\TextFormula.cs",
+              "ToolTip": "F:\\Tool\\ExcelVstoTool\\ExcelDnaLibrary_CustomFormula\\Script\\TextFormula.cs",
+              "RelativeToolTip": "ExcelDnaLibrary_CustomFormula\\Script\\TextFormula.cs",
+              "ViewState": "AQIAAHgAAAAAAAAAAAAYwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T02:17:00.261Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ArrayToolWindow.cs",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\DialogWindow\\ArrayToolWindow.cs",
+              "RelativeDocumentMoniker": "ExcelVstoTool\\DialogWindow\\ArrayToolWindow.cs",
+              "ToolTip": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\DialogWindow\\ArrayToolWindow.cs",
+              "RelativeToolTip": "ExcelVstoTool\\DialogWindow\\ArrayToolWindow.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAiwDkBAAAAAAAA",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADVSURBVDhPY6AUMIIIKyur/8\u002BfPwcLEAskJSUZjh07xgg2QFFR8f/\u002B/fvBEsQCR0dHhvv37zMyQflkA7ALzMzM/r9\u002B/RosQCwQFRVlOHXqFCMLiKOgoMCwfv16sASxoLCwEGQAA9gAQmBS6hmGT29\u002Bgtl8IuwMebNNwGwQICoMQJrz55qCMcwgGEBxAbJNIIBuGzaAYgDMJhiYmHwaTIMMQmYjA6LCAJ8rUMIAZhMMo9uGDaC4gJB/sQFwQsrMzPz/9u1bsACxQFhYmGH69Olg/QMJGBgAeAVGYq4js\u002B0AAAAASUVORK5CYII=",
+              "WhenOpened": "2024-11-05T02:17:00.426Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "DataToolWindow.cs",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\DialogWindow\\DataToolWindow.cs",
+              "RelativeDocumentMoniker": "ExcelVstoTool\\DialogWindow\\DataToolWindow.cs",
+              "ToolTip": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\DialogWindow\\DataToolWindow.cs",
+              "RelativeToolTip": "ExcelVstoTool\\DialogWindow\\DataToolWindow.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAGgAAAAIAAAA",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADVSURBVDhPY6AUMIIIKyur/8\u002BfPwcLEAskJSUZjh07xgg2QFFR8f/\u002B/fvBEsQCR0dHhvv37zMyQflkA7ALzMzM/r9\u002B/RosQCwQFRVlOHXqFCMLiKOgoMCwfv16sASxoLCwEGQAA9gAQmBS6hmGT29\u002Bgtl8IuwMebNNwGwQICoMQJrz55qCMcwgGEBxAbJNIIBuGzaAYgDMJhiYmHwaTIMMQmYjA6LCAJ8rUMIAZhMMo9uGDaC4gJB/sQFwQsrMzPz/9u1bsACxQFhYmGH69Olg/QMJGBgAeAVGYq4js\u002B0AAAAASUVORK5CYII=",
+              "WhenOpened": "2024-11-05T02:17:00.427Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ArrayToolWindow.Designer.cs",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\DialogWindow\\ArrayToolWindow.Designer.cs",
+              "RelativeDocumentMoniker": "ExcelVstoTool\\DialogWindow\\ArrayToolWindow.Designer.cs",
+              "ToolTip": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\DialogWindow\\ArrayToolWindow.Designer.cs",
+              "RelativeToolTip": "ExcelVstoTool\\DialogWindow\\ArrayToolWindow.Designer.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAMcAAAABAAAA",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADjSURBVDhPY0AGretv/t9x7tl/KJd0sOfii/\u002Bimfv\u002Bbzv7lGhDGBlid2Eo1pTkZNiSLsVQWVkJFWFgYGdnZygoKGAwNjZmhAphgt0XnsFd8P79\u002B/9Pnz6F47CwsP/R0dH/z549i2IhE5QGg1P3PzMsTtVgsFTiYvj27RtUFAF\u002B//7N0NfXx4BsCIoBIVoMDOaKnFg1wwDIkAkTJkB5oDBAAnFxcf/b29uhPNygsLCQYdWqVWC9KC748eMHlEU8QDGAHDBqABUMQEkHmZmZ/9\u002B\u002BfQvl4QbCwsIM06dPx50niAcMDADfJl5g9BqhpwAAAABJRU5ErkJggg==",
+              "WhenOpened": "2024-11-05T02:17:00.429Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ArrayToolWindow.cs [\u8BBE\u8BA1]",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\DialogWindow\\ArrayToolWindow.cs",
+              "RelativeDocumentMoniker": "ExcelVstoTool\\DialogWindow\\ArrayToolWindow.cs",
+              "ToolTip": "J:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\DialogWindow\\ArrayToolWindow.cs [\u8BBE\u8BA1]",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADVSURBVDhPY6AUMIIIKyur/8\u002BfPwcLEAskJSUZjh07xgg2QFFR8f/\u002B/fvBEsQCR0dHhvv37zMyQflkA7ALzMzM/r9\u002B/RosQCwQFRVlOHXqFCMLiKOgoMCwfv16sASxoLCwEGQAA9gAQmBS6hmGT29\u002Bgtl8IuwMebNNwGwQICoMQJrz55qCMcwgGEBxAbJNIIBuGzaAYgDMJhiYmHwaTIMMQmYjA6LCAJ8rUMIAZhMMo9uGDaC4gJB/sQFwQsrMzPz/9u1bsACxQFhYmGH69Olg/QMJGBgAeAVGYq4js\u002B0AAAAASUVORK5CYII=",
+              "WhenOpened": "2024-11-05T02:17:00.429Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "PathDefine.cs",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\Script\\Module\\PathDefine.cs",
+              "RelativeDocumentMoniker": "ExcelVstoTool\\Script\\Module\\PathDefine.cs",
+              "ToolTip": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\Script\\Module\\PathDefine.cs",
+              "RelativeToolTip": "ExcelVstoTool\\Script\\Module\\PathDefine.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAAwAAAAAAAAAAA",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADtSURBVDhPYxgFCHDh4YX/sQtj/6u3qP9XblL\u002BHzk/8j9UiuHtx7f/VZpVwHxkNggwgohLjy79D18SzmAua86QZJbEwM/Bz3D91XWGCNMIRpAGo34jsGJkwMrMynCn9g5YP0PK0pT/3tO9/3/58gVuMjLA5wImEHH68WkGN3U3Bh4eHoiJJACwAb/\u002B/gI7CRuAeeH3398M8g3ycDayKxjC5oX9D54TjNX5IIDPC2Ann7x78n/E4ggGDw0PhgiDCLBrLj2/xJBhl0HQS3AFe67t\u002BT/lyBSGO2/uMHCxcTHYK9szdAd2kxwmIw8wMAAAESl0qwYO77cAAAAASUVORK5CYII=",
+              "WhenOpened": "2024-11-05T02:17:00.429Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "DataToolWindow.cs [\u8BBE\u8BA1]",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\DialogWindow\\DataToolWindow.cs",
+              "RelativeDocumentMoniker": "ExcelVstoTool\\DialogWindow\\DataToolWindow.cs",
+              "ToolTip": "J:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\DialogWindow\\DataToolWindow.cs [\u8BBE\u8BA1]",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADVSURBVDhPY6AUMIIIKyur/8\u002BfPwcLEAskJSUZjh07xgg2QFFR8f/\u002B/fvBEsQCR0dHhvv37zMyQflkA7ALzMzM/r9\u002B/RosQCwQFRVlOHXqFCMLiKOgoMCwfv16sASxoLCwEGQAA9gAQmBS6hmGT29\u002Bgtl8IuwMebNNwGwQICoMQJrz55qCMcwgGEBxAbJNIIBuGzaAYgDMJhiYmHwaTIMMQmYjA6LCAJ8rUMIAZhMMo9uGDaC4gJB/sQFwQsrMzPz/9u1bsACxQFhYmGH69Olg/QMJGBgAeAVGYq4js\u002B0AAAAASUVORK5CYII=",
+              "WhenOpened": "2024-11-05T02:17:00.431Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "LanguageConfig.cs",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\Script\\Module\\LanguageConfig.cs",
+              "RelativeDocumentMoniker": "ExcelVstoTool\\Script\\Module\\LanguageConfig.cs",
+              "ToolTip": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\Script\\Module\\LanguageConfig.cs",
+              "RelativeToolTip": "ExcelVstoTool\\Script\\Module\\LanguageConfig.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADtSURBVDhPYxgFCHDh4YX/sQtj/6u3qP9XblL\u002BHzk/8j9UiuHtx7f/VZpVwHxkNggwgohLjy79D18SzmAua86QZJbEwM/Bz3D91XWGCNMIRpAGo34jsGJkwMrMynCn9g5YP0PK0pT/3tO9/3/58gVuMjLA5wImEHH68WkGN3U3Bh4eHoiJJACwAb/\u002B/gI7CRuAeeH3398M8g3ycDayKxjC5oX9D54TjNX5IIDPC2Ann7x78n/E4ggGDw0PhgiDCLBrLj2/xJBhl0HQS3AFe67t\u002BT/lyBSGO2/uMHCxcTHYK9szdAd2kxwmIw8wMAAAESl0qwYO77cAAAAASUVORK5CYII=",
+              "WhenOpened": "2024-11-05T02:17:00.432Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "ParseTool.cs",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\Script\\Tool\\ParseTool.cs",
+              "RelativeDocumentMoniker": "ExcelVstoTool\\Script\\Tool\\ParseTool.cs",
+              "ToolTip": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\Script\\Tool\\ParseTool.cs",
+              "RelativeToolTip": "ExcelVstoTool\\Script\\Tool\\ParseTool.cs",
+              "ViewState": "AQIAAIgBAAAAAAAAAAAUwK4BAAAAAAAA",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADtSURBVDhPYxgFCHDh4YX/sQtj/6u3qP9XblL\u002BHzk/8j9UiuHtx7f/VZpVwHxkNggwgohLjy79D18SzmAua86QZJbEwM/Bz3D91XWGCNMIRpAGo34jsGJkwMrMynCn9g5YP0PK0pT/3tO9/3/58gVuMjLA5wImEHH68WkGN3U3Bh4eHoiJJACwAb/\u002B/gI7CRuAeeH3398M8g3ycDayKxjC5oX9D54TjNX5IIDPC2Ann7x78n/E4ggGDw0PhgiDCLBrLj2/xJBhl0HQS3AFe67t\u002BT/lyBSGO2/uMHCxcTHYK9szdAd2kxwmIw8wMAAAESl0qwYO77cAAAAASUVORK5CYII=",
+              "WhenOpened": "2024-11-05T02:17:00.432Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "CheckTool.cs",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\Script\\Tool\\CheckTool.cs",
+              "RelativeDocumentMoniker": "ExcelVstoTool\\Script\\Tool\\CheckTool.cs",
+              "ToolTip": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\Script\\Tool\\CheckTool.cs",
+              "RelativeToolTip": "ExcelVstoTool\\Script\\Tool\\CheckTool.cs",
+              "ViewState": "AQIAAE0CAAAAAAAAAAAQwHICAAAAAAAA",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADtSURBVDhPYxgFCHDh4YX/sQtj/6u3qP9XblL\u002BHzk/8j9UiuHtx7f/VZpVwHxkNggwgohLjy79D18SzmAua86QZJbEwM/Bz3D91XWGCNMIRpAGo34jsGJkwMrMynCn9g5YP0PK0pT/3tO9/3/58gVuMjLA5wImEHH68WkGN3U3Bh4eHoiJJACwAb/\u002B/gI7CRuAeeH3398M8g3ycDayKxjC5oX9D54TjNX5IIDPC2Ann7x78n/E4ggGDw0PhgiDCLBrLj2/xJBhl0HQS3AFe67t\u002BT/lyBSGO2/uMHCxcTHYK9szdAd2kxwmIw8wMAAAESl0qwYO77cAAAAASUVORK5CYII=",
+              "WhenOpened": "2024-11-05T02:17:00.433Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "LanguageManager.cs",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\Script\\Manager\\LanguageManager.cs",
+              "RelativeDocumentMoniker": "ExcelVstoTool\\Script\\Manager\\LanguageManager.cs",
+              "ToolTip": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\Script\\Manager\\LanguageManager.cs",
+              "RelativeToolTip": "ExcelVstoTool\\Script\\Manager\\LanguageManager.cs",
+              "ViewState": "AQIAADEBAAAAAAAAAAAQwFYBAAAAAAAA",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADtSURBVDhPYxgFCHDh4YX/sQtj/6u3qP9XblL\u002BHzk/8j9UiuHtx7f/VZpVwHxkNggwgohLjy79D18SzmAua86QZJbEwM/Bz3D91XWGCNMIRpAGo34jsGJkwMrMynCn9g5YP0PK0pT/3tO9/3/58gVuMjLA5wImEHH68WkGN3U3Bh4eHoiJJACwAb/\u002B/gI7CRuAeeH3398M8g3ycDayKxjC5oX9D54TjNX5IIDPC2Ann7x78n/E4ggGDw0PhgiDCLBrLj2/xJBhl0HQS3AFe67t\u002BT/lyBSGO2/uMHCxcTHYK9szdAd2kxwmIw8wMAAAESl0qwYO77cAAAAASUVORK5CYII=",
+              "WhenOpened": "2024-11-05T02:17:00.434Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "FileToolWindow.cs",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\DialogWindow\\FileToolWindow.cs",
+              "RelativeDocumentMoniker": "ExcelVstoTool\\DialogWindow\\FileToolWindow.cs",
+              "ToolTip": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\DialogWindow\\FileToolWindow.cs",
+              "RelativeToolTip": "ExcelVstoTool\\DialogWindow\\FileToolWindow.cs",
+              "ViewState": "AQIAAGoAAAAAAAAAAAA0wH4AAABJAAAA",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADVSURBVDhPY6AUMIIIKyur/8\u002BfPwcLEAskJSUZjh07xgg2QFFR8f/\u002B/fvBEsQCR0dHhvv37zMyQflkA7ALzMzM/r9\u002B/RosQCwQFRVlOHXqFCMLiKOgoMCwfv16sASxoLCwEGQAA9gAQmBS6hmGT29\u002Bgtl8IuwMebNNwGwQICoMQJrz55qCMcwgGEBxAbJNIIBuGzaAYgDMJhiYmHwaTIMMQmYjA6LCAJ8rUMIAZhMMo9uGDaC4gJB/sQFwQsrMzPz/9u1bsACxQFhYmGH69Olg/QMJGBgAeAVGYq4js\u002B0AAAAASUVORK5CYII=",
+              "WhenOpened": "2024-11-05T02:17:00.434Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "ExcelTool.cs",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\Script\\Tool\\ExcelTool.cs",
+              "RelativeDocumentMoniker": "ExcelVstoTool\\Script\\Tool\\ExcelTool.cs",
+              "ToolTip": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\Script\\Tool\\ExcelTool.cs",
+              "RelativeToolTip": "ExcelVstoTool\\Script\\Tool\\ExcelTool.cs",
+              "ViewState": "AQIAALYAAAAAAAAAAAAQwNsAAAABAAAA",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADtSURBVDhPYxgFCHDh4YX/sQtj/6u3qP9XblL\u002BHzk/8j9UiuHtx7f/VZpVwHxkNggwgohLjy79D18SzmAua86QZJbEwM/Bz3D91XWGCNMIRpAGo34jsGJkwMrMynCn9g5YP0PK0pT/3tO9/3/58gVuMjLA5wImEHH68WkGN3U3Bh4eHoiJJACwAb/\u002B/gI7CRuAeeH3398M8g3ycDayKxjC5oX9D54TjNX5IIDPC2Ann7x78n/E4ggGDw0PhgiDCLBrLj2/xJBhl0HQS3AFe67t\u002BT/lyBSGO2/uMHCxcTHYK9szdAd2kxwmIw8wMAAAESl0qwYO77cAAAAASUVORK5CYII=",
+              "WhenOpened": "2024-11-05T02:17:00.435Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "DataTool.cs",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\Script\\Tool\\DataTool.cs",
+              "RelativeDocumentMoniker": "ExcelVstoTool\\Script\\Tool\\DataTool.cs",
+              "ToolTip": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\Script\\Tool\\DataTool.cs",
+              "RelativeToolTip": "ExcelVstoTool\\Script\\Tool\\DataTool.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADtSURBVDhPYxgFCHDh4YX/sQtj/6u3qP9XblL\u002BHzk/8j9UiuHtx7f/VZpVwHxkNggwgohLjy79D18SzmAua86QZJbEwM/Bz3D91XWGCNMIRpAGo34jsGJkwMrMynCn9g5YP0PK0pT/3tO9/3/58gVuMjLA5wImEHH68WkGN3U3Bh4eHoiJJACwAb/\u002B/gI7CRuAeeH3398M8g3ycDayKxjC5oX9D54TjNX5IIDPC2Ann7x78n/E4ggGDw0PhgiDCLBrLj2/xJBhl0HQS3AFe67t\u002BT/lyBSGO2/uMHCxcTHYK9szdAd2kxwmIw8wMAAAESl0qwYO77cAAAAASUVORK5CYII=",
+              "WhenOpened": "2024-11-05T02:17:00.436Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Ribbon_Main.cs",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\Ribbon_Main.cs",
+              "RelativeDocumentMoniker": "ExcelVstoTool\\Ribbon_Main.cs",
+              "ToolTip": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\Ribbon_Main.cs",
+              "RelativeToolTip": "ExcelVstoTool\\Ribbon_Main.cs",
+              "ViewState": "AQIAAPsCAAAAAAAAAAAQwKMGAAAAAAAA",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADeSURBVDhPrZExDkRAFIZ/G4kD0IjKGXQ6hStonEDHRXADR5lO5w4aUTmBYnbf5E1ixC679kv\u002BvH\u002BY\u002BT3zcBeLq6IoCrksC69MHMdBWZaIosg4Y5BlmZym6VD0Ls9zOQyD5O2KB9dLrOuKuq6xDfkqgKCQtm15BdhcT2mahh1QVRW7HzrY89\u002BArusQBIGlRaM7wwhI0xRhGEpSHMfS87z3M2eMgHmeIYRQIn\u002BF\u002B3dAreq26UGSJEpXsXXbBB3cemI7c43ruuxe0JfHcVTae97yEYt\u002B4ejCfN9H3/cnUwCeYPVybjMk4aMAAAAASUVORK5CYII=",
+              "WhenOpened": "2024-11-05T02:17:00.437Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "Ribbon_Main.Designer.cs",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\Ribbon_Main.Designer.cs",
+              "RelativeDocumentMoniker": "ExcelVstoTool\\Ribbon_Main.Designer.cs",
+              "ToolTip": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\Ribbon_Main.Designer.cs",
+              "RelativeToolTip": "ExcelVstoTool\\Ribbon_Main.Designer.cs",
+              "ViewState": "AQIAAPUBAAAAAAAAAAAQwBoCAAAAAAAA",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADjSURBVDhPY0AGretv/t9x7tl/KJd0sOfii/\u002Bimfv\u002Bbzv7lGhDGBlid2Eo1pTkZNiSLsVQWVkJFWFgYGdnZygoKGAwNjZmhAphgt0XnsFd8P79\u002B/9Pnz6F47CwsP/R0dH/z549i2IhE5QGg1P3PzMsTtVgsFTiYvj27RtUFAF\u002B//7N0NfXx4BsCIoBIVoMDOaKnFg1wwDIkAkTJkB5oDBAAnFxcf/b29uhPNygsLCQYdWqVWC9KC748eMHlEU8QDGAHDBqABUMQEkHmZmZ/9\u002B\u002BfQvl4QbCwsIM06dPx50niAcMDADfJl5g9BqhpwAAAABJRU5ErkJggg==",
+              "WhenOpened": "2024-11-05T02:17:00.438Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Ribbon_Main.cs [\u8BBE\u8BA1]",
+              "DocumentMoniker": "F:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\Ribbon_Main.cs",
+              "RelativeDocumentMoniker": "ExcelVstoTool\\Ribbon_Main.cs",
+              "ToolTip": "J:\\Tool\\ExcelVstoTool\\ExcelVstoTool\\Ribbon_Main.cs [\u8BBE\u8BA1]",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADeSURBVDhPrZExDkRAFIZ/G4kD0IjKGXQ6hStonEDHRXADR5lO5w4aUTmBYnbf5E1ixC679kv\u002BvH\u002BY\u002BT3zcBeLq6IoCrksC69MHMdBWZaIosg4Y5BlmZym6VD0Ls9zOQyD5O2KB9dLrOuKuq6xDfkqgKCQtm15BdhcT2mahh1QVRW7HzrY89\u002BArusQBIGlRaM7wwhI0xRhGEpSHMfS87z3M2eMgHmeIYRQIn\u002BF\u002B3dAreq26UGSJEpXsXXbBB3cemI7c43ruuxe0JfHcVTae97yEYt\u002B4ejCfN9H3/cnUwCeYPVybjMk4aMAAAAASUVORK5CYII=",
+              "WhenOpened": "2024-11-05T02:17:00.439Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

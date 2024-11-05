@@ -1,4 +1,0 @@
-﻿<DnaLibrary Name="CustomFormula" RuntimeVersion="v4.0">
-  <ExternalLibrary Path="ExcelDnaLibrary_CustomFormula.dll" LoadFromBytes="true" Pack="true"/>
-  <!--<Reference Path="ExcelDna.IntelliSense.dll" Pack="true"/>-->
-</DnaLibrary>

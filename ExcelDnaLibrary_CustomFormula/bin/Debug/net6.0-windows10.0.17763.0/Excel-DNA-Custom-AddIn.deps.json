@@ -1,0 +1,90 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Excel-DNA-Custom/1.0.0": {
+        "dependencies": {
+          "ExcelDna.AddIn": "1.7.0",
+          "ExcelDna.IntelliSense": "1.7.0",
+          "runtimepack.Microsoft.Windows.SDK.NET.Ref": "10.0.17763.34"
+        },
+        "runtime": {
+          "Excel-DNA-Custom.dll": {}
+        }
+      },
+      "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.17763.34": {
+        "runtime": {
+          "Microsoft.Windows.SDK.NET.dll": {
+            "assemblyVersion": "10.0.17763.24",
+            "fileVersion": "10.0.17763.34"
+          },
+          "WinRT.Runtime.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.8.46841"
+          }
+        }
+      },
+      "ExcelDna.AddIn/1.7.0": {
+        "dependencies": {
+          "ExcelDna.Integration": "1.7.0"
+        }
+      },
+      "ExcelDna.Integration/1.7.0": {
+        "runtime": {
+          "lib/net6.0-windows7.0/ExcelDna.Integration.dll": {
+            "assemblyVersion": "1.1.0.0",
+            "fileVersion": "1.7.0.11"
+          }
+        }
+      },
+      "ExcelDna.IntelliSense/1.7.0": {
+        "dependencies": {
+          "ExcelDna.Integration": "1.7.0"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/ExcelDna.IntelliSense.dll": {
+            "assemblyVersion": "1.1.0.0",
+            "fileVersion": "1.7.0.11"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Excel-DNA-Custom/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.17763.34": {
+      "type": "runtimepack",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ExcelDna.AddIn/1.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-P4dkw3kKCvjppisk+O9ixBtNRSQafGuY0n7KiOdRFU+Ib2uK3EzL+U6d1nnPBhv1V6NyHSatgjIPIStG5ekEVg==",
+      "path": "exceldna.addin/1.7.0",
+      "hashPath": "exceldna.addin.1.7.0.nupkg.sha512"
+    },
+    "ExcelDna.Integration/1.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-foruOl8aMslv4396rRDZDSNAvJMQe0ftjwJ/Ubvc4vZNPChsenFNeM5JrTk3og/BNNckgLJ1FwEkk7Np2X2veg==",
+      "path": "exceldna.integration/1.7.0",
+      "hashPath": "exceldna.integration.1.7.0.nupkg.sha512"
+    },
+    "ExcelDna.IntelliSense/1.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pXVzSTtC3o6VfT9r8j9MtII/E7GimMEFrmeslfN188GKZ7QkRFM7HGyyOxrl/BFWQFlFI00vGDd4c2yVT2GmbA==",
+      "path": "exceldna.intellisense/1.7.0",
+      "hashPath": "exceldna.intellisense.1.7.0.nupkg.sha512"
+    }
+  }
+}

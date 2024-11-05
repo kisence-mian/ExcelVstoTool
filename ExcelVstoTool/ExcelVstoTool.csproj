@@ -229,6 +229,7 @@
       <DependentUpon>Ribbon_Main.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="ExcelVstoTool_1_TemporaryKey.pfx" />
+    <None Include="ExcelVstoTool_2_TemporaryKey.pfx" />
     <None Include="ExcelVstoTool_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -277,10 +278,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>ExcelVstoTool_1_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>ExcelVstoTool_2_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>7A07F2101522A160488096976F49CE91133DBF27</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>AA303F9A43FEAB1369F23B32780FB99A6F8E1B65</ManifestCertificateThumbprint>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

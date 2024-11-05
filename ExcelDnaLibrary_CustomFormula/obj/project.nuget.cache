@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "Kd3yKw+aE+I=",
+  "success": true,
+  "projectFilePath": "F:\\Tool\\ExcelVstoTool\\ExcelDnaLibrary_CustomFormula\\Excel-DNA-Custom.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\kisence\\.nuget\\packages\\exceldna.addin\\1.7.0\\exceldna.addin.1.7.0.nupkg.sha512",
+    "C:\\Users\\kisence\\.nuget\\packages\\exceldna.integration\\1.7.0\\exceldna.integration.1.7.0.nupkg.sha512",
+    "C:\\Users\\kisence\\.nuget\\packages\\exceldna.intellisense\\1.7.0\\exceldna.intellisense.1.7.0.nupkg.sha512",
+    "C:\\Users\\kisence\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.17763.34\\microsoft.windows.sdk.net.ref.10.0.17763.34.nupkg.sha512",
+    "C:\\Users\\kisence\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.33\\microsoft.windowsdesktop.app.ref.6.0.33.nupkg.sha512",
+    "C:\\Users\\kisence\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.33\\microsoft.netcore.app.ref.6.0.33.nupkg.sha512",
+    "C:\\Users\\kisence\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.33\\microsoft.aspnetcore.app.ref.6.0.33.nupkg.sha512"
+  ],
+  "logs": []
+}

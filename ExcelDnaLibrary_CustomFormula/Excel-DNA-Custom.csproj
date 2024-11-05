@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
+    <RootNamespace>ExcelDnaLibrary_CustomFormula</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+      <PackageReference Include="ExcelDna.Addin" Version="1.7.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ExcelDna.IntelliSense" Version="1.7.0" />
+  </ItemGroup>
+</Project>

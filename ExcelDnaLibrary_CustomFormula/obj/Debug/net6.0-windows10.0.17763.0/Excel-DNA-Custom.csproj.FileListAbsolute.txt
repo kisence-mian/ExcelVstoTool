@@ -1,0 +1,16 @@
+F:\Project\Excel-DNA-Custom\bin\Debug\net6.0-windows10.0.17763.0\Excel-DNA-Custom.deps.json
+F:\Project\Excel-DNA-Custom\bin\Debug\net6.0-windows10.0.17763.0\Excel-DNA-Custom.runtimeconfig.json
+F:\Project\Excel-DNA-Custom\bin\Debug\net6.0-windows10.0.17763.0\Excel-DNA-Custom.dll
+F:\Project\Excel-DNA-Custom\bin\Debug\net6.0-windows10.0.17763.0\Excel-DNA-Custom.pdb
+F:\Project\Excel-DNA-Custom\bin\Debug\net6.0-windows10.0.17763.0\ExcelDna.IntelliSense.dll
+F:\Project\Excel-DNA-Custom\bin\Debug\net6.0-windows10.0.17763.0\Microsoft.Windows.SDK.NET.dll
+F:\Project\Excel-DNA-Custom\bin\Debug\net6.0-windows10.0.17763.0\WinRT.Runtime.dll
+F:\Project\Excel-DNA-Custom\obj\Debug\net6.0-windows10.0.17763.0\Excel-DNA-Custom.csproj.AssemblyReference.cache
+F:\Project\Excel-DNA-Custom\obj\Debug\net6.0-windows10.0.17763.0\Excel-DNA-Custom.GeneratedMSBuildEditorConfig.editorconfig
+F:\Project\Excel-DNA-Custom\obj\Debug\net6.0-windows10.0.17763.0\Excel-DNA-Custom.AssemblyInfoInputs.cache
+F:\Project\Excel-DNA-Custom\obj\Debug\net6.0-windows10.0.17763.0\Excel-DNA-Custom.AssemblyInfo.cs
+F:\Project\Excel-DNA-Custom\obj\Debug\net6.0-windows10.0.17763.0\Excel-DNA-Custom.csproj.CoreCompileInputs.cache
+F:\Project\Excel-DNA-Custom\obj\Debug\net6.0-windows10.0.17763.0\Excel-DN.B256A4B5.Up2Date
+F:\Project\Excel-DNA-Custom\obj\Debug\net6.0-windows10.0.17763.0\Excel-DNA-Custom.dll
+F:\Project\Excel-DNA-Custom\obj\Debug\net6.0-windows10.0.17763.0\Excel-DNA-Custom.pdb
+F:\Project\Excel-DNA-Custom\obj\Debug\net6.0-windows10.0.17763.0\Excel-DNA-Custom.genruntimeconfig.cache
